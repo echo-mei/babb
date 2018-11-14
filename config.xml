@@ -1,7 +1,7 @@
 <?xml version='1.0' encoding='utf-8'?>
-<widget id="io.ionic.starter" version="0.0.1" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
-    <name>babb</name>
-    <description>An awesome Ionic/Cordova app.</description>
+<widget id="org.jade.babb" version="0.0.1" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+    <name>宝安编办</name>
+    <description>包办编办APP</description>
     <author email="hi@ionicframework" href="http://ionicframework.com/">Ionic Framework Team</author>
     <content src="index.html" />
     <access origin="*" />
@@ -82,4 +82,10 @@
     <plugin name="cordova-plugin-splashscreen" spec="5.0.2" />
     <plugin name="cordova-plugin-ionic-webview" spec="^2.0.0" />
     <plugin name="cordova-plugin-ionic-keyboard" spec="^2.0.5" />
+    <allow-navigation href="http://192.168.229.1:8100" />
+    <plugin name="cordova-sqlite-storage" spec="^2.5.0" />
+    <plugin name="cordova-plugin-dbcopy" spec="^2.1.1" />
+    <plugin name="cordova-plugin-file" spec="^6.0.1" />
+    <plugin name="cordova-plugin-android-permissions" spec="^1.0.0" />
+    <engine name="android" spec="7.0.0" />
 </widget>

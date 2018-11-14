@@ -1,0 +1,44 @@
+page-unit-inter-unit {
+  .content {
+    background:#efeff4;
+  }
+  .orglist-title{
+    text-align: center;
+    font-size: px(64);
+    color: color($colors,textMainColor);
+    font-weight: bold;
+    margin: px(66) 0;
+  }
+
+  .orglist-cont{
+    width: 100%;
+    font-size: 0;
+    padding: 0 px(50);
+
+    .orglist-item{
+      background: #fff;
+      width: 100%;
+      margin: 0 0 px(40) 0;
+      border-radius: 6px;
+      box-shadow: 0 12px 35px rgba(188, 180, 211,0.45);
+      padding: px(72);
+      .orglist-item-title{
+        font-size: px(64);
+        margin: 0;
+        color: color($colors,textMainColor);
+        .babb-icon{
+          width:px(50);
+          height:px(50);
+        }
+      }
+      .orglist-item-note{
+        margin: px(50) 0 0;
+        font-size: px(58);
+        color: color($colors,textSubColor);
+        span{
+          margin-right: 10px;
+        }
+      }
+    }
+  }
+}

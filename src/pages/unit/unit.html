@@ -1,0 +1,103 @@
+<!--
+  Generated template for the UnitPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header no-border>
+
+  <ion-navbar>
+    <ion-title>{{unit.unitName}}</ion-title>
+    <ion-buttons end>
+      <button ion-button icon-only (click)="onClickHome()">
+        <ion-icon name="md-shouye1"></ion-icon>
+      </button>
+    </ion-buttons>
+
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content>
+  <ul class="unit-list">
+    <div class="ul-item" *ngIf="unit.secondNameShow">
+      <label>挂牌名称 : </label>
+      <span>{{unit.secondNameShow}}</span>
+    </div>
+    <div class="ul-item" *ngIf="unit.secondNameWork">
+      <label>合署办公名称 : </label>
+      <span>{{unit.secondNameWork}}</span>
+    </div>
+    <ng-container *ngIf="unit.unitKind == 3">
+      <div class="ul-item" *ngIf="unit.adminUnitName">
+        <label>主管部门 : </label>
+        <span>{{unit.adminUnitName}}</span>
+      </div>
+      <div class="ul-item" *ngIf="unit.levelName">
+        <label>最高行政管理岗位等级 : </label>
+        <span>{{unit.levelName}}</span>
+      </div>
+      <div class="ul-item" *ngIf="unit.budgetFromName">
+        <label>经费形式 : </label>
+        <span>{{unit.budgetFromName}}</span>
+      </div>
+      <div class="ul-item" *ngIf="unit.unitTypeBizName">
+        <label>事业单位分类 : </label>
+        <span>{{unit.unitTypeBizName}}</span>
+      </div>
+    </ng-container>
+  </ul>
+
+  <div class="separate"></div>
+  <div class="unit-grid">
+    <div class="ug-item" (click)="onClickUnitFunction()">
+      <svg class="icon" aria-hidden="true">
+        <use xlink:href="#ion-md-zhuyaozhineng1"></use>
+      </svg>
+      <h2>主要职能</h2>
+    </div>
+    <div class="ug-item" (click)="onClickUnitHc()">
+      <svg class="icon" aria-hidden="true">
+        <use xlink:href="#ion-md-bianzhizhishu"></use>
+      </svg>
+      <h2>编制职数</h2>
+    </div>
+    <div class="ug-item" (click)="onClickUnitInterOrg()">
+      <svg class="icon" aria-hidden="true">
+        <use xlink:href="#ion-md-neishejigou"></use>
+      </svg>
+      <h2>内设机构</h2>
+    </div>
+    <div class="ug-item" *ngIf="unit.unitKind == 3" (click)="onClickUnitInterUnit()">
+      <svg class="icon" aria-hidden="true">
+        <use xlink:href="#ion-md-xiashejigou"></use>
+      </svg>
+      <h2>下设单位</h2>
+    </div>
+    <div class="ug-item" (click)="onClickUnitInterShiYeUnit()">
+      <svg class="icon" aria-hidden="true">
+        <use xlink:href="#ion-md-shiyedanwei"></use>
+      </svg>
+      <h2>事业单位</h2>
+    </div>
+    <div class="ug-item" (click)="onClickUnitGw()">
+      <svg class="icon" aria-hidden="true">
+        <use xlink:href="#ion-md-gangweishezhibiao"></use>
+      </svg>
+      <h2>岗位设置表</h2>
+    </div>
+    <div class="ug-item" (click)="onClickThreeFile()">
+      <svg class="icon" aria-hidden="true">
+        <use xlink:href="#ion-md-sandingwenjian"></use>
+      </svg>
+      <h2>三定文件</h2>
+    </div>
+    <div class="ug-item" (click)="onClickHistory()">
+      <svg class="icon" aria-hidden="true">
+        <use xlink:href="#ion-md-lishiyange"></use>
+      </svg>
+      <h2>历史沿革</h2>
+    </div>
+  </div>
+</ion-content>

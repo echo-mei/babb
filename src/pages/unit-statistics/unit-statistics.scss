@@ -1,0 +1,50 @@
+page-unit-statistics {
+  .scroll-content {
+    background: #eee;
+    .title {
+      font-weight: bolder;
+      font-size: px(64);
+      color: #000000;
+      padding: 0 px(100);
+      height: px(178);
+      line-height: px(178);
+      border-bottom: px(2) solid #c9c8cd;
+      background: #fff;
+    }
+    .unit-wrapper {
+      width: 100%;
+      overflow: auto;
+      display: flex;
+      margin-bottom: px(40);
+      background: #fff;
+      padding: 0 px(100);
+      #unit {
+        width: 100%;
+        min-width: px(2560);
+        height: px(710);
+      }
+      #sy-unit-level {
+        width: 100%;
+        min-width: px(2560);
+        height: px(710);
+      }
+      #sy-unit-budget {
+        width: 100%;
+        min-width: px(2560);
+        height: px(710);
+      }
+      .unit-table {
+        font-size: px(58);
+        td {
+          text-align: center;
+          border: px(2) solid #b3cbf3;
+          padding: px(44);
+          min-width: px(300);
+        }
+        .table-header {
+          background: #f2f5fa;
+        }
+      }
+    }
+  }
+}

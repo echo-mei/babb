@@ -1,0 +1,57 @@
+page-unit-inter-org {
+  .content {
+    background:#efeff4;
+  }
+  .orglist-title{
+    text-align: center;
+    font-size: px(64);
+    color: color($colors,textMainColor);
+    font-weight: bold;
+    margin: px(66) 0;
+    span{
+      color: color($colors,bgRed);
+      font-weight: normal;
+    }
+  }
+
+  .orglist-cont{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    width: 100%;
+    font-size: 0;
+    padding: 0 px(210);
+    @media screen and (max-width:650px) {
+      padding: 0 px(20);
+    }
+
+    .orglist-item{
+      flex: 0 0 px(460);
+      width: px(460);
+      height: px(460);
+      margin: px(30);
+      border-radius: 6px;
+      background: url(../assets/imgs/bg.png) bottom #ffffff no-repeat;
+      background-size: 90%;
+      box-shadow: 0 12px 35px rgba(188, 180, 211,0.45);
+      text-align: center;
+      position: relative;
+
+      .orglist-item-title{
+        font-size: px(64);
+        margin:px(93) 0 px(110);
+        color: color($colors,textMainColor);
+        padding: 0 10px;
+      }
+      .orglist-item-note{
+        width: 100%;
+        position: absolute;
+        bottom: px(110);
+        margin: 0;
+        font-size: px(58);
+        color: color($colors,textSubColor);
+        height: px(57);
+      }
+    }
+  }
+}

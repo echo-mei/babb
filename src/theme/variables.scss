@@ -38,7 +38,12 @@ $colors: (
   secondary:  #32db64,
   danger:     #f53d3d,
   light:      #f4f4f4,
-  dark:       #222
+  dark:       #222,
+  bgRed:    #c9161f,
+  bgRedText: #ffe487,
+  textMainColor: #000,
+  textSubColor: #7a7a80,
+  tableColor: #b3cbf3
 );
 
 
@@ -86,3 +91,8 @@ $colors: (
 
 @import "roboto";
 @import "noto-sans";
+
+$dpr:2.5;
+@function px($px) {
+  @return ($px / $dpr) * 1px;
+}

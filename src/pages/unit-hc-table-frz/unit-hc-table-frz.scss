@@ -1,0 +1,36 @@
+page-unit-hc-table-frz {
+  .unit-hc-wrap{
+    width: 100%;
+    padding: px(44);
+    .unit-hc-title{
+      font-size: 25px;
+      font-weight: bold;
+      margin: 0 0 px(44) 0;
+    }
+    .unit-hc-table{
+      border: 1px solid color($colors,tableColor);
+      table-layout: fixed;
+      &.complex-table{
+        th{
+          height: px(128);
+        }
+      }
+      thead{
+        background: #f2f5fa;
+      }
+      th{
+        color: color($colors,textMainColor);
+        font-size: 19px;
+        height: px(220);
+        padding: 0 px(25);
+        font-weight: normal;
+      }
+      td{
+        font-size: 19px;
+        height: px(150);
+        padding: 0 px(25);
+        text-align: center;
+      }
+    }
+  }
+}

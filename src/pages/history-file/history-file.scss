@@ -1,0 +1,63 @@
+page-history-file {
+    ion-header {
+        height: 80px;
+        width: 100%;
+        ion-navbar.toolbar{
+            height: 100%;
+            width: 100%;
+            // background-color: #c9161f;
+        }
+        .inputCon {
+            display: flex;
+            margin-left: 10px;
+            .searchbar {
+                padding: 0;
+            }
+            .searchbar-input-container{
+                // height: 100%;
+                .searchbar-input {
+                    // height: 100%;
+                    height: 50px;
+                    background: #ffffff;
+                    font-size: 20px;
+                }
+                .searchbar-search-icon {
+                    top: 26px;
+                    font-size: 20px;
+                }
+            }
+            button {
+                font-size: 23px;
+                color: #ffe487;
+            }
+        }
+        .toolbar-background {
+            background-color: #c9161f;
+        }
+    }
+    ion-list {
+        margin-top: 8px !important;
+        .item {
+            padding: 0;
+            font-size: 23px;
+            color: #000;
+            .label {
+                margin: 18px 8px 23px 0;
+                white-space: normal;
+            }
+        }
+        .myTitle {
+            text-align: center;
+            font-weight: bold;
+            font-size: 25px;
+            p {
+                color: #000;
+                font-size: 23px;
+            }
+            .label {
+                margin: 20px 8px 25px 0;
+            }
+        }
+    }
+
+}

@@ -1,0 +1,47 @@
+<!--
+  Generated template for the UnitHcTableDetailPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header no-border>
+    <ion-navbar>
+      <ion-title>{{unit.unitName}}</ion-title>
+      <ion-buttons end (click)="onClickHome()">
+        <button ion-button icon-only>
+          <ion-icon name="md-shouye1"></ion-icon>
+        </button>
+      </ion-buttons>
+    </ion-navbar>
+  </ion-header>
+
+
+<ion-content>
+    <div class="unit-hc-wrap">
+  <h2 class="unit-hc-title">实有人员信息</h2>
+  <table class="unit-hc-table" border="1">
+    <thead>
+      <tr>
+        <th>序号</th>
+        <th>姓名</th>
+        <th>性别</th>
+        <th>所在单位</th>
+        <th>职务层次</th>
+        <th>职务属性</th>
+        <th>编制类型</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let person of personList;let i=index;">
+        <td>{{i+1}}</td>
+        <td>{{person.name}}</td>
+        <td>{{person.sexCodeName}}</td>
+        <td>{{person.unitName}}</td>
+        <td>{{person.administrativeDutyLevelName}}</td>
+        <td>{{person.dutyAttributeBzName}}</td>
+        <td>{{person.dPositionTypeName}}</td>
+      </tr>
+    </tbody>
+  </table>
+  </div>
+</ion-content>

@@ -1,0 +1,19 @@
+<ion-content>
+  <form [formGroup]="loginForm" (submit)="login()">
+    <div class="party"><img src="assets/imgs/party-white.jpg"></div>
+    <h2 class="title">宝安区机构编制系统</h2>
+    <div class="group">
+      <ion-icon name="person" class="before"></ion-icon>
+      <input formControlName="userName" type="text" placeholder="用户名" />
+      <ion-icon name="close-circle" class="after" [hidden]="!loginForm.value.userName" (click)="clearValue('userName')"></ion-icon>
+    </div>
+    <div class="group">
+      <ion-icon name="lock" class="before"></ion-icon>
+      <input formControlName="password" [type]="showPassword ? 'text' : 'password'" placeholder="密码"/>
+      <ion-icon name="eye" class="after" [hidden]="showPassword" (click)="showPassword=true"></ion-icon>
+      <ion-icon name="eye-off" class="after" [hidden]="!showPassword" (click)="showPassword=false"></ion-icon>
+    </div>
+    <button [disabled]="!loginForm.valid">登&nbsp;&nbsp;&nbsp;陆</button>
+  </form>
+  <div class="login-bottom"><img src="assets/imgs/login-bottom.jpg"></div>
+</ion-content>

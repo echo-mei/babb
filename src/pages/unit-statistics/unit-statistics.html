@@ -1,0 +1,48 @@
+<ion-header no-border>
+
+  <ion-navbar>
+    <ion-title>区机构数统计</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content>
+  <div class="title">宝安区机构数</div>
+  <div class="unit-wrapper">
+    <div id="unit"></div>
+  </div>
+  <div class="title">事业单位数量情况<span>(按最高行政管理岗位等级分类)</span></div>
+  <div class="unit-wrapper">
+    <div id="sy-unit-level"></div>
+  </div>
+  <div class="title">单位数统计</div>
+  <div class="unit-wrapper">
+    <table class="unit-table">
+      <tr class="table-header">
+        <td></td>
+        <td *ngFor="let category of categoryList">{{category.unitCategoryName}}</td>
+      </tr>
+      <tr>
+        <td>机关</td>
+        <td *ngFor="let category of categoryList">{{category.jgCount}}</td>
+      </tr>
+      <tr>
+        <td>事业</td>
+        <td *ngFor="let category of categoryList">{{category.syCount}}</td>
+      </tr>
+      <tr>
+        <td>参公</td>
+        <td *ngFor="let category of categoryList">{{category.cgCount}}</td>
+      </tr>
+      <tr>
+        <td>总计</td>
+        <td *ngFor="let category of categoryList">{{category.sumCount}}</td>
+      </tr>
+    </table>
+  </div>
+  <div class="title">事业单位数量情况<span>(按经费形式划分)</span></div>
+  <div class="unit-wrapper">
+    <div id="sy-unit-budget"></div>
+  </div>
+</ion-content>

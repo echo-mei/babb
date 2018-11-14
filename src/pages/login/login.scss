@@ -1,0 +1,68 @@
+page-login {
+  form {
+    margin: 0 auto;
+    width: px(800);
+    padding-top: px(156);
+    .party {
+      width: 100%;
+      text-align: center;
+      margin-bottom: px(74);
+      img {
+        width: px(200);
+        margin: 0 auto;
+      }
+    }
+    .title {
+      font-size: px(88);
+      color: #c9161f;
+      font-weight: bolder;
+      margin: 0;
+    }
+    .group {
+      position: relative;
+      width: 100%;
+      height: px(150);
+      margin-top: px(84);
+      ion-icon.before {
+        position: absolute;
+        left: px(28);
+        font-size: px(70);
+        color: #7a7a80;
+        line-height: px(150);
+        z-index: 1;
+      }
+      ion-icon.after {
+        position: absolute;
+        right: px(28);
+        font-size: px(70);
+        color: #7a7a80;
+        line-height: px(150);
+        z-index: 1;
+      }
+      input {
+        position: absolute;
+        width: 100%;
+        height: px(150);
+        font-size: px(64);
+        border: 0;
+        outline: 0;
+        border-bottom: px(2) solid #c9c8cd;
+        padding: 0 px(127);
+      }
+    }
+    button {
+      height: px(200);
+      width: px(800);
+      border-radius: px(10);
+      background: #c9161f;
+      color: #ffe487;
+      font-size: px(64);
+      margin-top: px(99);
+    }
+  }
+  .login-bottom {
+    position: absolute;
+    bottom: -5px;
+    width: 100%;
+  }
+}

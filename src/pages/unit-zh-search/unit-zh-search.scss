@@ -1,0 +1,152 @@
+page-unit-zh-search {
+    ion-navbar {
+        height: 80px;
+        .toolbar-title {
+            color: #ffe487;
+            font-size: 25px;
+        }
+        .button-inner {
+            color: #ffe487;
+            font-size: 25px;
+            padding-right: 10px;
+            .back-button-icon {
+                font-size: 35px;
+                padding-left: 10px;
+            }
+        }
+        .toolbar-background {
+            background-color: #c9161f;
+        }
+    }
+    ion-list {
+        padding: 0 16px;
+        margin: 0 !important;
+        .item {
+            padding: 0;
+            p{
+                font-size: 23px;
+                font-weight: bold;
+                color: #000;
+                margin: 21px 0 5px;
+            }
+            .secP {
+                margin-bottom: 20px;
+            }
+            .item-inner {
+                padding-right: 0 !important;
+                .label {
+                    margin-right: 0;
+                    margin-top: 5px;
+                    margin-bottom: 30px;
+                }
+            }
+            ul {
+                list-style: none;
+                display: flex;
+                // justify-content: space-between;
+                margin: 0;
+                padding: 0;
+                flex-wrap: wrap;
+                overflow: hidden;
+                li {
+                    float: left;
+                    margin-left: 6px;
+                    font-size: 25px;
+                    height: 60px;
+                    width: 32%;
+                    line-height: 60px;
+                    background-color: #e2ecfc;
+                    text-align: center;
+                    border-radius: 3px;
+                    margin-top: 20px;
+                    overflow: hidden;
+                    text-overflow: ellipsis;
+                    &.changeBC {
+                        background-color: #c9161f;
+                        color: #ffe487;
+                    }
+                }
+            }
+            .inputCon {
+                display: flex;
+                justify-content: space-between;
+                height: 50px;
+                line-height: 50px;
+                input {
+                    width: 48%;
+                    font-size: 18px;
+                    text-indent: 10px;
+                }
+                span {
+                    flex: 1;
+                    text-align: center;
+                    height: 100%;
+                }
+            }
+        }
+        .unitName {
+            padding: 0;
+            p {
+                font-size: 23px;
+                font-weight: bold;
+                color: #000;
+                margin: 21px 0 15px;
+            }
+            .item-inner {
+                padding-right: 0 !important;
+                .label {
+                    margin-right: 0;
+                    margin-top: 5px;
+                    margin-bottom: 30px;
+                }
+            }
+            .searchbar {
+                background-color: #ffffff;
+                padding: 0;
+            }
+            .searchbar-input-container{
+                // height: 100%;
+                .searchbar-input {
+                    // height: 100%;
+                    height: 50px;
+                    border: 1px solid #000;
+                    background: #ffffff;
+                    font-size: 20px;
+                }
+                .searchbar-search-icon {
+                    top: 26px;
+                    font-size: 20px;
+                }
+            }
+        }
+    }
+    .bottomBlank {
+        height: 180px;
+        width: 100%;
+    }
+    .twoBtn {
+        position: fixed;
+        display: flex;
+        justify-content: space-between;
+        background-color: #fff;
+        bottom: 0px;
+        padding: 16px;
+        width: 100%;
+        .button {
+            width: 48%;
+            height: 65px;
+            font-size: 25px;
+            background-color: #fff;
+            color: #c9161f;
+            border: 1px solid #c9161f;
+        }
+        .button.activated {
+            background-color: #c9161f;
+            color: #ffe487;
+        }
+        .searchBtn {
+            background-color: #c9161f;
+            color: #ffe487;
+        }
+    }
+}

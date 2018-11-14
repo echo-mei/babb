@@ -1,0 +1,88 @@
+<div class="separate"></div>
+<div class="unit-hc-wrap">
+  <h2 class="unit-hc-title">编制情况表</h2>
+  <p class="unit-hc-tips" *ngIf="hcList.length <= 1">本单位暂未下达编制信息</p>
+  <table class="unit-hc-table" border="1" *ngIf="hcList.length > 1">
+    <thead>
+      <tr>
+        <th width="120"></th>
+        <th *ngFor="let hc of hcList">
+          {{hc.hcName}}
+        </th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>核定数</td>
+        <td *ngFor="let hc of hcList">
+          {{hc.curCount}}
+        </td>
+      </tr>
+      <tr>
+        <td>锁定数</td>
+        <td *ngFor="let hc of hcList">
+          {{hc.curLockCount}}
+        </td>
+      </tr>
+      <tr>
+        <td>实有数</td>
+        <td [class.detail]="hc.infactCount>0" *ngFor="let hc of hcList" (click)="hc.infactCount>0 && onClickInfact(hc)">
+          {{hc.infactCount}}<button ion-button outline *ngIf="hc.infactCount>0">详情</button>
+        </td>
+      </tr>
+      <tr>
+        <td>冻结数</td>
+        <td [class.detail]="hc.frzCount>0" *ngFor="let hc of hcList" (click)="hc.frzCount>0 && onClickFrz(hc)">
+          {{hc.frzCount}}<button ion-button outline *ngIf="hc.frzCount>0">详情</button>
+        </td>
+      </tr>
+      <tr>
+        <td>空编数</td>
+        <td *ngFor="let hc of hcList">
+          {{hc.freeCount}}
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<div class="separate"></div>
+<div class="unit-hc-wrap">
+  <h2 class="unit-hc-title">领导职数情况表</h2>
+  <p class="unit-hc-tips" *ngIf="leaderList.length <= 1">本单位暂未下达领导职数信息</p>
+  <table class="unit-hc-table complex-table" border="1" *ngIf="leaderList.length > 1">
+    <thead>
+      <tr>
+        <th width="120" rowspan="2"></th>
+        <th width="120" rowspan="2">总职数</th>
+        <th [attr.colspan]="getCol('单位领导')">单位领导职数</th>
+        <th [attr.colspan]="getCol('内设机构领导')">内设机构领导职数</th>
+      </tr>
+      <tr>
+        <th width="120" *ngFor="let leader of leaderList | slice:1:leaderList.length">
+          {{leader.dutyLevelName}}
+        </th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>核定数</td>
+        <td *ngFor="let leader of leaderList;">
+          {{leader.curCount}}
+        </td>
+      </tr>
+      <tr>
+        <th>实有数</th>
+        <td *ngFor="let leader of leaderList;">
+          {{leader.infactCount}}
+        </td>
+      </tr>
+      <tr>
+        <td>空缺数</td>
+        <td *ngFor="let leader of leaderList;">
+          {{leader.freeCount}}
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

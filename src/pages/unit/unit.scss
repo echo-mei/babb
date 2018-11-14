@@ -1,0 +1,43 @@
+page-unit {
+  .unit-list{
+    margin: 0;
+    padding: 0 px(50);
+
+    .ul-item{
+      &:last-child{
+        border-bottom: none;
+      }
+      border-bottom: 1px solid #c9c8cd;
+      display: flex;
+      color: color($colors,textMainColor);
+      padding: 20px 0;
+      font-size: px(64);
+      label{
+        white-space: nowrap;
+        color: color($colors,textSubColor);
+        margin-right: 8px;
+      }
+    }
+  }
+  .unit-grid{
+    width: 100%;
+    display: flex;
+    flex-wrap:wrap;
+    padding: 0 30px;
+    .ug-item{
+      flex: 0 0 25%;
+      width: 25%;
+      text-align: center;
+      padding:px(95) 0;
+      .icon{
+        width: px(110);
+        height: px(110);
+      }
+      h2{
+        font-size: px(58);
+        margin: px(60) 0 0 0;
+        color: color($colors,textMainColor);
+      }
+    }
+  }
+}

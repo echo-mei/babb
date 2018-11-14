@@ -1,0 +1,47 @@
+page-three-file {
+    ion-navbar {
+        height: 80px;
+        .toolbar-title {
+            color: #ffe487;
+            font-size: 25px;
+        }
+        .button-inner {
+            color: #ffe487;
+            font-size: 25px;
+            padding-right: 10px;
+            .back-button-icon {
+                font-size: 35px;
+                padding-left: 10px;
+            }
+        }
+        .toolbar-background {
+            background-color: #c9161f;
+        }
+    }
+    ion-list {
+        &.list {
+            margin-top: 8 !important;
+        }
+        .item {
+            padding: 0;
+            color: #000;
+            .label {
+                margin: 18px 8px 23px 0;
+                white-space: normal;
+                font-size: 22px;
+            }
+        }
+        .myTitle {
+            text-align: center;
+            font-weight: bold;
+            font-size: 23px;
+            p {
+                color: #000;
+                font-size: 23px;
+            }
+            .label {
+                margin: 20px 8px 25px 0;
+            }
+        }
+    }
+}

@@ -1,0 +1,45 @@
+<!--
+  Generated template for the UnitHcTableDetailPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header no-border>
+  <ion-navbar>
+    <ion-title>{{unit.unitName}}</ion-title>
+    <ion-buttons end (click)="onClickHome()">
+      <button ion-button icon-only>
+        <ion-icon name="md-shouye1"></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+</ion-header>
+
+
+<ion-content>
+  <div class="unit-hc-wrap">
+<h2 class="unit-hc-title">冻结人员信息</h2>
+<table class="unit-hc-table" border="1">
+  <thead>
+    <tr>
+      <th>序号</th>
+      <th>姓名</th>
+      <th>证件号码</th>
+      <th>单位名称</th>
+      <th>业务事项</th>
+      <th>冻结时间</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let person of personList; let i=index;">
+      <td>{{i+1}}</td>
+      <td>{{person.name}}</td>
+      <td>{{person.idNo}}</td>
+      <td>{{person.unitName}}</td>
+      <td>{{person.itemCodeName}}</td>
+      <td>{{person.createDate}}</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</ion-content>

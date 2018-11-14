@@ -1,0 +1,23 @@
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>中共深圳市宝安区委组织部</ion-title>
+    <ion-buttons right>
+      <button ion-button>
+        <ion-icon name="home"></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content>
+<ion-list inset>
+  <ion-item class="myTitle">
+    <p>三定文件</p>
+  </ion-item>
+  <ion-item *ngFor="let fileName of fileList">{{ fileName.fileTitle }}</ion-item>
+  <div></div>
+</ion-list>
+</ion-content>

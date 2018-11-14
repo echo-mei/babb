@@ -14,3 +14,47 @@
 // To declare rules for a specific mode, create a child rule
 // for the .md, .ios, or .wp mode classes. The mode class is
 // automatically applied to the <body> element in the app.
+@function px($px) {
+  @return ($px/2.5) * 1px;
+}
+
+.toolbar{
+  padding: 0 px(40) 0 px(20);
+  height: px(150);
+  .toolbar-background{
+    background: color($colors,bgRed);
+  }
+  .toolbar-title{
+    color: color($colors,bgRedText);
+    font-size: px(76);
+    font-weight: normal;
+    text-align: center;
+  }
+  .back-button{
+    color: color($colors,bgRedText);
+  }
+  .bar-buttons .bar-button-default{
+    color: color($colors,bgRedText);
+  }
+  .bar-buttons,.back-button{
+    margin: 0;
+    padding: 0;
+    ion-icon{
+      font-family:"babb" !important;
+      font-size:px(84);
+      padding: 0;
+    }
+  }
+}
+
+.highlight{
+  color:#4D74EB;
+  font-weight:bold;
+}
+
+.separate{
+  width: 100%;
+  background:#efeff4;
+  height:px(60);
+}
+

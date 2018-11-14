@@ -1,0 +1,590 @@
+page-gw-set {
+    body, html {
+        background-color: #f2f3f6;
+        overflow: hidden;
+        /*height: 100%;*/
+        /*width: 100%;*/
+    }
+    .topCon {
+        height: 60px;
+        background-color: #0071b9;
+        font-size: 0;
+        white-space: nowrap;
+        position: relative;
+    }
+    .topCon .leftTitle {
+        position: relative;
+        display: inline-block;
+        overflow: hidden;
+        font-size: 28px;
+        height: 60px;
+        line-height: 60px;
+        color: #ffffff;
+        padding: 0 30px;
+        border-right: 1px solid #2183c2;
+    }
+    .topCon .leftTitle span {
+        padding-left: 50px;
+    }
+    .topCon .leftTitle img {
+        position: absolute;
+        width: 35px;
+        height: 35px;
+        top: 50%;
+        margin-top: -17.5px;
+    }
+    .topCon .centerMain {
+        display: inline-block;
+        height: 60px;
+    }
+    .topCon .centerMain table {
+        height: 60px;
+        border-spacing: 0px;
+    }
+    .topCon .centerMain table td {
+        font-size: 20px;
+        color: #ffffff;
+        width: 100px;
+        text-align: center;
+        cursor: pointer;
+    }
+    .topCon .centerMain table td:hover {
+        background-color: #2686c3;
+    }
+    .topCon .rightLog {
+        position: absolute;
+        right: 20px;
+        height: 60px;
+        display: inline-block;
+    }
+    .topCon .rightLog table {
+        height: 40px;
+        border-spacing: 0px;
+        margin-right: 20px;
+        margin-top: 10px;
+    }
+    .topCon .rightLog table td {
+        position: relative;
+        font-size: 16px;
+        color: #ffffff;
+        text-align: center;
+        padding:0 23px;
+        cursor: pointer;
+        /*background: url(../images/userIcon.png);*/
+        /*background-repeat: no-repeat;*/
+        /*background-position: 0px 13px;*/
+    }
+    .topCon .rightLog table td div {
+        width: 20px;
+        height: 1px;
+        display: inline-block;
+    }
+    .topCon .rightLog table img {
+        position: absolute;
+        margin: -1px 5px 0 0;
+        width: 18px;
+        height: 18px;
+        top: 12px;
+        left: 18px;
+    }
+    .topCon .rightLog table td:hover {
+        background-color: #2686c3;
+    }
+    .topCon .rightLog table .outTd img {
+        position: absolute;
+        width: 18px;
+        height: 18px;
+        top: 12px;
+        left: 18px;
+    }
+    
+    .main {
+        width: 100%;
+        height: 100%;
+    }
+    
+    .main .topBg {
+        position: relative;
+        width: 100%;
+        height: 82%;
+        background-color: #ecf1ff;
+    }
+    
+    .main .topBg .bgdImg {
+        width: 100%;
+        height: 100%;
+        opacity: 0.3;
+        filter:alpha(opacity=30);
+    }
+    
+    .main .topBg .botImg {
+        position: absolute;
+        width: 100%;
+        height: 117px;
+        bottom: 0;
+        left: 0;
+        opacity: 1;
+    }
+    
+    .main .bottom {
+        position: relative;
+        text-align: center;
+        width: 100%;
+        height: 28%;
+        line-height: 180px;
+    }
+    
+    .main .bottom span {
+        font-size: 14px;
+    }
+    
+    .main .fixLogin {
+        position: fixed;
+        width: 800px;
+        height: 380px;
+        background-color: #0b80d3;
+        box-shadow: 0px 3px 7px 0px 
+            rgba(9, 118, 206, 0.35);
+        border-radius: 6px;
+        top: 50%;
+        left: 50%;
+        margin-left: -400px;
+        margin-top: -260px;
+    }
+    
+    .main .fixLogin .leftDang {
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+    }
+    
+    .main .fixLogin .leftDang .leftCon {
+        display: inline-block;
+        width: 300px;
+        margin-left: 50px;
+        margin-top: 68px;
+        text-align: center;
+    }
+    
+    .main .fixLogin .leftDang img {
+        width: 95px;
+        height: 95px;
+    }
+    
+    .fixLogin .leftDang .leftCon p {
+        width: 327px;
+        height: 31px;
+        font-family: MicrosoftYaHei-Bold;
+        font-size: 30px;
+        font-weight: normal;
+        font-stretch: normal;
+        letter-spacing: 6px;
+        color: #ffffff;
+        margin-top: 64px;
+    }
+    
+    .main .rightCon {
+        display: inline-block;
+        float: right;
+        margin-top: 91px;
+        margin-right: 50px;
+        border-left: 2px solid #0d62a9;
+        padding-left: 50px;
+    }
+    .main .rightCon input {
+        display: block;
+        width: 300px;
+        height: 42.5px;
+        background-color: #ffffff;
+        border-radius: 3px;
+        border: solid 1px #bbbbbb;
+        outline: none;
+        text-indent: 10px;
+    }
+    
+    .main .rightCon .login {
+        width: 300px;
+        height: 41px;
+        display: block;
+        margin-top: 50px;
+        margin-left: 1px;
+        background-color: #ff7f00;
+        color: #fff;
+        font-size: 18px;
+        letter-spacing: 0px;
+        cursor: pointer;
+    }
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    .bottomCon {
+        height: 100%;
+        position: relative;
+        background-color: #f2f3f6;
+    }
+    .bottomCon .bottomLeft {
+        position: absolute;
+        width: 275px;
+        z-index: 10000;
+        height: 100%;
+        background-color: #fff;
+        float: left;
+    }
+    .bottomCon .bottomRight {
+        position: absolute;
+        height: 100%;
+        background: #fff;
+        float: right;
+        min-width: 920px;
+        margin-left: 285px;
+        overflow: auto;
+    }
+    .myTree {
+        overflow: auto !important;
+        width: 100%;
+    }
+    .bottomCon .bottomLeft .leftHide {
+        position: absolute;
+        width: 35px;
+        height: 100%;
+        background-color: #a1c3e9;
+        top: 0;
+        text-align: center;
+        color: #fff;
+        font-size: 20px;
+        cursor: pointer;
+        display: none;
+    }
+    
+    .bottomCon .bottomLeft .bLeftTop {
+        height: 45px;
+        background-color: #f2f3f6;
+        overflow: hidden;
+    }
+    .bottomCon .bottomLeft .bLeftTop p{
+        height: 30px;
+        line-height: 30px;
+        margin-top: 7px;
+    }
+    .bLeftTop p span {
+        display: inline-block;
+        padding: 0 15px;
+        text-align: center;
+        cursor: pointer;
+        font-size: 15px;
+    }
+    .bLeftTop p .toggleTree {
+        float: right;
+        background-color: #a1c3e9;
+        cursor: pointer;
+        color: #fff;
+        font-weight: bold;
+        font-style: normal;
+        padding: 0 5px;
+    }
+    .activate {
+        background-color: #3a7dcc;
+        color: #ffffff;
+        font-size: 16px !important;
+    }
+    
+    .bottomCon .bottomRight .bRightTop {
+        height: 45px;
+        background-color: #f2f3f6;
+        overflow: hidden;
+    }
+    .bottomCon .bottomRight .bRightTop p {
+        height: 30px;
+        line-height: 30px;
+        margin-top: 7px;
+    }
+    .bRightTop p span {
+        display: inline-block;
+        padding: 0 15px;
+        font-size: 15px;
+        cursor: pointer;
+        text-align: center;
+    }
+    .bRightTop p em {
+        color: #3a7dcc;
+    }
+    .bottomCon .bRightBottom {
+        overflow: auto;
+    }
+    .bottomCon .bRightBottom .bigTitle{
+        text-align: center;
+        margin: 30px 0 5px;
+        font-size: 20px;
+        font-weight: bold;
+        letter-spacing: 1.5px;
+    }
+    .bottomCon .bRightBottom .deTail {
+        text-align: center;
+        margin: 0 0 30px;
+    }
+    .bottomCon .bRightBottom .deTail span {
+        color: #e41a1b;
+    }
+    
+    /* general */
+    .clear {
+        clear: both;
+    }
+    
+    /* Header */
+    .brand{
+        color 				: #E05E00 !important;
+        font-family 		: georgia;
+        font-style 			: italic;
+    }
+    
+    /* list stuff */
+    #jf-organizChart-org{
+        display: none;
+        background-color 	: white;
+        margin 				: 10px;
+        padding 			: 10px;
+        overflow: auto;
+    }
+    
+    #show-list{
+        cursor 				: pointer;
+    }
+    
+    /* bootstrap overrides */
+    .alert-message{
+        margin: 2px 0;
+    }
+    
+    .topbar{
+        position 			: absolute;
+    }
+    
+    /* Custom chart styling */
+    .jOrgChart {
+        margin                : 10px;
+        padding               : 20px;
+    }
+    
+    /* Custom node styling */
+    .jOrgChart .node {
+        font-size 			: 14px;
+        background-color 	: #5262b3;
+        /*border-radius 		: 8px;*/
+        /*border 				: 5px solid white;*/
+        border-radius: 3px;
+        color 				: #F38630;
+        -moz-border-radius 	: 8px;
+        color: #fff;
+        /*line-height: 60px;*/
+    }
+    .node p{
+        font-family 	: tahoma;
+        font-size 		: 10px;
+        line-height 	: 11px;
+        padding 		: 2px;
+    }
+    
+    /* Basic styling */
+    /* Draw the lines */
+    .jOrgChart .line {
+        height                : 20px;
+        width                 : 4px;
+    }
+    
+    .jOrgChart .down {
+        background-color 		: #000000;
+        margin 				: 0px auto;
+    }
+    
+    .jOrgChart .top {
+        border-top          : 3px solid #000000;
+    }
+    
+    .jOrgChart .left {
+        border-right          : 4px solid #000000;
+    }
+    
+    .jOrgChart .right {
+        border-left           : 2px solid #000000;
+    }
+    
+    /* node cell */
+    .jOrgChart td {
+        text-align            : center;
+        vertical-align        : top;
+        padding               : 0;
+    }
+    
+    /* The node */
+    .jOrgChart .node {
+        background-color 		: #5262b3;
+        display               : inline-block;
+        /*width                 : 96px;*/
+        /*height                : 75px;*/
+        z-index 				: 10;
+        margin               : 0 2px;
+        color: #fff;
+    }
+    
+    /* jQuery drag 'n drop */
+    
+    .drag-active {
+        border-style			: dotted !important;
+    }
+    
+    .drop-hover {
+        border-style			: solid !important;
+        border-color 			: #E05E00 !important;
+    }
+    #chart{
+        background-color: #fff;
+        overflow: auto;
+        width: 100%;
+    }
+    .pln{color:#000}@media screen{.str{color:#080}.kwd{color:#008}.com{color:#800}.typ{color:#606}.lit{color:#066}.pun,.opn,.clo{color:#660}.tag{color:#008}.atn{color:#606}.atv{color:#080}.dec,.var{color:#606}.fun{color:red}}@media print,projection{.str{color:#060}.kwd{color:#006;font-weight:bold}.com{color:#600;font-style:italic}.typ{color:#404;font-weight:bold}.lit{color:#044}.pun,.opn,.clo{color:#440}.tag{color:#006;font-weight:bold}.atn{color:#404}.atv{color:#060}}pre.prettyprint{padding:2px;border:1px solid #888}ol.linenums{margin-top:0;margin-bottom:0}li.L0,li.L1,li.L2,li.L3,li.L5,li.L6,li.L7,li.L8{list-style-type:none}li.L1,li.L3,li.L5,li.L7,li.L9{background:#eee}
+    
+    
+    
+    
+    table {
+        border-spacing: 0px;
+    }
+    .jOrgChart .jf-organizChart-kingOne {
+        width: 150px;
+        min-height: 45px;
+        background: linear-gradient(to right, #ff5c55 , #ff9a85) ;
+        /*background-color: #ff5c55\0;*/
+    }
+    .jf-organizChart-kingOne .p{
+        position: relative;
+        padding: 13px 5px 10px 5px;
+        width: 100%;
+        display: inline-block;
+        overflow: hidden;
+    }
+    .jf-organizChart-kingOne .p .title {
+        display: inline-block;
+        width: 100%;
+        float: left;
+    }
+    .jf-organizChart-kingOne .p .editBtn {
+        position: absolute;
+        top: 50%;
+        margin-top: -7.5px;
+        float: right;
+        right: 23px;
+    }
+    .editBtn {
+        right: 23px !important;
+    }
+    .jOrgChart .jf-organizChart-two {
+        width: 150px;
+        min-height: 45px ;
+        background: linear-gradient(to right, #fba47a , #f7c06a) ;
+    }
+    .jf-organizChart-two .p{
+        position: relative;
+        display: inline-block;
+        padding: 13px 5px 10px 5px;
+        width: 100%;
+        overflow: hidden;
+    }
+    .jf-organizChart-two .p .title {
+        display: inline-block;
+        width: 100%;
+        float: left;
+    }
+    .jf-organizChart-two .p .editBtn {
+        position: absolute;
+        top: 50%;
+        margin-top: -8.5px;
+        float: right;
+        right: 18px;
+    }
+    .jOrgChart .jf-organizChart-three {
+        width: 150px;
+        min-height: 45px ;
+        background: linear-gradient(to right, #836df0 , #a99ef9) ;
+    }
+    .jf-organizChart-three .p{
+        position: relative;
+        display: inline-block;
+        padding: 13px 5px 10px 5px;
+        width: 100%;
+        overflow: hidden;
+    }
+    .jf-organizChart-three .p .title {
+        display: inline-block;
+        width: 100%;
+        float: left;
+    }
+    .jf-organizChart-three .p .editBtn {
+        position: absolute;
+        top: 50%;
+        margin-top: -8.5px;
+        float: right;
+        right: 18px;
+    }
+    .jOrgChart .jf-organizChart-four {
+        width: 150px;
+        background-color: #fff;
+        border: 1px solid #7da1fe;
+        overflow: hidden;
+    }
+    .jf-organizChart-four .p {
+        position: relative;
+        padding: 10px 5px 10px 5px;
+        width: 100%;
+        overflow: hidden;
+        background: linear-gradient(to right, #5e8bfe , #85b6ff);
+    }
+    
+    .jf-organizChart-four .title{
+        display: inline-block;
+        width: 100%;
+        float: left;
+    }
+    .jf-organizChart-four .editBtn {
+        position: absolute;
+        top: 50%;
+        margin-top: -9.5px;
+        float: right;
+        right: 18px;
+    }
+    
+    .jf-organizChart-four .content{
+        height: 25px;
+        line-height: 25px;
+    }
+    
+    .jf-organizChart-four .content .leftCon{
+        float: left;
+        padding-left: 8px;
+        width: 70%;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        color: #000;
+        text-align: left;
+    }
+    .jf-organizChart-four .content .rightCon {
+        float: right;
+        padding-right: 8px;
+        color: #6284fd;
+    }
+    
+    .contentFirst {
+        margin-top: 10px;
+    }
+    
+    .contentLast {
+        margin-bottom: 10px;
+    }
+}

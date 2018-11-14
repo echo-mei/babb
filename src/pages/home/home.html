@@ -1,14 +1,35 @@
-<ion-header>
-  <ion-navbar>
-    <ion-title>
-      Ionic Blank
-    </ion-title>
-  </ion-navbar>
-</ion-header>
-
-<ion-content padding>
-  The world is your oyster.
-  <p>
-    If you get lost, the <a href="http://ionicframework.com/docs/v2">docs</a> will be your guide.
-  </p>
+<ion-content>
+  <div class="home-wrapper">
+    <div class="home-left">
+      <div class="party"><img src="assets/imgs/party-red.jpg"></div>
+      <h2 class="title">宝安区机构编制系统</h2>
+      <button class="searcher" ion-button clear (click)="toUnitSearch()">
+        <i class="babb ion-md-sousuo"></i>
+        请输入单位名称
+      </button>
+      <button ion-button clear (click)="toSearch()">综合查询</button>
+      <button ion-button clear (click)="goUnitStatistics()">区机构数统计</button>
+      <button ion-button clear>区编制员额统计</button>
+      <button ion-button clear>修改密码</button>
+    </div>
+    <div class="home-right">
+      <ul class="tree">
+        <li *ngFor="let category of tree">
+          <a (click)="category.showChildren=!category.showChildren">
+            <i class="babb ion-md-shouye"></i>
+            <span>{{category.dicItemName}}</span>
+            <ion-icon [name]="category.showChildren?'arrow-dropup':'arrow-dropdown'"></ion-icon>
+          </a>
+          <ul [hidden]="!category.showChildren" class="child-tree">
+            <li *ngFor="let unit of category.units">
+              <a (click)="clickUnit(unit)">
+                <span>{{unit.unitName}}</span>
+                <i class="babb ion-md-tiaozhuan"></i>
+              </a>
+            </li>
+          </ul>
+        </li>
+      </ul>
+    </div>
+  </div>
 </ion-content>

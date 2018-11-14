@@ -1,0 +1,32 @@
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>综合查询</ion-title>
+    <ion-buttons right>
+      <button ion-button (click)="onClickHome()">
+        <ion-icon name="md-shouye1"></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content>
+  <ion-list inset>
+    <ion-item class="searchCondition">
+      <p>查询条件 :
+        <span *ngIf="key">{{ key }}<em [hidden]="searchKeyList.length==0">、</em></span>
+        <span *ngFor="let item of searchKeyList; let index = index">{{ item }}<em [hidden]="index == searchKeyList.length-1">、</em></span>
+        <span *ngIf="!searchKeyList.length && !key">( 未选择条件 )</span>
+      </p>
+    </ion-item>
+    <ion-item *ngFor="let result of resultList">
+      {{ result.UNIT_NAME }}
+    </ion-item>
+    <ion-item *ngIf="!resultList.length">
+      未匹配到结果, 请重新选择查询条件
+    </ion-item>
+    <div></div>
+  </ion-list>
+</ion-content>
