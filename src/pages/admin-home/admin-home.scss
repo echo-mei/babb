@@ -1,0 +1,46 @@
+page-admin-home {
+  .button{
+    border-color: #009cff;
+    color: #009cff;
+    margin: 0 0 0 px(10);
+    height: px(80);
+    font-size: 14px;
+    vertical-align: middle;
+    &.add{
+      height: px(100);
+      width: px(300);
+      font-size: px(48);
+      border-radius: 6px;
+      margin: px(44) 0 0 px(44);
+    }
+  }
+  .unit-hc-wrap{
+    width: 100%;
+    padding: px(44);
+    .unit-hc-title{
+      font-size: 25px;
+      font-weight: bold;
+      margin: 0 0 px(44) 0;
+    }
+    .unit-hc-table{
+      border: 1px solid color($colors,tableColor);
+      table-layout: fixed;
+      thead{
+        background: #f2f5fa;
+      }
+      th{
+        color: color($colors,textMainColor);
+        font-size: 19px;
+        height: px(220);
+        padding: 0 px(25);
+        font-weight: normal;
+      }
+      td{
+        font-size: 19px;
+        height: px(150);
+        padding: 0 px(25);
+        text-align: center;
+      }
+    }
+  }
+}

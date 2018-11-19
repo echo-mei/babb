@@ -1,0 +1,32 @@
+<ion-header no-border>
+
+    <ion-navbar>
+      <ion-title>创建用户</ion-title>
+    </ion-navbar>
+
+  </ion-header>
+
+
+  <ion-content>
+    <form [formGroup]="userForm">
+      <ion-list>
+        <ion-item>
+          <ion-label>用户名:</ion-label>
+          <ion-input type="text" formControlName="userId" placeholder="请输入用户名" (ionBlur)="blurInput()" (ionFocus)="focusInput()"></ion-input>
+        </ion-item>
+        <span class="error" *ngIf="userForm.controls['userId'].value != user.userId && hasUserFlag">该用户名已存在，请重新输入新用户名！</span>
+        <ion-item>
+          <ion-label>姓名:</ion-label>
+          <ion-input type="text" formControlName="userName" placeholder="请输入姓名"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label>用户类型:</ion-label>
+          <ion-select type="text" formControlName="userType" placeholder="请选择用户类型" okText="确定" cancelText="取消">
+            <ion-option value=1>管理员</ion-option>
+            <ion-option value=2>普通用户</ion-option>
+          </ion-select>
+        </ion-item>
+      </ion-list>
+      <button class="post-button" ion-button block (click)="onClickUpdate()" [disabled]="userForm.invalid">修改</button>
+    </form>
+  </ion-content>

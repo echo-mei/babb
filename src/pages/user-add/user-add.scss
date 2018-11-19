@@ -1,0 +1,22 @@
+page-user-add {
+
+  form{
+    padding: 0 px(60);
+    .error{
+      color: red;
+    }
+    .list{
+      .item{
+        padding: 0;
+      }
+    }
+    .post-button{
+      border-radius: px(10);
+      background: #c9161f;
+      color: #ffe487;
+      font-size: px(50);
+    }
+  }
+
+
+}

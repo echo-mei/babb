@@ -1,0 +1,224 @@
+.orgtree-container {
+    overflow: auto;
+    position: relative;
+    border: 1px solid #aaa;
+}
+.orgtree {
+    background: #fff;
+    user-select: none;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+.orgtree table {
+    border-collapse: separate;
+    border-spacing: 0;
+    background: #fff;
+}
+.orgtree table td {
+    margin: 0;
+    padding: 0;
+}
+.orgtree .toggle i {
+    cursor: pointer;
+    display: inline-block;
+    width: 12px;
+    height: 12px;
+    border-radius: 10px;
+    line-height: 9px;
+    color: #aaa;
+    border: 1px solid #aaa;
+    font-style: normal;
+    text-align: center;
+}
+.orgtree .toggle i:hover {
+    color: #3555DE;
+    border: 1px solid #3555DE;
+}
+
+.orgtree.t2b table {
+    width: 100%;
+}
+.orgtree.t2b td {
+    vertical-align: top;
+    text-align: center;
+}
+.orgtree.t2b .lines .left {
+    border-left: 1px solid #aaa;
+}
+.orgtree.t2b .lines .right {
+    border-right: 1px solid #aaa;
+}
+.orgtree.t2b .lines .top {
+    border-top: 2px solid #aaa;
+}
+
+.orgtree.l2r td {
+    vertical-align: middle;
+    text-align: left;
+}
+.orgtree.l2r td.bottom {
+    border-bottom: 1px solid #aaa;
+}
+.orgtree.l2r td.top {
+    border-top: 1px solid #aaa;
+}
+.orgtree.l2r td.left {
+    border-left: 2px solid #aaa;
+}
+
+.orgtree table.node {
+    margin: 0 auto;
+    text-align: center;
+    padding: 0 10px;
+    cursor: pointer;
+    width: 150px;
+}
+.orgtree .node td {
+    vertical-align: middle;
+}
+.orgtree .node .plus i {
+    background: #628FF7;
+    padding: 2px;
+    color: #fff;
+    font-size: 12px;
+    position: relative;
+    font-style: normal;
+    height: 12px;
+    width: 12px;
+    line-height: 10px;
+    text-align: center;
+    display: inline-block;
+    visibility: hidden;
+}
+.orgtree .node .plus.bottom-plus, .orgtree .node .plus.top-plus {
+    text-align: center;
+}
+.orgtree.l2r .node.active .plus.top-plus i,
+.orgtree.l2r .node.active .plus.bottom-plus i,
+.orgtree.l2r .node.active .plus.right-plus i {
+    visibility: visible;
+}
+.orgtree.l2r .node.active.root .plus.top-plus i,
+.orgtree.l2r .node.active.root .plus.bottom-plus i {
+    visibility: hidden;
+}
+.orgtree.t2b .node.active .plus.left-plus i,
+.orgtree.t2b .node.active .plus.bottom-plus i,
+.orgtree.t2b .node.active .plus.right-plus i {
+    visibility: visible;
+}
+.orgtree.t2b .node.active.root .plus.left-plus i,
+.orgtree.t2b .node.active.root .plus.right-plus i {
+    visibility: hidden;
+}
+.orgtree .node-wrapper {
+    padding: 2px;
+    border: 1px solid transparent;
+    position: relative;
+}
+.orgtree .node-main {
+    width: 150px;
+}
+.orgtree .node:hover .node-wrapper,
+.orgtree .node.active .node-wrapper {
+    border: 1px solid #3555DE;
+}
+.orgtree .delete-node {
+    position: absolute;
+    top: -6px;
+    right: -6px;
+    font-style: normal;
+    background: red;
+    width: 12px;
+    height: 12px;
+    line-height: 10px;
+    color: #fff;
+    border-radius: 12px;
+}
+.orgtree .title {
+    background: #3555DE;
+    background: linear-gradient(to right, #3555DE, #628FF7);
+    color: #fff;
+    padding: 10px;
+    font-size: 14px;
+    position: relative;
+    padding-right: 20px;
+}
+.orgtree .title .name-count {
+    padding: 0 10px;
+}
+.orgtree .title .title-tool {
+    position: absolute;
+    right: 10px;
+    top: 12px;
+}
+.orgtree .title .title-tool .fa-pencil:hover {
+    font-size: 16px;
+    font-weight: bold;
+}
+.orgtree .content {
+    border: 1px solid #628FF7;
+    border-top: 0;
+    padding: 10px;
+    font-size: 14px;
+}
+.orgtree .content-main {
+    
+}
+
+.orgtree-container .modal {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 100%;
+    width: 100%;
+    background: rgba(0,0,0,0.3);
+    display: none;
+}
+.orgtree-container .modal table {
+    width: 100%;
+    height: 100%;
+}
+.orgtree-container .modal td {
+    vertical-align: middle;
+    text-align: center;
+}
+.orgtree-container .modal .form {
+    width: 300px;
+    margin: 0 auto;
+}
+.orgtree-container .modal .form-header {
+    text-align: left;
+    padding: 10px;
+    background: #eee;
+}
+.orgtree-container .modal .form-header span {
+    float: right;
+    cursor: pointer;
+}
+.orgtree-container .modal .form-body {
+    background: #fff;
+}
+.orgtree-container .modal .form-body input {
+    padding: 5px;
+    margin: 5px;
+}
+.orgtree-container .modal .form-footer {
+    padding: 10px;
+    background: #fff;
+}
+.orgtree-container .modal .form-footer button {
+    outline: none;
+    background: #eee;
+    border: 0;
+    padding: 5px 10px;
+    margin: 0 10px;
+    cursor: pointer;
+}
+.orgtree-container .modal .form-footer button.sure {
+    background: #628FF7;
+    color: #fff;
+}

@@ -21,12 +21,7 @@ export class UnitHcTableInfactPage {
     this.unit = this.navParams.get("unit");
     this.hc = this.navParams.get("hc");
     this.hcInfactFunc = this.navParams.get("hcInfactFunc");
-    console.log(this.hcInfactFunc)
     this.getUnitHcInfact();
-  }
-
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad UnitHcTableDetailPage');
   }
 
   // 获取单位职数的实有人数详情

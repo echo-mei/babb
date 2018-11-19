@@ -11,6 +11,16 @@
 
 **项目启动**
 
+1. 环境准备
+
+    * node 版本号：v8.9.0
+    * npm 版本号：6.0.1
+    * ioinic 版本号：3.20.0
+    * cordova 版本号：8.0.0
+    * angular 版本号：6.0.0
+    * git 版本号：2.19.1
+
+2. 启动项目（开发时环境）
 ```
 cd babb
 ionic serve
@@ -40,3 +50,4 @@ ionic g provider 管道名
 ```
 ionic build android --prod
 ```
+4. 在`platforms\android\app\build\outputs\apk\debug`目录下获取安装包`app-debug.apk`。

@@ -20,7 +20,7 @@ page-three-file {
     }
     ion-list {
         &.list {
-            margin-top: 8 !important;
+            margin-top: 5px !important;
         }
         .item {
             padding: 0;
@@ -28,7 +28,7 @@ page-three-file {
             .label {
                 margin: 18px 8px 23px 0;
                 white-space: normal;
-                font-size: 22px;
+                font-size: px(60);
             }
         }
         .myTitle {
@@ -37,7 +37,7 @@ page-three-file {
             font-size: 23px;
             p {
                 color: #000;
-                font-size: 23px;
+                font-size: px(60);
             }
             .label {
                 margin: 20px 8px 25px 0;

@@ -128,52 +128,91 @@ export class BabbUnitProvider {
     return this.db.select(sql);
   }
 
-  // 获取单位名称
-  getUnitName(): Promise<any> {
-    const sql = `SELECT UNIT_NAME, UNIT_OID
-    FROM PAD_BASE_UNIT`;
+  // 获取所有单位名列表
+  getUnitNameList(): Promise<any> {
+    const sql = `
+      SELECT
+        UNIT_OID as unitOid,
+        UNIT_NAME as unitName
+      FROM PAD_BASE_UNIT`;
     return this.db.select(sql);
   }
+
+  // 通过单位名查找单位
+  findUnitListByName(unitName: string): Promise<any> {
+    const sql = `
+      SELECT
+        UNIT_OID as unitOid,
+        UNIT_NAME as unitName
+      FROM PAD_BASE_UNIT
+      WHERE UNIT_NAME LIKE ?`;
+    return this.db.select(sql, ['%'+unitName.split('').join('%')+'%']);
+  }
+
   // 以下获取综合查询条件
   // 系统类别
   getSyetem(): Promise<any> {
-    const sql = `SELECT UNIT_CATEGORY_CODE, UNIT_CATEGORY_CODE as dicItemCode, UNIT_CATEGORY_NAME as dicItemName
+    const sql = `
+      SELECT
+        UNIT_CATEGORY_CODE,
+        UNIT_CATEGORY_CODE as dicItemCode,
+        UNIT_CATEGORY_NAME as dicItemName
     FROM PAD_BASE_UNIT group by UNIT_CATEGORY_CODE`;
     return this.db.select(sql);
   }
 
   // 单位性质
   getUnitXz(): Promise<any> {
-    const sql = `SELECT UNIT_KIND, UNIT_KIND as dicItemCode, UNIT_KIND_NAME as dicItemName
-    FROM PAD_BASE_UNIT group by UNIT_KIND`;
+    const sql = `
+      SELECT
+        UNIT_KIND,
+        UNIT_KIND as dicItemCode,
+        UNIT_KIND_NAME as dicItemName
+      FROM PAD_BASE_UNIT group by UNIT_KIND`;
     return this.db.select(sql);
   }
 
   // 机构类别
   getJiGou(): Promise<any> {
-    const sql = `SELECT LEVEL_CODE, LEVEL_CODE as dicItemCode, LEVEL_NAME as dicItemName
-    FROM PAD_BASE_UNIT group by LEVEL_CODE`;
+    const sql = `
+      SELECT
+        LEVEL_CODE,
+        LEVEL_CODE as dicItemCode,
+        LEVEL_NAME as dicItemName
+      FROM PAD_BASE_UNIT group by LEVEL_CODE`;
     return this.db.select(sql);
   }
 
   // 编制类别
   getWave(): Promise<any> {
-    const sql = `SELECT HC_OID, HC_OID as dicItemCode, HC_NAME as dicItemName
-    FROM PAD_BASE_UNIT_HC group by HC_OID`;
+    const sql = `
+      SELECT
+        HC_OID,
+        HC_OID as dicItemCode,
+        HC_NAME as dicItemName
+      FROM PAD_BASE_UNIT_HC group by HC_OID`;
     return this.db.select(sql);
   }
 
   // 经费形式
   getFeeStyle(): Promise<any> {
-    const sql = `SELECT BUDGET_FROM_CODE, BUDGET_FROM_CODE as dicItemCode, BUDGET_FROM_NAME as dicItemName
-    FROM PAD_BASE_UNIT group by BUDGET_FROM_CODE`;
+    const sql = `
+      SELECT
+        BUDGET_FROM_CODE,
+        BUDGET_FROM_CODE as dicItemCode,
+        BUDGET_FROM_NAME as dicItemName
+      FROM PAD_BASE_UNIT group by BUDGET_FROM_CODE`;
     return this.db.select(sql);
   }
 
   // 事业单位分类
   getWorkUnit(): Promise<any> {
-    const sql = `SELECT UNIT_TYPE_BIZ_CODE, UNIT_TYPE_BIZ_CODE as dicItemCode, UNIT_TYPE_BIZ_NAME as dicItemName
-    FROM PAD_BASE_UNIT group by UNIT_TYPE_BIZ_CODE`;
+    const sql = `
+      SELECT
+        UNIT_TYPE_BIZ_CODE,
+        UNIT_TYPE_BIZ_CODE as dicItemCode,
+        UNIT_TYPE_BIZ_NAME as dicItemName
+      FROM PAD_BASE_UNIT group by UNIT_TYPE_BIZ_CODE`;
     return this.db.select(sql);
   }
 
@@ -245,9 +284,53 @@ export class BabbUnitProvider {
       let sqlAnd = `AND (`
       let sql1 = `)`;
       let sql3 = sql + sql2 + sql1;
-      console.log(sql3)
       return this.db.select(sql3);
     }
+  }
+
+  getGwList(unitOid): Promise<any> {
+    const sql = `select
+        UNIT_GW_OID as unitGwOid,
+        UNIT_OID as unitOid,
+        ORG_OID as orgOid,
+        ORG_NAME as orgName,
+        PRAENT_ORG_OID as parentOrgOid,
+        PRAENT_ORG_NAME as parentOrgName,
+        ORG_TYPE as orgType
+      from pad_base_unit_gw a
+      where unit_oid = (select admin_unit_oid from pad_base_unit where unit_oid = ${unitOid})`;
+    return this.db.select(sql);
+  }
+
+  // 岗位设置表
+  getGwSet(uid): Promise<any> {
+    const sql = `select
+        a.UNIT_GW_OID as unitGwOid,
+        a.UNIT_OID as unitOid,
+        a.ORG_OID as orgOid,
+        a.ORG_NAME as orgName,
+        a.PRAENT_ORG_OID as parentOrgOid,
+        a.PRAENT_ORG_NAME as parentOrgName,
+        a.ORG_TYPE as orgType,
+        b.GW_NAME as gwName
+      from pad_base_unit_gw a
+      left join pad_base_unit_gw_detail b
+      on a.unit_gw_oid = b.unit_gw_oid
+      where a.unit_oid = (select admin_unit_oid from pad_base_unit where unit_oid = ${uid})`;
+    return this.db.select(sql);
+  }
+
+  // 岗位设置表 detail
+  getGwDetailList(unitGwOid): Promise<any> {
+    const sql = `
+      SELECT
+        UNIT_GW_DEATIL_OID as unitGwDetailOid,
+        UNIT_GW_OID as unitGwOid,
+        GW_NAME as gwName,
+        CUR_COUNT as curCount,
+        ORDER_OF_ALL as orderOfAll
+      FROM PAD_BASE_UNIT_GW_DETAIL WHERE UNIT_GW_OID = ${unitGwOid}`
+    return this.db.select(sql);
   }
 
   // 获取单位具体信息

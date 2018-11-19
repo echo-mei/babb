@@ -39,10 +39,6 @@ export class UnitHcTablePage {
     this.getUnitLeader();
   }
 
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad UnitHcTablePage');
-  }
-
   // 获取单位的编制
   getUnitHc() {
     this.babbUnitProvider[this.hcFunc](this.unit.unitOid).then(res => {

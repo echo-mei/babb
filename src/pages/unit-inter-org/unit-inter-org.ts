@@ -20,10 +20,6 @@ export class UnitInterOrgPage {
     this.getUnitInterOrg();
   }
 
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad UnitInterOrgPage');
-  }
-
   getUnitInterOrg() {
     this.babbUnitProvider.getUnitInterOrg(this.unit.unitOid).then(res => {
       this.orgList = res;

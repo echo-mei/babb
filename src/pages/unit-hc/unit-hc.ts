@@ -47,10 +47,6 @@ export class UnitHcPage {
     }
   }
 
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad UnitHcPage');
-  }
-
   getChildUnit() {
     this.babbUnitProvider.getChildUnit(this.unit.unitOid).then(res => {
       this.childCount = res.count;

@@ -9,6 +9,7 @@ import { UnitSearchPage } from '../unit-search/unit-search';
 import { UnitZhSearchPage } from '../unit-zh-search/unit-zh-search';
 
 import { UNIT_CATEGORY } from '../../providers/babb-dic/babb-dic';
+import { ModifyPasswordPage } from '../modify-password/modify-password';
 
 @Component({
   selector: 'page-home',
@@ -18,6 +19,7 @@ export class HomePage {
 
   // 右侧树
   tree: any[];
+  user:any;
 
   constructor(
     public navCtrl: NavController,
@@ -25,6 +27,7 @@ export class HomePage {
     public db: DatabaseProvider,
     public babbUnitProvider: BabbUnitProvider
   ) {
+    this.user = this.navParams.get("user");
     this.getUnitTree();
   }
 
@@ -46,7 +49,7 @@ export class HomePage {
   }
 
 
-  clickUnit(unit){
+  onClickUnit(unit){
     this.navCtrl.push(UnitPage,{unit:unit});
   }
 
@@ -58,4 +61,8 @@ export class HomePage {
     this.navCtrl.push(UnitSearchPage);
   }
 
+  // 点击修改密码
+  onClickModifyPw(){
+    this.navCtrl.push(ModifyPasswordPage,{user:this.user});
+  }
 }

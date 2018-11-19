@@ -24,10 +24,6 @@ export class UnitHcTableFrzPage {
     this.getUnitHcFrz();
   }
 
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad UnitHcTableFrzPage');
-  }
-
   // 获取单位职数的冻结人数详情
   getUnitHcFrz() {
     this.babbUnitProvider[this.hcFrzFunc](this.unit.unitOid,this.hc.hcOid).then(res => {

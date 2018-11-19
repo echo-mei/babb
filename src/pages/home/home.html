@@ -10,7 +10,7 @@
       <button ion-button clear (click)="toSearch()">综合查询</button>
       <button ion-button clear (click)="goUnitStatistics()">区机构数统计</button>
       <button ion-button clear>区编制员额统计</button>
-      <button ion-button clear>修改密码</button>
+      <button ion-button clear (click)="onClickModifyPw()">修改密码</button>
     </div>
     <div class="home-right">
       <ul class="tree">
@@ -22,7 +22,7 @@
           </a>
           <ul [hidden]="!category.showChildren" class="child-tree">
             <li *ngFor="let unit of category.units">
-              <a (click)="clickUnit(unit)">
+              <a (click)="onClickUnit(unit)">
                 <span>{{unit.unitName}}</span>
                 <i class="babb ion-md-tiaozhuan"></i>
               </a>

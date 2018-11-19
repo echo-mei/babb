@@ -24,7 +24,7 @@ page-unit-zh-search {
         .item {
             padding: 0;
             p{
-                font-size: 23px;
+                font-size: px(60);
                 font-weight: bold;
                 color: #000;
                 margin: 21px 0 5px;
@@ -51,7 +51,7 @@ page-unit-zh-search {
                 li {
                     float: left;
                     margin-left: 6px;
-                    font-size: 25px;
+                    font-size: px(60);
                     height: 60px;
                     width: 32%;
                     line-height: 60px;
@@ -87,7 +87,7 @@ page-unit-zh-search {
         .unitName {
             padding: 0;
             p {
-                font-size: 23px;
+                font-size: px(60);
                 font-weight: bold;
                 color: #000;
                 margin: 21px 0 15px;
@@ -104,10 +104,23 @@ page-unit-zh-search {
                 background-color: #ffffff;
                 padding: 0;
             }
+            .searchbar-search-icon {
+                display: none;
+            }
+            .babb {
+                position: absolute;
+                font-size: px(78);
+                z-index: 1000;
+                color: #7a7a80;
+                top: px(215);
+                left: px(30);
+                margin-top: px(-19);
+            }
             .searchbar-input-container{
                 // height: 100%;
                 .searchbar-input {
                     // height: 100%;
+                    padding-left: px(131);
                     height: 50px;
                     border: 1px solid #000;
                     background: #ffffff;

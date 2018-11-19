@@ -10,6 +10,10 @@ page-unit-statistics {
       line-height: px(178);
       border-bottom: px(2) solid #c9c8cd;
       background: #fff;
+      span {
+        font-size: px(58);
+        color: #7a7a80;
+      }
     }
     .unit-wrapper {
       width: 100%;

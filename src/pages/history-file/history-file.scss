@@ -2,10 +2,22 @@ page-history-file {
     ion-header {
         height: 80px;
         width: 100%;
+        .searchbar-search-icon {
+            display: none;
+        }
         ion-navbar.toolbar{
             height: 100%;
             width: 100%;
             // background-color: #c9161f;
+        }
+        .babb {
+            position: absolute;
+            font-size: px(78);
+            z-index: 1000;
+            color: #7a7a80;
+            top: 50%;
+            margin-top: px(-39);
+            left: px(75);
         }
         .inputCon {
             display: flex;
@@ -36,10 +48,10 @@ page-history-file {
         }
     }
     ion-list {
-        margin-top: 8px !important;
+        margin-top: 5px !important;
         .item {
             padding: 0;
-            font-size: 23px;
+            font-size: px(60);
             color: #000;
             .label {
                 margin: 18px 8px 23px 0;
@@ -52,7 +64,7 @@ page-history-file {
             font-size: 25px;
             p {
                 color: #000;
-                font-size: 23px;
+                font-size: px(60);
             }
             .label {
                 margin: 20px 8px 25px 0;

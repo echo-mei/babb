@@ -19,8 +19,8 @@
 }
 
 .toolbar{
-  padding: 0 px(40) 0 px(20);
-  height: px(150);
+  padding: px(50) px(40) 0 px(20);
+  height: px(200);
   .toolbar-background{
     background: color($colors,bgRed);
   }
@@ -56,5 +56,13 @@
   width: 100%;
   background:#efeff4;
   height:px(60);
+}
+
+
+ion-toast.mini .toast-wrapper .toast-message{
+  font-size: rem(15) !important;
+  padding: rem(10) rem(15) !important;
+  max-width: 20rem !important;
+  line-height: rem(23);
 }
 

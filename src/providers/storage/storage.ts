@@ -20,4 +20,11 @@ export class StorageProvider {
     localStorage.clear();
   }
 
+  get historyUnitList() {
+    return JSON.parse(this.get('historyUnitList'));
+  }
+  set historyUnitList(value: any[]) {
+    this.set('historyUnitList', JSON.stringify(value));
+  }
+
 }

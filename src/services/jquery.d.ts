@@ -1,2 +1,2 @@
-declare var jOrgChart:any;
+declare var Orgtree:any;
 declare var $:any;

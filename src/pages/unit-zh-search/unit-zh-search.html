@@ -16,14 +16,14 @@
   <ion-list inset>
     <ion-item class="unitName">
       <p>单位名称</p>
+      <i class="babb ion-md-sousuo"></i>
       <ion-searchbar [(ngModel)]="key"></ion-searchbar>
     </ion-item>
     <div *ngFor="let item of dataList">
       <ion-item *ngIf="item.detail&&item.detail.length">
         <p>{{ item.title }}</p>
         <ul>
-          <li *ngFor="let liData of item.detail" (click)="getItem(liData)" [class.changeBC]="liData.isSelected">{{ liData.dicItemName
-            }}</li>
+          <li *ngFor="let liData of item.detail" (click)="getItem(liData)" [class.changeBC]="liData.isSelected">{{ liData.dicItemName }}</li>
         </ul>
         <div *ngIf="item.title=='编制类别'">
           <p class="secP">编制核定数范围</p>
@@ -43,7 +43,5 @@
     <button ion-button>重　 置</button>
     <button ion-button class="searchBtn" (click)="toResult()">查 　询</button>
   </ion-buttons>
-  <!-- <div class="twoBtn"> -->
-  <!-- </div> -->
 
 </ion-content>

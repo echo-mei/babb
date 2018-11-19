@@ -18,10 +18,6 @@ export class UnitFuntionPage {
     this.unitFunction = this.navParams.get("unitFunction");
   }
 
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad UnitFuntionPage');
-  }
-
   // 点击跳到主页
   onClickHome() {
     this.navCtrl.popToRoot();

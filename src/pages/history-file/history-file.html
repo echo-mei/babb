@@ -1,6 +1,7 @@
 <ion-header>
   <ion-navbar hideBackButton="true">
     <div class="inputCon">
+      <i class="babb ion-md-sousuo"></i>
       <ion-searchbar type="text" [(ngModel)]="key" (ionInput)="onClickSearch()" placeholder="请输入单位名称"></ion-searchbar>
       <button ion-button clear (click)="goBack()" float-right>取消</button>
     </div>
@@ -13,7 +14,7 @@
     <ion-item class="myTitle">
       <p>历史沿革</p>
     </ion-item>
-    <ion-item *ngFor="let fileName of fileList">{{ fileName.fileTitle }}</ion-item>
+    <ion-item *ngFor="let fileName of newList" (click)="fileOpen(fileName)">{{ fileName.fileTitle }}</ion-item>
     <div></div>
   </ion-list>
 </ion-content>

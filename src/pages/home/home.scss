@@ -3,7 +3,6 @@ page-home {
     display: flex;
     height: 100%;
     .home-left {
-      flex: 0 0 px(1000);
       width: px(1000);
       padding: px(100);
       background: #c9161f;
@@ -33,7 +32,7 @@ page-home {
         background-color: #b20309;
         color: #ffe487;
         box-shadow: initial;
-        margin: px(30) 0;
+        margin: px(15) 0;
         height: px(150);
         width: px(800);
         border: px(1) solid #ffe487;
@@ -66,7 +65,7 @@ page-home {
             span {
               flex-grow: 1;
               padding: 0 px(30);
-              display: -webkit-box;
+              // display: -webkit-box;
               -webkit-line-clamp: 1;
               -webkit-box-orient: vertical;
               overflow: hidden;
@@ -106,6 +105,7 @@ page-home {
       }
     }
     .home-right {
+      padding: px(200) px(10) !important;
       ul.tree {
         width: px(740) !important;
       }

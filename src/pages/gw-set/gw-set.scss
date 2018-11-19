@@ -400,7 +400,7 @@ page-gw-set {
     
     .jOrgChart .down {
         background-color 		: #000000;
-        margin 				: 0px auto;
+        margin 				: -4px auto 0;
     }
     
     .jOrgChart .top {
@@ -511,12 +511,10 @@ page-gw-set {
     .jOrgChart .jf-organizChart-three {
         width: 150px;
         min-height: 45px ;
-        background: linear-gradient(to right, #836df0 , #a99ef9) ;
     }
     .jf-organizChart-three .p{
         position: relative;
-        display: inline-block;
-        padding: 13px 5px 10px 5px;
+        padding: 14px 5px 14px 5px;
         width: 100%;
         overflow: hidden;
     }
@@ -579,6 +577,54 @@ page-gw-set {
         padding-right: 8px;
         color: #6284fd;
     }
+
+    .jOrgChart .jf-organizChart-three {
+        width: 150px;
+        background-color: #fff;
+        border: 1px solid #836df0;
+        // overflow: hidden;
+    }
+    .jf-organizChart-three .p {
+        position: relative;
+        // padding: 10px 5px 10px 5px;
+        width: 100%;
+        overflow: hidden;
+        background: linear-gradient(to right, #836df0 , #a99ef9) ;
+    }
+    
+    .jf-organizChart-three .title{
+        display: inline-block;
+        width: 100%;
+        float: left;
+    }
+    .jf-organizChart-three .editBtn {
+        position: absolute;
+        top: 50%;
+        margin-top: -9.5px;
+        float: right;
+        right: 18px;
+    }
+    
+    .jf-organizChart-three .content{
+        height: 25px;
+        line-height: 25px;
+    }
+    
+    .jf-organizChart-three .content .leftCon{
+        float: left;
+        padding-left: 8px;
+        width: 70%;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        color: #000;
+        text-align: left;
+    }
+    .jf-organizChart-three .content .rightCon {
+        float: right;
+        padding-right: 8px;
+        color: #6284fd;
+    }
     
     .contentFirst {
         margin-top: 10px;
@@ -586,5 +632,8 @@ page-gw-set {
     
     .contentLast {
         margin-bottom: 10px;
+    }
+    em {
+        font-style: normal;
     }
 }

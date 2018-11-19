@@ -1,0 +1,82 @@
+{
+    "name": "局长",
+    "nameCount": 1,
+    "children": [
+        {
+            "name": "副局长",
+            "nameCount": 3,
+            "children": [
+                {
+                    "name": "内设机构",
+                    "children": [
+                        {
+                            "name": "组织科",
+                            "nameCount": 5,
+                            "row1Name": "主任",
+                            "row1Count": 1,
+                            "row2Name": "副主任",
+                            "row2Count": 2,
+                            "row3Name": "财务",
+                            "row3Count": 1,
+                            "row4Name": "文秘、纪要保密",
+                            "row4Count": 1
+                        },
+                        {
+                            "name": "干部科",
+                            "nameCount": 5,
+                            "row1Name": "主任",
+                            "row1Count": 1,
+                            "row2Name": "副主任",
+                            "row2Count": 2,
+                            "row3Name": "财务",
+                            "row3Count": 1,
+                            "row4Name": "文秘、纪要保密",
+                            "row4Count": 1
+                        },
+                        {
+                            "name": "信息科",
+                            "nameCount": 5,
+                            "row1Name": "主任",
+                            "row1Count": 1,
+                            "row2Name": "副主任",
+                            "row2Count": 2,
+                            "row3Name": "财务",
+                            "row3Count": 1,
+                            "row4Name": "文秘、纪要保密",
+                            "row4Count": 1
+                        }
+                    ]
+                },
+                {
+                    "name": "下设机构",
+                    "children": [
+                        {
+                            "name": "深圳市宝安区党代表大会常任制工作办公室",
+                            "nameCount": 4,
+                            "row1Name": "主任",
+                            "row1Count": 1,
+                            "row2Name": "副主任",
+                            "row2Count": 2,
+                            "row3Name": "财务",
+                            "row3Count": 1,
+                            "row4Name": "文秘、纪要保密",
+                            "row4Count": 1
+                        },
+                        {
+                            "name": "第1学区教育办（第1学区责任督学办公室）",
+                            "nameCount": 4,
+                            "row1Name": "主任",
+                            "row1Count": 1,
+                            "row2Name": "副主任",
+                            "row2Count": 2,
+                            "row3Name": "财务",
+                            "row3Count": 1,
+                            "row4Name": "文秘、纪要保密",
+                            "row4Count": 1
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}

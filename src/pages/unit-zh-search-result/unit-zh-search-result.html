@@ -21,7 +21,7 @@
         <span *ngIf="!searchKeyList.length && !key">( 未选择条件 )</span>
       </p>
     </ion-item>
-    <ion-item *ngFor="let result of resultList">
+    <ion-item *ngFor="let result of resultList" (click)="goUnit(result)">
       {{ result.UNIT_NAME }}
     </ion-item>
     <ion-item *ngIf="!resultList.length">

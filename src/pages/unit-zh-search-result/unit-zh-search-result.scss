@@ -23,9 +23,8 @@ page-unit-zh-search-result {
         padding: 0;
         .item { 
             padding-left: 0;
-            font-size: 23px;
-            color: #000000;
-            font-weight: bold;
+            font-size: px(60);
+            color: #000000;            
             ion-label {
                 white-space: normal;
             }
@@ -36,7 +35,7 @@ page-unit-zh-search-result {
         .searchCondition {
             font-weight: normal;
             p {
-                font-size: 23px;
+                font-size: px(60);
                 color: #8e8e93;
                 white-space: normal;
                 span {

@@ -1,0 +1,288 @@
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>orgtree base</title>
+    <link rel="stylesheet" href="../src/orgtree.css" />
+    <link rel="stylesheet" href="../lib/font-awesome-4.7.0/css/font-awesome.min.css" />
+    <script src="../lib/jquery-1.12.4.js"></script>
+    <script src="../lib/html2canvas.min.js"></script>
+    <script src="../src/orgtree.js"></script>
+</head>
+<body>
+    <button id="export">导出图片</button>
+    <button id="toggleDirection">转换方向</button>
+    <button id="getData">获取数据</button>
+    <script>
+        var data = {
+            "name": "局长",
+            "nameCount": 1,
+            "showContent": false,
+            "children": [
+                {
+                    "name": "副局长",
+                    "nameCount": 3,
+                    "showContent": false,
+                    "children": [
+                        {
+                            "name": "内设机构",
+                            "showContent": false,
+                            "children": [
+                                {
+                                    "name": "组织科",
+                                    "nameCount": 5,
+                                    "row1Name": "主任",
+                                    "row1Count": 1,
+                                    "row2Name": "副主任",
+                                    "row2Count": 2,
+                                    "row3Name": "财务",
+                                    "row3Count": 1,
+                                    "row4Name": "文秘、纪要保密",
+                                    "row4Count": 1
+                                },
+                                {
+                                    "name": "干部科",
+                                    "nameCount": 5,
+                                    "row1Name": "主任",
+                                    "row1Count": 1,
+                                    "row2Name": "副主任",
+                                    "row2Count": 2,
+                                    "row3Name": "财务",
+                                    "row3Count": 1,
+                                    "row4Name": "文秘、纪要保密",
+                                    "row4Count": 1
+                                },
+                                {
+                                    "name": "信息科",
+                                    "nameCount": 5,
+                                    "row1Name": "主任",
+                                    "row1Count": 1,
+                                    "row2Name": "副主任",
+                                    "row2Count": 2,
+                                    "row3Name": "财务",
+                                    "row3Count": 1,
+                                    "row4Name": "文秘、纪要保密",
+                                    "row4Count": 1,
+                                    "children": [
+                                        {
+                                            "name": "深圳市宝安区党代表大会常任制工作办公室",
+                                            "nameCount": 4,
+                                            "row1Name": "主任",
+                                            "row1Count": 1,
+                                            "row2Name": "副主任",
+                                            "row2Count": 2,
+                                            "row3Name": "财务",
+                                            "row3Count": 1,
+                                            "row4Name": "文秘、纪要保密",
+                                            "row4Count": 1
+                                        },
+                                        {
+                                            "name": "第1学区教育办（第1学区责任督学办公室）",
+                                            "nameCount": 4,
+                                            "row1Name": "主任",
+                                            "row1Count": 1,
+                                            "row2Name": "副主任",
+                                            "row2Count": 2,
+                                            "row3Name": "财务",
+                                            "row3Count": 1,
+                                            "row4Name": "文秘、纪要保密",
+                                            "row4Count": 1,
+                                            "children": [
+                                                {
+                                                    "name": "深圳市宝安区党代表大会常任制工作办公室",
+                                                    "nameCount": 4,
+                                                    "row1Name": "主任",
+                                                    "row1Count": 1,
+                                                    "row2Name": "副主任",
+                                                    "row2Count": 2,
+                                                    "row3Name": "财务",
+                                                    "row3Count": 1,
+                                                    "row4Name": "文秘、纪要保密",
+                                                    "row4Count": 1
+                                                },
+                                                {
+                                                    "name": "第1学区教育办（第1学区责任督学办公室）",
+                                                    "nameCount": 4,
+                                                    "row1Name": "主任",
+                                                    "row1Count": 1,
+                                                    "row2Name": "副主任",
+                                                    "row2Count": 2,
+                                                    "row3Name": "财务",
+                                                    "row3Count": 1,
+                                                    "row4Name": "文秘、纪要保密",
+                                                    "row4Count": 1,
+                                                    "children": [
+                                                        {
+                                                            "name": "深圳市宝安区党代表大会常任制工作办公室",
+                                                            "nameCount": 4,
+                                                            "row1Name": "主任",
+                                                            "row1Count": 1,
+                                                            "row2Name": "副主任",
+                                                            "row2Count": 2,
+                                                            "row3Name": "财务",
+                                                            "row3Count": 1,
+                                                            "row4Name": "文秘、纪要保密",
+                                                            "row4Count": 1
+                                                        },
+                                                        {
+                                                            "name": "第1学区教育办（第1学区责任督学办公室）",
+                                                            "nameCount": 4,
+                                                            "row1Name": "主任",
+                                                            "row1Count": 1,
+                                                            "row2Name": "副主任",
+                                                            "row2Count": 2,
+                                                            "row3Name": "财务",
+                                                            "row3Count": 1,
+                                                            "row4Name": "文秘、纪要保密",
+                                                            "row4Count": 1,
+                                                            "children": [
+                                                                {
+                                                                    "name": "深圳市宝安区党代表大会常任制工作办公室",
+                                                                    "nameCount": 4,
+                                                                    "row1Name": "主任",
+                                                                    "row1Count": 1,
+                                                                    "row2Name": "副主任",
+                                                                    "row2Count": 2,
+                                                                    "row3Name": "财务",
+                                                                    "row3Count": 1,
+                                                                    "row4Name": "文秘、纪要保密",
+                                                                    "row4Count": 1
+                                                                },
+                                                                {
+                                                                    "name": "第1学区教育办（第1学区责任督学办公室）",
+                                                                    "nameCount": 4,
+                                                                    "row1Name": "主任",
+                                                                    "row1Count": 1,
+                                                                    "row2Name": "副主任",
+                                                                    "row2Count": 2,
+                                                                    "row3Name": "财务",
+                                                                    "row3Count": 1,
+                                                                    "row4Name": "文秘、纪要保密",
+                                                                    "row4Count": 1
+                                                                }
+                                                            ]
+                                                        }
+                                                    ]
+                                                }
+                                            ]
+                                        }
+                                    ]
+                                }
+                            ]
+                        },
+                        {
+                            "name": "下设机构",
+                            "showContent": false,
+                            "children": [
+                                {
+                                    "name": "深圳市宝安区党代表大会常任制工作办公室",
+                                    "nameCount": 4,
+                                    "row1Name": "主任",
+                                    "row1Count": 1,
+                                    "row2Name": "副主任",
+                                    "row2Count": 2,
+                                    "row3Name": "财务",
+                                    "row3Count": 1,
+                                    "row4Name": "文秘、纪要保密",
+                                    "row4Count": 1
+                                },
+                                {
+                                    "name": "第1学区教育办（第1学区责任督学办公室）",
+                                    "nameCount": 4,
+                                    "row1Name": "主任",
+                                    "row1Count": 1,
+                                    "row2Name": "副主任",
+                                    "row2Count": 2,
+                                    "row3Name": "财务",
+                                    "row3Count": 1,
+                                    "row4Name": "文秘、纪要保密",
+                                    "row4Count": 1
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
+        };
+        var orgtree = new Orgtree({
+            width: 1000,
+            height: 500,
+            direction: 'l2r',
+            scalable: true,
+            maxScale: 2,
+            minScale: 0.7,
+            canMove: true,
+            canAddNode: true,
+            editNodeTpl: function(nodeData) {
+                return $(
+                    '<input id="add-name" value="'+(nodeData?nodeData.name:'')+'" style="width:150px" placeholder="请输入名称"/>'+
+                    '<input id="add-number" value="'+(nodeData?nodeData.nameCount:'')+'" type="number" style="width:50px" placeholder="数量"/>'
+                );
+            },
+            addNodeData: function() {
+                return {
+                    name: $('#add-name').val(),
+                    nameCount: $('#add-number').val()
+                }
+            },
+            editable: true,
+            showContent: false,
+            showContentEvent: 'click',
+            renderTitle: function(nodeData) {
+                return '<span>'+nodeData.name+'</span><span>'+(nodeData.nameCount ? nodeData.nameCount : '')+'</span>';
+            },
+            renderContent: function(nodeData) {
+                var r = 
+                    '<table>'+
+                        '<tr>'+
+                            '<td>'+(nodeData.row1Name ? nodeData.row1Name : '')+'</td>'+
+                            '<td>'+(nodeData.row1Count ? nodeData.row1Count : '')+'</td>'+
+                        '</tr>'+
+                        '<tr>'+
+                            '<td>'+(nodeData.row2Name ? nodeData.row2Name : '')+'</td>'+
+                            '<td>'+(nodeData.row2Count ? nodeData.row2Count : '')+'</td>'+
+                        '</tr>'+
+                        '<tr>'+
+                            '<td>'+(nodeData.row3Name ? nodeData.row3Name : '')+'</td>'+
+                            '<td>'+(nodeData.row3Count ? nodeData.row3Count : '')+'</td>'+
+                        '</tr>'+
+                        '<tr>'+
+                            '<td>'+(nodeData.row4Name ? nodeData.row4Name : '')+'</td>'+
+                            '<td>'+(nodeData.row4Count ? nodeData.row4Count : '')+'</td>'+
+                        '</tr>'+
+                    '</table>';
+                return r;
+            },
+            titleStyle: function(nodeData) {
+                var ramdom = [
+                    'background: linear-gradient(to right, #eed93680, #eed936e6)',
+                    'background: linear-gradient(to right, #5a36eee6, #5a36ee45)',
+                    'background: linear-gradient(to right, #ee363645, #ee3636e6)',
+                    'background: linear-gradient(to right, #36e7eee6, #36e7ee57)',
+                    'background: linear-gradient(to right, #3555DE, #628FF7)',
+                    'background: #eed93680',
+                    'background: #5a36eee6',
+                    'background: #ee363645',
+                    'background: #36e7eee6',
+                    'background: #3555DE'
+                ];
+                return ramdom[parseInt(Math.random()*10)];
+            },
+            contentStyle: function(nodeData) {
+                return '';
+            },
+            data: data
+        });
+        orgtree.$container.appendTo($('body'));
+        $('#export').on('click', function() {
+            orgtree.exportImage();
+        });
+        $('#toggleDirection').on('click', function() {
+            orgtree.toggleDirection('l2r');
+        });
+        $('#getData').on('click', function() {
+            console.log(orgtree.getData());
+        });
+
+    </script>
+</body>
+</html>

@@ -1,0 +1,50 @@
+<!--
+  Generated template for the AdminHomePage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header no-border>
+
+  <ion-navbar>
+    <ion-title>管理员主页</ion-title>
+    <ion-buttons end>
+      <button ion-button icon-only (click)="onClickExit()">
+        退出
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content>
+  <button class="add" ion-button outline (click)="onClickAdd()">新增</button>
+  <button class="add" ion-button outline (click)="onClickModifyPW()">修改密码</button>
+  <div class="unit-hc-wrap">
+    <table class="unit-hc-table" border="1">
+      <thead>
+        <tr>
+          <th width="60">序号</th>
+          <th width="150">用户名</th>
+          <th width="150">姓名</th>
+          <th width="150">用户类型</th>
+          <th width="300">操作</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let user of userList;let i=index;">
+          <td>{{i+1}}</td>
+          <td>{{user.userId}}</td>
+          <td>{{user.userName}}</td>
+          <td>{{user.userType==1?'管理员':'普通用户'}}</td>
+          <td>
+            <button ion-button outline (click)="onClickUpdate(user)">修改</button>
+            <button ion-button outline (click)="onClickResetPassword(user)">重置密码</button>
+            <button ion-button outline (click)="onClickDelete(user)">删除</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</ion-content>

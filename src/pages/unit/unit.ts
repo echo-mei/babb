@@ -17,7 +17,6 @@ import { HistoryFilePage } from '../history-file/history-file';
 })
 export class UnitPage {
   unit: any;
-
   constructor(public navCtrl: NavController,
     public navParams: NavParams,
     public babbUnitProvider: BabbUnitProvider) {
@@ -25,14 +24,17 @@ export class UnitPage {
     this.getUnit();
   }
 
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad UnitPage');
-  }
-
   getUnit() {
-    this.babbUnitProvider.getUnit(this.unit.unitOid).then(res => {
-      this.unit = res;
-    });
+    if(typeof(this.unit) === 'number'){
+      this.babbUnitProvider.getUnit(this.unit).then(res => {
+        this.unit = res;
+      });
+    }else {
+      this.babbUnitProvider.getUnit(this.unit.unitOid).then(res => {
+        this.unit = res;
+      });
+    }
+
   }
 
   // 点击跳到主页
@@ -70,7 +72,9 @@ export class UnitPage {
 
   // 岗位设置表
   onClickUnitGw() {
-    this.navCtrl.push(GwSetPage);
+    this.navCtrl.push(GwSetPage, {
+      unit: this.unit,
+    });
   }
 
   // 三定文件

@@ -19,18 +19,25 @@ page-unit-search {
             .searchbar-input-container{
                 // height: 100%;
                 .searchbar-input {
+                    padding-left: px(131);
                     // height: 100%;
-                    height: 50px;
+                    height: px(120);
                     background: #ffffff;
-                    font-size: 20px;
+                    font-size: px(60);
                 }
-                .searchbar-search-icon {
-                    top: 26px;
-                    font-size: 20px;
-                }
+
+            }
+            .babb {
+                position: absolute;
+                font-size: px(78);
+                z-index: 1000;
+                color: #7a7a80;
+                top: 50%;
+                margin-top: px(-19);
+                left: px(75);
             }
             button {
-                font-size: 23px;
+                font-size: px(60);
                 color: #ffe487;
             }
         }
@@ -44,7 +51,6 @@ page-unit-search {
             .item {
                 padding-left: 0;
                 font-size: 20px;
-                font-weight: bold;
                 ion-label {
                     white-space: normal;
                 }
@@ -55,13 +61,13 @@ page-unit-search {
             }
             .item p {
                 color: #000;
-                font-size: 20px;
+                font-size: px(60);
             }
             .item .his {
                 font-weight: normal;
                 color: #7a7a80;
             }
-            
+
         }
         .backSeeUnitList {
             color: #c9161f;

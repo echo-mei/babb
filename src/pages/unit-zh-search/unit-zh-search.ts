@@ -9,10 +9,15 @@ import { BabbUnitProvider } from '../../providers/babb-unit/babb-unit';
 })
 export class UnitZhSearchPage {
 
-  // 页面数据
-  dataList = [];
-  searchList = [];
-
+  // 选择列表
+  dataList = [
+    { 'title': '系统类别', 'detail': [] },
+    { 'title': '单位性质', 'detail': [] },
+    { 'title': '机构类别', 'detail': [] },
+    { 'title': '编制类别', 'detail': [] },
+    { 'title': '经费形式', 'detail': [] },
+    { 'title': '事业单位分类', 'detail': [] }
+  ];
   key: any;
   smallNum: any;
   bigNum: any;
@@ -26,32 +31,6 @@ export class UnitZhSearchPage {
   }
 
   initData() {
-    this.dataList = [
-      {
-        'title': '系统类别',
-        'detail': []
-      },
-      {
-        'title': '单位性质',
-        'detail': []
-      },
-      {
-        'title': '机构类别',
-        'detail': []
-      },
-      {
-        'title': '编制类别',
-        'detail': []
-      },
-      {
-        'title': '经费形式',
-        'detail': []
-      },
-      {
-        'title': '事业单位分类',
-        'detail': []
-      }
-    ];
     this.babb.getSyetem().then(res => {
       this.dataList[0].detail = res;
     })
@@ -72,35 +51,29 @@ export class UnitZhSearchPage {
     })
   }
 
-  getItem(detail, indexF, index) {
-    detail.isSelected = !detail.isSelected;
-    // if(this.searchList.indexOf(detail) == -1){
-    //   this.searchList.push(detail);
-    // }else {
-    //   if(this.searchList.indexOf(detail) > -1) {
-    //     this.searchList.splice(this.searchList.indexOf(detail), 1);
-    //   }
-    // }
-    // console.log(this.searchList)
+  // 点击跳到主页
+  onClickHome() {
+    this.navCtrl.popToRoot();
+  }
 
-    // this.searchList.forEach((item, index, list)=>{
-    //   if(item.UNIT_TYPE_BIZ_CODE) {
-    //     console.log(item, 1)
-    //   }
-    // })
+  getItem(detail) {
+    detail.isSelected = !detail.isSelected;
   };
+
   getSearchList() {
-    // dataList
-    let list = [[], [], [], [], [], []];
-    this.dataList.forEach((item, index) => {
+    let list = [];
+    this.dataList.forEach((item) => {
+      let search = [];
       item.detail.forEach((item1) => {
         if (item1.isSelected) {
-          list[index].push(item1);
+          search.push(item1);
         }
-      })
+      });
+      list.push(search);
     })
     return list;
   }
+
   toResult() {
     this.navCtrl.push(UnitZhSearchResultPage, {
       searchList: this.getSearchList(),
@@ -109,10 +82,5 @@ export class UnitZhSearchPage {
       smallNum: this.smallNum,
       bigNum: this.bigNum
     });
-  }
-
-  // 点击跳到主页
-  onClickHome() {
-    this.navCtrl.popToRoot();
   }
 }

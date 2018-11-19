@@ -23,10 +23,6 @@ export class UnitInterUnitPage {
     this.getUnitInterUnit();
   }
 
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad UnitInterUnitPage');
-  }
-
   getUnitInterUnit() {
     if (this.unitKind == 3) {
       // 下属事业单位

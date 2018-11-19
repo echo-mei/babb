@@ -82,7 +82,6 @@ export class UnitStatisticsPage {
 
   getUnitByKindAndCategory() {
     this.babbUnitProvider.statisticsUnitByKindAndCategory().then(res => {
-      console.log(res);
       this.categoryList = res;
     });
   }

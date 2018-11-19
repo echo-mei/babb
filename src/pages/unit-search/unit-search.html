@@ -1,7 +1,8 @@
 <ion-header>
   <ion-navbar hideBackButton="true">
     <div class="inputCon">
-      <ion-searchbar type="text" [(ngModel)]="key" (ionInput)="onClickSearch()" (click)="focusNow()" placeholder="请输入单位名称"></ion-searchbar>
+      <i class="babb ion-md-sousuo"></i>
+      <ion-searchbar type="text" [(ngModel)]="key" (ionInput)="search()" placeholder="请输入单位名称"></ion-searchbar>
       <button ion-button clear (click)="goBack()" float-right>取消</button>
     </div>
   </ion-navbar>
@@ -9,20 +10,14 @@
 
 
 <ion-content padding>
-  <ion-list inset *ngIf="newList[0]">
-    <div *ngIf="isFocus && !key">
-      <ion-item *ngIf="!key"><p class="his">历史记录<span *ngIf="!historyList[0]">(无历史记录)</span></p></ion-item>
-      <ion-item *ngIf="!historyList[0]" class="backSeeUnitList" (click)="isFocus=false">继续查看单位列表</ion-item>
-      <ion-item *ngFor="let item of historyList" (click)="getClickItem(item)"><p [innerHTML]="item.UNIT_NAME | highLight:key"></p></ion-item>
-      <ion-item *ngIf="historyList[0]">
-        <button ion-button float-left clear (click)="clearHis()">清空</button>
-        <button ion-button float-right clear (click)="closeHis()">关闭</button>
-      </ion-item>
+  <ion-list inset>
+    <div *ngIf="!key">
+      <ion-item><p class="his">历史记录<span *ngIf="!(storage.historyUnitList&&storage.historyUnitList.length)">(无历史记录)</span></p></ion-item>
+      <ion-item *ngFor="let item of storage.historyUnitList" (click)="onClickUnit(item)"><p [innerHTML]="item.unitName | highLight:key"></p></ion-item>
     </div>
-    <div *ngIf="!isFocus">
-        <ion-item *ngFor="let item of newList" (click)="getClickItem(item)"><p [innerHTML]="item.UNIT_NAME | highLight:key"></p></ion-item>
+    <div *ngIf="key">
+      <ion-item *ngFor="let item of unitList" (click)="onClickUnit(item)"><p [innerHTML]="item.unitName | highLight:key"></p></ion-item>
     </div>
   </ion-list>
-  
-  <div class="notFound" *ngIf="!newList[0]">Not Found</div>
+  <div class="notFound" *ngIf="key && !(unitList&&unitList.length)">找不到相关单位</div>
 </ion-content>

@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { BabbUnitProvider } from '../../providers/babb-unit/babb-unit';
+import { UnitPage } from '../unit/unit';
 
 @Component({
   selector: 'page-unit-zh-search-result',
@@ -11,9 +12,9 @@ export class UnitZhSearchResultPage {
   key: any;
   smallNum: any;
   bigNum: any;
-  resultList = [];
   searchList: any;
-  waveList: any;
+
+  resultList = [];
 
   searchKeyList = [];
 
@@ -22,18 +23,13 @@ export class UnitZhSearchResultPage {
     public navParams: NavParams,
     public babb: BabbUnitProvider
   ) {
-
-    this.searchList = this.navParams.get('searchList');
-    this.key = this.navParams.get('key');
-    this.smallNum = this.navParams.get('smallNum');
-    this.bigNum = this.navParams.get('bigNum');
-    this.getResultList();
-
+    Object.assign(this, navParams.data);
     this.getSearchKey();
+    this.getResultList();
   }
 
   getSearchKey() {
-    this.searchList.forEach((item, index, list) => {
+    this.searchList.forEach((item) => {
       item.forEach((item1) => {
         this.searchKeyList.push(item1.dicItemName)
       })
@@ -55,7 +51,12 @@ export class UnitZhSearchResultPage {
     this.babb.getAllResult(this.searchList, this.key, this.smallNum, this.bigNum).then(res => {
       this.resultList = res;
     });
+  }
 
+  goUnit(result) {
+    this.navCtrl.push(UnitPage, {
+      unit: result.UNIT_OID
+    });
   }
 
   // 点击跳到主页
