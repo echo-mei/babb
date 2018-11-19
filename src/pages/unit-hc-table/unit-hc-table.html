@@ -55,8 +55,8 @@
       <tr>
         <th width="120" rowspan="2"></th>
         <th width="120" rowspan="2">总职数</th>
-        <th [attr.colspan]="getCol('单位领导')">单位领导职数</th>
-        <th [attr.colspan]="getCol('内设机构领导')">内设机构领导职数</th>
+        <th [attr.colspan]="getCol('单位领导')" *ngIf="getCol('单位领导')">单位领导职数</th>
+        <th [attr.colspan]="getCol('内设机构领导')" *ngIf="getCol('内设机构领导')">内设机构领导职数</th>
       </tr>
       <tr>
         <th width="120" *ngFor="let leader of leaderList | slice:1:leaderList.length">

@@ -39,14 +39,14 @@ page-unit-inter-org {
 
       .orglist-item-title{
         font-size: px(64);
-        margin:px(93) 0 px(110);
+        margin:px(80) 0 px(110);
         color: color($colors,textMainColor);
         padding: 0 10px;
       }
       .orglist-item-note{
         width: 100%;
         position: absolute;
-        bottom: px(110);
+        bottom: px(100);
         margin: 0;
         font-size: px(58);
         color: color($colors,textSubColor);
