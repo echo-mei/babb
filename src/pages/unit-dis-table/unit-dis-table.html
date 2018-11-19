@@ -1,0 +1,99 @@
+<!--
+  Generated template for the UnitDisTablePage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+
+<div class="table-wrapper">
+  <p>编制情况表</p>
+  <table class="preparationTable">
+    <thead>
+      <tr>
+        <th colspan="2"></th>
+        <th>合计</th>
+        <th *ngFor="let item of disTableField" >{{item}}</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td rowspan="5" class="total">合计</td>
+        <td>核定数</td>
+        <td>{{disTableCurCountOne}}</td>
+        <td *ngFor="let item of disTableOnes"  >{{item.CUR_COUNT}}</td>   
+      </tr>
+      <tr>
+        <td>锁定数</td>
+        <td>{{disTableCurLockCountOne}}</td>
+        <td *ngFor="let item of disTableOnes" >{{item.CUR_LOCK_COUNT}}</td>     
+      </tr>
+      <tr>
+        <td>实有数</td>
+        <td>{{disTableInfactCountOne}}</td>
+        <td *ngFor="let item of disTableOnes" >{{item.INFACT_COUNT}}</td>
+      </tr>
+      <tr>
+        <td>冻结数</td>
+        <td>{{disTableFrzCountOne}}</td>
+        <td *ngFor="let item of disTableOnes" >{{item.FRZ_COUNT}}</td>
+      </tr>
+      <tr>
+        <td>空编数</td>
+        <td>{{disTableFreeCountOne}}</td>
+        <td *ngFor="let item of disTableOnes" >{{item.FREE_COUNT}}</td>    
+      </tr>
+      <tr>
+        <td rowspan="5" class="total">区直</td>
+        <td>核定数</td>
+        <td>{{disTableCurCountTwo}}</td>
+        <td *ngFor="let item of disTableTwos" >{{item.CUR_COUNT}}</td>   
+      </tr>
+      <tr>
+        <td>锁定数</td>
+        <td>{{disTableCurLockCountTwo}}</td>
+        <td *ngFor="let item of disTableTwos" >{{item.CUR_LOCK_COUNT}}</td>     
+      </tr>
+      <tr>
+        <td>实有数</td>
+        <td>{{disTableInfactCountTwo}}</td>
+        <td *ngFor="let item of disTableTwos" >{{item.INFACT_COUNT}}</td>
+      </tr>
+      <tr>
+        <td>冻结数</td>
+        <td>{{disTableFrzCountTwo}}</td>
+        <td *ngFor="let item of disTableTwos" >{{item.FRZ_COUNT}}</td>
+      </tr>
+      <tr>
+        <td>空编数</td>
+        <td>{{disTableFreeCountTwo}}</td>
+        <td *ngFor="let item of disTableTwos" >{{item.FREE_COUNT}}</td>    
+      </tr>
+      <tr>
+        <td rowspan="5" class="total">街道</td>
+        <td>核定数</td>
+        <td>{{disTableCurCountThree}}</td>
+        <td *ngFor="let item of disTableThrees" >{{item.CUR_COUNT}}</td>   
+      </tr>
+      <tr>
+        <td>锁定数</td>
+        <td>{{disTableCurLockCountThree}}</td>
+        <td *ngFor="let item of disTableThrees" >{{item.CUR_LOCK_COUNT}}</td>     
+      </tr>
+      <tr>
+        <td>实有数</td>
+        <td>{{disTableInfactCountThree}}</td>
+        <td *ngFor="let item of disTableThrees" >{{item.INFACT_COUNT}}</td>
+      </tr>
+      <tr>
+        <td>冻结数</td>
+        <td>{{disTableFrzCountThree}}</td>
+        <td *ngFor="let item of disTableThrees" >{{item.FRZ_COUNT}}</td>
+      </tr>
+      <tr>
+        <td>空编数</td>
+        <td>{{disTableFreeCountThree}}</td>
+        <td *ngFor="let item of disTableThrees" >{{item.FREE_COUNT}}</td>    
+      </tr>
+    </tbody>
+  </table>
+</div>

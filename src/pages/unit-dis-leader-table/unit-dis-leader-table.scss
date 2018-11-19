@@ -1,0 +1,40 @@
+page-unit-dis-leader-table {
+    overflow: auto;
+    background-color: #EFEFF4;
+     .table-wrapper{
+         margin-top:15px;
+         background-color: #fff;
+         padding:15px 30px;        
+        p{
+            font-size:25px;
+            font-weight: bold;
+            margin:0 auto;
+            text-align: center;
+        }
+        .officeLeaderTable{
+            width:100%;
+            table-layout: fixed;
+            border:1px solid #B9CFF4;
+            font-size: 20px; 
+            margin-top:20px;
+            thead{
+                background-color: #F2F5FA; 
+                tr>th{
+                    padding:10px 5px;
+                    border:1px solid #B9CFF4;
+                } 
+                       
+            }
+            tbody{
+                tr>td{
+                    padding:10px 5px;
+                    text-align: center;
+                    border:1px solid #B9CFF4;
+                }
+                tr>.total{
+                    background-color: #F2F5FA;
+                }    
+            }  
+        }
+    }
+}
