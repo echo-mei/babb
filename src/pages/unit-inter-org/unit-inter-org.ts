@@ -30,7 +30,8 @@ export class UnitInterOrgPage {
   onClickUnitFunction(org) {
     this.navCtrl.push(UnitFuntionPage, {
       unitName: org.orgName,
-      unitFunction: org.orgFunction
+      unitFunction: org.orgFunction,
+      type:2
     });
   }
 

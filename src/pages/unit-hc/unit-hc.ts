@@ -17,8 +17,8 @@ export class UnitHcPage {
   hcList: Array<Object> = [];
   // 本单位及其下设单位编制职数列表
   hcAllList: Array<Object> = [];
-  // 本单位下设单位的统计数量
-  childCount = 0;
+  // 本单位下设单位
+  childOrg = 0;
   // tab选中项的标志
   tabIndex = 0;
   page1: any = UnitHcTablePage;
@@ -48,8 +48,8 @@ export class UnitHcPage {
   }
 
   getChildUnit() {
-    this.babbUnitProvider.getChildUnit(this.unit.unitOid).then(res => {
-      this.childCount = res.count;
+    this.babbUnitProvider.getUnitInterOrg(this.unit.unitOid).then(res => {
+      this.childOrg = res;
     });
   }
 

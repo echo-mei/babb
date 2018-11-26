@@ -21,6 +21,6 @@
 <ion-content>
   <super-tabs class="s-tabs">
     <super-tab [root]="page1" [rootParams]="page1Params" title="本单位"></super-tab>
-    <super-tab [root]="page2" [rootParams]="page2Params" title="本单位及下设单位" *ngIf="childCount>0"></super-tab>
+    <super-tab [root]="page2" [rootParams]="page2Params" title="本单位及下设单位" *ngIf="childOrg.length>0"></super-tab>
   </super-tabs>
 </ion-content>

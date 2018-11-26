@@ -12,9 +12,9 @@ import { AndroidPermissions } from '@ionic-native/android-permissions';
 import { FilePath } from '@ionic-native/file-path';
 import { FileChooser } from '@ionic-native/file-chooser';
 import { FileTransfer } from '@ionic-native/file-transfer';
+import { FileOpener } from '@ionic-native/file-opener';
 
 import { MyApp } from './app.component';
-import { LoginPage } from '../pages/login/login';
 
 import { DatabaseProvider, UserDatabaseProvider } from '../providers/database/database';
 import { StorageProvider } from '../providers/storage/storage';
@@ -22,9 +22,10 @@ import { BabbUserProvider } from '../providers/babb-user/babb-user';
 import { FileProvider } from '../providers/file/file';
 import { BabbUnitProvider } from '../providers/babb-unit/babb-unit';
 import { TreeProvider } from '../providers/tree/tree';
+import { BabbDisProvider } from '../providers/babb-dis/babb-dis';
 
 import * as VConsole from 'vconsole';
-import { FileOpener } from '@ionic-native/file-opener';
+import { LoginPage } from '../pages/login/login';
 import { HomePage } from '../pages/home/home';
 import { UnitStatisticsPage } from '../pages/unit-statistics/unit-statistics';
 import { UnitPage } from '../pages/unit/unit';
@@ -46,6 +47,11 @@ import { HistoryFilePage } from '../pages/history-file/history-file';
 import { UserAddPage } from '../pages/user-add/user-add';
 import { UserUpdatePage } from '../pages/user-update/user-update';
 import { ModifyPasswordPage } from '../pages/modify-password/modify-password';
+import { UnitDisLeaderTablePage } from '../pages/unit-dis-leader-table/unit-dis-leader-table';
+import { UnitDisTablePage } from '../pages/unit-dis-table/unit-dis-table';
+import { UnitDistrictPage } from '../pages/unit-district/unit-district';
+import { UnitDisPersonTablePage } from '../pages/unit-dis-person-table/unit-dis-person-table';
+import { ConfigProvider } from '../providers/config/config';
 new VConsole();
 
 @NgModule({
@@ -71,7 +77,11 @@ new VConsole();
     AdminHomePage,
     UserAddPage,
     UserUpdatePage,
-    ModifyPasswordPage
+    ModifyPasswordPage,
+    UnitDisLeaderTablePage,
+    UnitDisTablePage,
+    UnitDistrictPage,
+    UnitDisPersonTablePage
   ],
   imports: [
     BrowserModule,
@@ -105,7 +115,11 @@ new VConsole();
     AdminHomePage,
     UserAddPage,
     UserUpdatePage,
-    ModifyPasswordPage
+    ModifyPasswordPage,
+    UnitDisLeaderTablePage,
+    UnitDisTablePage,
+    UnitDistrictPage,
+    UnitDisPersonTablePage
   ],
   providers: [
     StatusBar,
@@ -126,6 +140,8 @@ new VConsole();
     TreeProvider,
     FileOpener,
     FileProvider,
+    BabbDisProvider,
+    ConfigProvider
   ]
 })
 export class AppModule {}

@@ -1,197 +1,155 @@
-<!--
-  Generated template for the UnitDisLeaderTablePage page.
-
-  See http://ionicframework.com/docs/components/#navigation for more info on
-  Ionic pages and navigation.
--->
-
-<div class="table-wrapper">
+<div class="table-wrapper" avoid-super-tabs="true">
   <p>机关单位领导职数情况表</p>
   <table class="officeLeaderTable">
     <thead>
       <tr>
         <th rowspan="2" colspan="2"></th>
         <th rowspan="2">总职数</th>
-        <th [attr.colspan]="(disLeaderUnitfield.length)+1">单位领导职数</th>
-        <th [attr.colspan]="(disLeaderInstfield.length)+1">内下设机构领导职数</th>
+        <th [attr.colspan]="jgUnitLeaderCountList.length">单位领导职数</th>
+        <th [attr.colspan]="jgOrgLeaderCountList.length">内下设机构领导职数</th>
       </tr>
       <tr>
-        <th>小计</th>
-        <th *ngFor="let item of disLeaderUnitfield">{{item}}</th>
-        <th>小计</th>
-        <th *ngFor="let item of disLeaderInstfield">{{item}}</th>
+        <th *ngFor="let item of jgUnitLeaderCountList">{{item.duteLevelName}}</th>
+        <th *ngFor="let item of jgOrgLeaderCountList">{{item.duteLevelName}}</th>
       </tr>
     </thead>
     <tbody>
       <tr>
         <td rowspan="3">合计</td>
         <td>核定数</td>
-        <td>{{OffUnitLeaderCurCountDeOne}}</td>
-        <td *ngIf="OffUnitLeaderFieldArray.length!=0">{{OffUnitLeaderSmCurCountDeOne}}</td>
-        <td *ngFor="let item of OffUnitLeaderFieldArrays">{{item.CUR_COUNT}}</td>
-        <td *ngIf="OffInstLeaderFieldArray.length!=0">{{OffInstLeaderSmCurCountDeOne}}</td>
-        <td *ngFor="let item of OffInstLeaderFieldArrays">{{item.CUR_COUNT}}</td>
+        <td>{{jgLeaderSum.hjCurCount?jgLeaderSum.hjCurCount:0}}</td>
+        <td *ngFor="let item of jgUnitLeaderCountList">{{item.hjCurCount?item.hjCurCount:0}}</td>
+        <td *ngFor="let item of jgOrgLeaderCountList">{{item.hjCurCount?item.hjCurCount:0}}</td>
       </tr>
       <tr>
         <td>实有数</td>
-        <td>{{OffUnitLeaderInfactCountDeOne}}</td>
-        <td *ngIf="OffUnitLeaderFieldArray.length!=0">{{OffUnitLeaderSmInfactCountDeOne}}</td>
-        <td *ngFor="let item of OffUnitLeaderFieldArrays">{{item.INFACT_COUNT}}</td>
-        <td *ngIf="OffInstLeaderFieldArray.length!=0">{{OffInstLeaderSmInfactCountDeOne}}</td>
-        <td *ngFor="let item of OffInstLeaderFieldArrays">{{item.INFACT_COUNT}}</td>
+        <td>{{jgLeaderSum.hjInfactCount?jgLeaderSum.hjInfactCount:0}}</td>
+        <td *ngFor="let item of jgUnitLeaderCountList">{{item.hjInfactCount?item.hjInfactCount:0}}</td>
+        <td *ngFor="let item of jgOrgLeaderCountList">{{item.hjInfactCount?item.hjInfactCount:0}}</td>
       </tr>
       <tr>
         <td>空缺数</td>
-        <td>{{OffUnitLeaderFreeCountDeOne}}</td>
-        <td *ngIf="OffUnitLeaderFieldArray.length!=0">{{OffUnitLeaderSmFreeCountDeOne}}</td>
-        <td *ngFor="let item of OffUnitLeaderFieldArrays">{{item.FREE_COUNT}}</td>
-        <td *ngIf="OffInstLeaderFieldArray.length!=0">{{OffInstLeaderSmFreeCountDeOne}}</td>
-        <td *ngFor="let item of OffInstLeaderFieldArrays">{{item.FREE_COUNT}}</td>
+        <td>{{jgLeaderSum.hjFreeCount?jgLeaderSum.hjFreeCount:0}}</td>
+        <td *ngFor="let item of jgUnitLeaderCountList">{{item.hjFreeCount?item.hjFreeCount:0}}</td>
+        <td *ngFor="let item of jgOrgLeaderCountList">{{item.hjFreeCount?item.hjFreeCount:0}}</td>
       </tr>
+
       <tr>
         <td rowspan="3">区直</td>
         <td>核定数</td>
-        <td>{{OffUnitLeaderCurCountDeTwo}}</td>
-        <td *ngIf="OffUnitLeaderFieldArrayTwo.length!=0">{{OffUnitLeaderSmCurCountDeTwo}}</td>
-        <td *ngFor="let item of OffUnitLeaderFieldArrayTwos">{{item.CUR_COUNT}}</td>
-        <td *ngIf="OffInstLeaderFieldArrayTwo.length!=0">{{OffInstLeaderSmCurCountDeTwo}}</td>
-        <td *ngFor="let item of OffInstLeaderFieldArrayTwos">{{item.CUR_COUNT}}</td>
+        <td>{{jgLeaderSum.qzCurCount?jgLeaderSum.qzCurCount:0}}</td>
+        <td *ngFor="let item of jgUnitLeaderCountList">{{item.qzCurCount?item.qzCurCount:0}}</td>
+        <td *ngFor="let item of jgOrgLeaderCountList">{{item.qzCurCount?item.qzCurCount:0}}</td>
       </tr>
       <tr>
         <td>实有数</td>
-        <td>{{OffUnitLeaderInfactCountDeTwo}}</td>
-        <td *ngIf="OffUnitLeaderFieldArrayTwo.length!=0">{{OffUnitLeaderSmInfactCountDeTwo}}</td>
-        <td *ngFor="let item of OffUnitLeaderFieldArrayTwos">{{item.INFACT_COUNT}}</td>
-        <td *ngIf="OffInstLeaderFieldArrayTwo.length!=0">{{OffInstLeaderSmInfactCountDeTwo}}</td>
-        <td *ngFor="let item of OffInstLeaderFieldArrayTwos">{{item.INFACT_COUNT}}</td>
+        <td>{{jgLeaderSum.qzInfactCount?jgLeaderSum.qzInfactCount:0}}</td>
+        <td *ngFor="let item of jgUnitLeaderCountList">{{item.qzInfactCount?item.qzInfactCount:0}}</td>
+        <td *ngFor="let item of jgOrgLeaderCountList">{{item.qzInfactCount?item.qzInfactCount:0}}</td>
       </tr>
       <tr>
         <td>空缺数</td>
-        <td>{{OffUnitLeaderFreeCountDeTwo}}</td>
-        <td *ngIf="OffUnitLeaderFieldArrayTwo.length!=0">{{OffUnitLeaderSmFreeCountDeTwo}}</td>
-        <td *ngFor="let item of OffUnitLeaderFieldArrayTwos">{{item.FREE_COUNT}}</td>
-        <td *ngIf="OffInstLeaderFieldArrayTwo.length!=0">{{OffInstLeaderSmFreeCountDeTwo}}</td>
-        <td *ngFor="let item of OffInstLeaderFieldArrayTwos">{{item.FREE_COUNT}}</td>
+        <td>{{jgLeaderSum.qzFreeCount?jgLeaderSum.qzFreeCount:0}}</td>
+        <td *ngFor="let item of jgUnitLeaderCountList">{{item.qzFreeCount?item.qzFreeCount:0}}</td>
+        <td *ngFor="let item of jgOrgLeaderCountList">{{item.qzFreeCount?item.qzFreeCount:0}}</td>
       </tr>
+
       <tr>
         <td rowspan="3">街道</td>
         <td>核定数</td>
-        <td>{{OffUnitLeaderCurCountDeThree}}</td>
-        <td *ngIf="OffUnitLeaderFieldArrayThree.length!=0">{{OffUnitLeaderSmCurCountDeThree}}</td>
-        <td *ngFor="let item of OffUnitLeaderFieldArrayThrees">{{item.CUR_COUNT}}</td>
-        <td *ngIf="OffInstLeaderFieldArrayThree.length!=0">{{OffInstLeaderSmCurCountDeThree}}</td>
-        <td *ngFor="let item of OffInstLeaderFieldArrayThrees">{{item.CUR_COUNT}}</td>
+        <td>{{jgLeaderSum.jdCurCount?jgLeaderSum.jdCurCount:0}}</td>
+        <td *ngFor="let item of jgUnitLeaderCountList">{{item.jdCurCount?item.jdCurCount:0}}</td>
+        <td *ngFor="let item of jgOrgLeaderCountList">{{item.jdCurCount?item.jdCurCount:0}}</td>
       </tr>
       <tr>
         <td>实有数</td>
-        <td>{{OffUnitLeaderInfactCountDeThree}}</td>
-        <td *ngIf="OffUnitLeaderFieldArrayThree!=0">{{OffUnitLeaderSmInfactCountDeThree}}</td>
-        <td *ngFor="let item of OffUnitLeaderFieldArrayThrees">{{item.INFACT_COUNT}}</td>
-        <td *ngIf="OffInstLeaderFieldArrayThree.length!=0">{{OffInstLeaderSmInfactCountDeThree}}</td>
-        <td *ngFor="let item of OffInstLeaderFieldArrayThrees">{{item.INFACT_COUNT}}</td>
+        <td>{{jgLeaderSum.jdInfactCount?jgLeaderSum.jdInfactCount:0}}</td>
+        <td *ngFor="let item of jgUnitLeaderCountList">{{item.jdInfactCount?item.jdInfactCount:0}}</td>
+        <td *ngFor="let item of jgOrgLeaderCountList">{{item.jdInfactCount?item.jdInfactCount:0}}</td>
       </tr>
       <tr>
         <td>空缺数</td>
-        <td>{{OffUnitLeaderFreeCountDeThree}}</td>
-        <td *ngIf="OffUnitLeaderFieldArrayThree.length!=0">{{OffUnitLeaderSmFreeCountDeThree}}</td>
-        <td *ngFor="let item of OffUnitLeaderFieldArrayThrees">{{item.FREE_COUNT}}</td>
-        <td *ngIf="OffInstLeaderFieldArrayThree.length!=0">{{OffInstLeaderSmFreeCountDeThree}}</td>
-        <td *ngFor="let item of OffInstLeaderFieldArrayThrees">{{item.FREE_COUNT}}</td>
+        <td>{{jgLeaderSum.jdFreeCount?jgLeaderSum.jdFreeCount:0}}</td>
+        <td *ngFor="let item of jgUnitLeaderCountList">{{item.jdFreeCount?item.jdFreeCount:0}}</td>
+        <td *ngFor="let item of jgOrgLeaderCountList">{{item.jdFreeCount?item.jdFreeCount:0}}</td>
       </tr>
     </tbody>
   </table>
-
+</div>
+<div class="table-wrapper" avoid-super-tabs="true">
   <p>事业单位领导职数情况表</p>
   <table class="officeLeaderTable">
     <thead>
       <tr>
         <th rowspan="2" colspan="2"></th>
         <th rowspan="2">总职数</th>
-        <th [attr.colspan]="disCauLeaderUnitfield.length+1">单位领导职数</th>
-        <th [attr.colspan]="disCauLeaderInstfield.length+1">内下设机构领导职数</th>
+        <th [attr.colspan]="syUnitLeaderCountList.length">单位领导职数</th>
+        <th [attr.colspan]="syOrgLeaderCountList.length">内下设机构领导职数</th>
       </tr>
       <tr>
-        <th>小计</th>
-        <th *ngFor="let item of disCauLeaderUnitfield">{{item}}</th>
-        <th>小计</th>
-        <th *ngFor="let item of disCauLeaderInstfield">{{item}}</th>
+        <th *ngFor="let item of syUnitLeaderCountList">{{item.duteLevelName}}</th>
+        <th *ngFor="let item of syOrgLeaderCountList">{{item.duteLevelName}}</th>
       </tr>
     </thead>
     <tbody>
       <tr>
         <td rowspan="3">合计</td>
         <td>核定数</td>
-        <td>{{CauUnitLeaderCurCountDeOne}}</td>
-        <td>{{CauUnitLeaderSmCurCountDeOne}}</td>
-        <td *ngFor="let item of CauUnitLeaderFieldArrays">{{item.CUR_COUNT}}</td>
-        <td>{{CauInstLeaderSmCurCountDeOne}}</td>
-        <td *ngFor="let item of CauInstLeaderFieldArrays">{{item.CUR_COUNT}}</td>
+        <td>{{syLeaderSum.hjCurCount?syLeaderSum.hjCurCount:0}}</td>
+        <td *ngFor="let item of syUnitLeaderCountList">{{item.hjCurCount?item.hjCurCount:0}}</td>
+        <td *ngFor="let item of syOrgLeaderCountList">{{item.hjCurCount?item.hjCurCount:0}}</td>
       </tr>
       <tr>
         <td>实有数</td>
-        <td>{{CauUnitLeaderInfactCountDeOne}}</td>
-        <td>{{CauUnitLeaderSmInfactCountDeOne}}</td>
-        <td *ngFor="let item of CauUnitLeaderFieldArrays">{{item.INFACT_COUNT}}</td>
-        <td>{{CauInstLeaderSmInfactCountDeOne}}</td>
-        <td *ngFor="let item of CauInstLeaderFieldArrays">{{item.INFACT_COUNT}}</td>
+        <td>{{syLeaderSum.hjInfactCount?syLeaderSum.hjInfactCount:0}}</td>
+        <td *ngFor="let item of syUnitLeaderCountList">{{item.hjInfactCount?item.hjInfactCount:0}}</td>
+        <td *ngFor="let item of syOrgLeaderCountList">{{item.hjInfactCount?item.hjInfactCount:0}}</td>
       </tr>
       <tr>
         <td>空缺数</td>
-        <td>{{CauUnitLeaderFreeCountDeOne}}</td>
-        <td>{{CauUnitLeaderSmFreeCountDeOne}}</td>
-        <td *ngFor="let item of CauUnitLeaderFieldArrays">{{item.FREE_COUNT}}</td>
-        <td>{{CauInstLeaderSmFreeCountDeOne}}</td>
-        <td *ngFor="let item of CauInstLeaderFieldArrays">{{item.FREE_COUNT}}</td>
+        <td>{{syLeaderSum.hjFreeCount?syLeaderSum.hjFreeCount:0}}</td>
+        <td *ngFor="let item of syUnitLeaderCountList">{{item.hjFreeCount?item.hjFreeCount:0}}</td>
+        <td *ngFor="let item of syOrgLeaderCountList">{{item.hjFreeCount?item.hjFreeCount:0}}</td>
       </tr>
+
       <tr>
         <td rowspan="3">区直</td>
         <td>核定数</td>
-        <td>{{CauUnitLeaderCurCountDeTwo}}</td>
-        <td>{{CauUnitLeaderSmCurCountDeTwo}}</td>
-        <td *ngFor="let item of CauUnitLeaderFieldArrayTwos">{{item.CUR_COUNT}}</td>
-        <td>{{CauInstLeaderSmCurCountDeTwo}}</td>
-        <td *ngFor="let item of CauInstLeaderFieldArrayTwos">{{item.CUR_COUNT}}</td>
+        <td>{{syLeaderSum.qzCurCount?syLeaderSum.qzCurCount:0}}</td>
+        <td *ngFor="let item of syUnitLeaderCountList">{{item.qzCurCount?item.qzCurCount:0}}</td>
+        <td *ngFor="let item of syOrgLeaderCountList">{{item.qzCurCount?item.qzCurCount:0}}</td>
       </tr>
       <tr>
         <td>实有数</td>
-        <td>{{CauUnitLeaderInfactCountDeTwo}}</td>
-        <td>{{CauUnitLeaderSmInfactCountDeTwo}}</td>
-        <td *ngFor="let item of CauUnitLeaderFieldArrayTwos">{{item.INFACT_COUNT}}</td>
-        <td>{{CauInstLeaderSmInfactCountDeTwo}}</td>
-        <td *ngFor="let item of CauInstLeaderFieldArrayTwos">{{item.INFACT_COUNT}}</td>
+        <td>{{syLeaderSum.qzInfactCount?syLeaderSum.qzInfactCount:0}}</td>
+        <td *ngFor="let item of syUnitLeaderCountList">{{item.qzInfactCount?item.qzInfactCount:0}}</td>
+        <td *ngFor="let item of syOrgLeaderCountList">{{item.qzInfactCount?item.qzInfactCount:0}}</td>
       </tr>
       <tr>
         <td>空缺数</td>
-        <td>{{CauUnitLeaderFreeCountDeTwo}}</td>
-        <td>{{CauUnitLeaderSmFreeCountDeTwo}}</td>
-        <td *ngFor="let item of CauUnitLeaderFieldArrayTwos">{{item.FREE_COUNT}}</td>
-        <td>{{CauInstLeaderSmFreeCountDeTwo}}</td>
-        <td *ngFor="let item of CauInstLeaderFieldArrayTwos">{{item.FREE_COUNT}}</td>
+        <td>{{syLeaderSum.qzFreeCount?syLeaderSum.qzFreeCount:0}}</td>
+        <td *ngFor="let item of syUnitLeaderCountList">{{item.qzFreeCount?item.qzFreeCount:0}}</td>
+        <td *ngFor="let item of syOrgLeaderCountList">{{item.qzFreeCount?item.qzFreeCount:0}}</td>
       </tr>
+
       <tr>
         <td rowspan="3">街道</td>
         <td>核定数</td>
-        <td>{{CauUnitLeaderCurCountDeThree}}</td>
-        <td>{{CauUnitLeaderSmCurCountDeThree}}</td>
-        <td *ngFor="let item of CauUnitLeaderFieldArrayThrees">{{item.CUR_COUNT}}</td>
-        <td>{{CauInstLeaderSmCurCountDeThree}}</td>
-        <td *ngFor="let item of CauInstLeaderFieldArrayThrees">{{item.CUR_COUNT}}</td>
+        <td>{{syLeaderSum.jdCurCount?syLeaderSum.jdCurCount:0}}</td>
+        <td *ngFor="let item of syUnitLeaderCountList">{{item.jdCurCount?item.jdCurCount:0}}</td>
+        <td *ngFor="let item of syOrgLeaderCountList">{{item.jdCurCount?item.jdCurCount:0}}</td>
       </tr>
       <tr>
         <td>实有数</td>
-        <td>{{CauUnitLeaderInfactCountDeThree}}</td>
-        <td>{{CauUnitLeaderSmCurCountDeThree}}</td>
-        <td *ngFor="let item of CauUnitLeaderFieldArrayThrees">{{item.INFACT_COUNT}}</td>
-        <td>{{CauInstLeaderSmCurCountDeThree}}</td>
-        <td *ngFor="let item of CauInstLeaderFieldArrayThrees">{{item.INFACT_COUNT}}</td>
+        <td>{{syLeaderSum.jdInfactCount?syLeaderSum.jdInfactCount:0}}</td>
+        <td *ngFor="let item of syUnitLeaderCountList">{{item.jdInfactCount?item.jdInfactCount:0}}</td>
+        <td *ngFor="let item of syOrgLeaderCountList">{{item.jdInfactCount?item.jdInfactCount:0}}</td>
       </tr>
       <tr>
         <td>空缺数</td>
-        <td>{{CauUnitLeaderFreeCountDeThree}}</td>
-        <td>{{CauUnitLeaderSmCurCountDeThree}}</td>
-        <td *ngFor="let item of CauUnitLeaderFieldArrayThrees">{{item.FREE_COUNT}}</td>
-        <td>{{CauInstLeaderSmCurCountDeThree}}</td>
-        <td *ngFor="let item of CauInstLeaderFieldArrayThrees">{{item.FREE_COUNT}}</td>
+        <td>{{syLeaderSum.jdFreeCount?syLeaderSum.jdFreeCount:0}}</td>
+        <td *ngFor="let item of syUnitLeaderCountList">{{item.jdFreeCount?item.jdFreeCount:0}}</td>
+        <td *ngFor="let item of syOrgLeaderCountList">{{item.jdFreeCount?item.jdFreeCount:0}}</td>
       </tr>
     </tbody>
   </table>

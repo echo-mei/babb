@@ -25,6 +25,11 @@ export class UnitStatisticsPage {
     this.getSyUnitsByBudget();
   }
 
+  // 点击跳到主页
+  onClickHome() {
+    this.navCtrl.popToRoot();
+  }
+
   gUnitChart() {
     this.babbUnitProvider.statisticsUnitByKind().then(res => {
       let data = [];
@@ -71,7 +76,8 @@ export class UnitStatisticsPage {
           radius: ['50%', '80%'],
           avoidLabelOverlap: false,
           label: {
-            show: false
+            show: true,
+            formatter: '{d}%'
           },
           data: data
         }]
@@ -132,7 +138,8 @@ export class UnitStatisticsPage {
           radius: ['50%', '80%'],
           avoidLabelOverlap: false,
           label: {
-            show: false
+            show: true,
+            formatter: '{d}%'
           },
           data: data
         }]
@@ -187,7 +194,8 @@ export class UnitStatisticsPage {
           radius: ['50%', '80%'],
           avoidLabelOverlap: false,
           label: {
-            show: false
+            show: true,
+            formatter: '{d}%'
           },
           data: data
         }]

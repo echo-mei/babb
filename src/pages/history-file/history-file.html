@@ -11,10 +11,14 @@
 
 <ion-content >
   <ion-list inset>
-    <ion-item class="myTitle">
-      <p>历史沿革</p>
-    </ion-item>
-    <ion-item *ngFor="let fileName of newList" (click)="fileOpen(fileName)">{{ fileName.fileTitle }}</ion-item>
-    <div></div>
+    <div [hidden]="!fileList[0]">
+      <ion-item class="myTitle">
+        <p>历史沿革</p>
+      </ion-item>
+      <ion-item *ngFor="let fileName of newList" (click)="fileOpen(fileName)"><p [innerHTML]="fileName.FILE_NAME | highLight:key"></p></ion-item>
+      <div></div>
+    </div>
+    
+    <div [hidden]="fileList[0]" class="notFound">暂无历史沿革文件</div>
   </ion-list>
 </ion-content>

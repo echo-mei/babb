@@ -1,4 +1,9 @@
 page-home {
+  .version-info {
+    position: absolute;
+    right: 0;
+    padding: 5px;
+  }
   .home-wrapper {
     display: flex;
     height: 100%;

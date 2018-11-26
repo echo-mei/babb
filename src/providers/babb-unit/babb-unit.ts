@@ -12,6 +12,17 @@ export class BabbUnitProvider {
   ) {
   }
 
+  getVersion(): Promise<any> {
+    const sql = `
+      select max(create_date) as createDate from pad_data_create_info
+    `;
+    return new Promise((resolve, reject) => {
+      this.db.select(sql).then(rows => {
+        resolve(rows[0].createDate);
+      }).catch(reject);
+    });
+  }
+
   // 获取单位树
   getUnitTree(): Promise<any> {
     // const sql = `WITH RECURSIVE
@@ -111,7 +122,8 @@ export class BabbUnitProvider {
         LEVEL_NAME as levelName
       FROM PAD_UNIT_STATISTICS
       WHERE UNIT_KIND = 103
-      GROUP BY UNIT_KIND, LEVEL_CODE`;
+      GROUP BY UNIT_KIND, LEVEL_CODE
+      ORDER BY LEVEL_CODE desc`;
     return this.db.select(sql);
   }
 
@@ -230,7 +242,8 @@ export class BabbUnitProvider {
           UNIT_NAME,
           UNIT_OID
         FROM PAD_BASE_UNIT
-        WHERE UNIT_NAME like '%${key}%' AND (UNIT_OID IN (select UNIT_OID from PAD_BASE_UNIT_HC where  cur_count >= ${sNum} and cur_count <= ${bNum}))`
+        WHERE UNIT_NAME like '%${key}%' AND (UNIT_OID IN (select UNIT_OID from PAD_BASE_UNIT_HC where  cur_count >= ${sNum} and cur_count <= ${bNum}))`;
+        console.log(defaultSql, 'd')
         return this.db.select(defaultSql);
       } else {
         let defaultSql = `
@@ -238,7 +251,8 @@ export class BabbUnitProvider {
           UNIT_NAME,
           UNIT_OID
         FROM PAD_BASE_UNIT
-        WHERE UNIT_NAME like '%${key}%'`
+        WHERE UNIT_NAME like '%${key}%'`;
+        console.log(defaultSql, 'ddd')
         return this.db.select(defaultSql);
       }
     } else {
@@ -249,41 +263,76 @@ export class BabbUnitProvider {
         FROM PAD_BASE_UNIT
         WHERE UNIT_NAME like '%${key}%' AND (`;
       let sql2 = ``;
-      // 循环itemlist[0] 然后取单个进行拼接
       if (itemList[0].length > 0) { // UNIT_CATEGORY_CODE
+        // itemList[0].forEach((item, index, list) => {
+        //   sql2 += sql2 ? ` OR UNIT_CATEGORY_CODE IN (${item.dicItemCode})` : ` UNIT_CATEGORY_CODE IN (${item.dicItemCode})`;
+        // })
+        let ins = '';
         itemList[0].forEach((item, index, list) => {
-          sql2 += sql2 ? ` OR UNIT_CATEGORY_CODE IN (${item.dicItemCode})` : ` UNIT_CATEGORY_CODE IN (${item.dicItemCode})`;
-        })
+          ins += item.dicItemCode+',';
+        });
+        ins = ins.substr(0, ins.length-1);
+        sql2 += sql2 ? ` AND UNIT_CATEGORY_CODE IN (${ins})` : ` UNIT_CATEGORY_CODE IN (${ins})`;
       }
       if (itemList[1].length > 0) { // UNIT_KIND
+        // itemList[1].forEach((item, index, list) => {
+        //   sql2 += sql2 ? ` OR UNIT_KIND IN (${item.dicItemCode})` : ` UNIT_KIND IN (${item.dicItemCode})`;
+        // })
+        let ins = '';
         itemList[1].forEach((item, index, list) => {
-          sql2 += sql2 ? ` OR UNIT_KIND IN (${item.dicItemCode})` : ` UNIT_KIND IN (${item.dicItemCode})`;
-        })
+          ins += item.dicItemCode+',';
+        });
+        ins = ins.substr(0, ins.length-1);
+        sql2 += sql2 ? ` AND UNIT_KIND IN (${ins})` : ` UNIT_KIND IN (${ins})`;
       }
       if (itemList[2].length > 0) { // LEVEL_CODE
+        // itemList[2].forEach((item, index, list) => {
+        //   sql2 += sql2 ? ` OR LEVEL_CODE IN (${item.dicItemCode})` : ` LEVEL_CODE IN (${item.dicItemCode})`;
+        // })
+        let ins = '';
         itemList[2].forEach((item, index, list) => {
-          sql2 += sql2 ? ` OR LEVEL_CODE IN (${item.dicItemCode})` : ` LEVEL_CODE IN (${item.dicItemCode})`;
-        })
+          ins += item.dicItemCode+',';
+        });
+        ins = ins.substr(0, ins.length-1);
+        sql2 += sql2 ? ` AND LEVEL_CODE IN (${ins})` : ` LEVEL_CODE IN (${ins})`;
       }
 
-      if (itemList[4].length > 0) { // LEVEL_CODE
+      if (itemList[4].length > 0) { // BUDGET_FROM_CODE
+        // itemList[4].forEach((item, index, list) => {
+        //   sql2 += sql2 ? ` OR BUDGET_FROM_CODE IN (${item.dicItemCode})` : ` BUDGET_FROM_CODE IN (${item.dicItemCode})`;
+        // })
+        let ins = '';
         itemList[4].forEach((item, index, list) => {
-          sql2 += sql2 ? ` OR BUDGET_FROM_CODE IN (${item.dicItemCode})` : ` BUDGET_FROM_CODE IN (${item.dicItemCode})`;
-        })
+          ins += item.dicItemCode+',';
+        });
+        ins = ins.substr(0, ins.length-1);
+        sql2 += sql2 ? ` AND BUDGET_FROM_CODE IN (${ins})` : ` BUDGET_FROM_CODE IN (${ins})`;
       }
-      if (itemList[5].length > 0) { // LEVEL_CODE
+      if (itemList[5].length > 0) { // UNIT_OID
+        // itemList[5].forEach((item, index, list) => {
+        //   sql2 += sql2 ? ` OR UNIT_TYPE_BIZ_CODE IN (${item.dicItemCode})` : ` UNIT_TYPE_BIZ_CODE IN (${item.dicItemCode})`;
+        // })
+        let ins = '';
         itemList[5].forEach((item, index, list) => {
-          sql2 += sql2 ? ` OR UNIT_TYPE_BIZ_CODE IN (${item.dicItemCode})` : ` UNIT_TYPE_BIZ_CODE IN (${item.dicItemCode})`;
-        })
+          ins += item.dicItemCode+',';
+        });
+        ins = ins.substr(0, ins.length-1);
+        sql2 += sql2 ? ` AND UNIT_TYPE_BIZ_CODE IN (${ins})` : ` UNIT_TYPE_BIZ_CODE IN (${ins})`;
       }
       if (itemList[3].length > 0) { // LEVEL_CODE
+        // itemList[3].forEach((item, index, list) => {
+        //   sql2 += sql2 ? ` OR UNIT_OID IN (select UNIT_OID from PAD_BASE_UNIT_HC where HC_OID IN (${item.dicItemCode}) and cur_count >= ${sNum} and cur_count <= ${bNum})` : ` UNIT_OID IN (select UNIT_OID from PAD_BASE_UNIT_HC where HC_OID IN (${item.dicItemCode}) and cur_count >= ${sNum} and cur_count <= ${bNum})`;
+        // })
+        let ins = '';
         itemList[3].forEach((item, index, list) => {
-          sql2 += sql2 ? ` OR UNIT_OID IN (select UNIT_OID from PAD_BASE_UNIT_HC where HC_OID IN (${item.dicItemCode}) and cur_count >= ${sNum} and cur_count <= ${bNum})` : ` UNIT_OID IN (select UNIT_OID from PAD_BASE_UNIT_HC where HC_OID IN (${item.dicItemCode}) and cur_count >= ${sNum} and cur_count <= ${bNum})`;
-        })
+          ins += item.dicItemCode+',';
+        });
+        ins = ins.substr(0, ins.length-1);
+        sql2 += sql2 ? ` AND UNIT_OID IN (select UNIT_OID from PAD_BASE_UNIT_HC where HC_OID IN (${ins}) and cur_count >= ${sNum} and cur_count <= ${bNum})` : ` UNIT_OID IN (select UNIT_OID from PAD_BASE_UNIT_HC where HC_OID IN (${ins}) and cur_count >= ${sNum} and cur_count <= ${bNum})`;
       }
-      let sqlAnd = `AND (`
       let sql1 = `)`;
       let sql3 = sql + sql2 + sql1;
+      console.log(sql3)
       return this.db.select(sql3);
     }
   }
@@ -324,12 +373,26 @@ export class BabbUnitProvider {
   getGwDetailList(unitGwOid): Promise<any> {
     const sql = `
       SELECT
-        UNIT_GW_DEATIL_OID as unitGwDetailOid,
+        UNIT_GW_DETAIL_OID as unitGwDetailOid,
         UNIT_GW_OID as unitGwOid,
         GW_NAME as gwName,
         CUR_COUNT as curCount,
         ORDER_OF_ALL as orderOfAll
-      FROM PAD_BASE_UNIT_GW_DETAIL WHERE UNIT_GW_OID = ${unitGwOid}`
+      FROM PAD_BASE_UNIT_GW_DETAIL WHERE UNIT_GW_OID = ${unitGwOid}`;
+    return this.db.select(sql);
+  }
+
+  // 三定文件
+  getThreeFile(uid): Promise<any> {
+    const sql = `SELECT *
+    FROM PAD_GOV_FILE where UNIT_OID = ${uid} AND GOV_FILE_TYPE = 1`;
+    return this.db.select(sql);
+  }
+
+  // 三定文件
+  getHistoryFile(uid): Promise<any> {
+    const sql = `SELECT *
+    FROM PAD_GOV_FILE where UNIT_OID = ${uid} AND GOV_FILE_TYPE = 2`;
     return this.db.select(sql);
   }
 

@@ -16,7 +16,7 @@ page-history-file {
             z-index: 1000;
             color: #7a7a80;
             top: 50%;
-            margin-top: px(-39);
+            margin-top: px(-19);
             left: px(75);
         }
         .inputCon {
@@ -57,6 +57,10 @@ page-history-file {
                 margin: 18px 8px 23px 0;
                 white-space: normal;
             }
+            p {
+                font-size: px(60);
+                color: #000;
+            }
         }
         .myTitle {
             text-align: center;
@@ -69,6 +73,12 @@ page-history-file {
             .label {
                 margin: 20px 8px 25px 0;
             }
+        }
+        .notFound {
+            width: 100%;
+            text-align: center;
+            margin-top: 180px;
+            font-size: px(60);
         }
     }
 

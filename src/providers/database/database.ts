@@ -4,6 +4,7 @@ import { SqliteDbCopy } from '@ionic-native/sqlite-db-copy';
 import { File } from '@ionic-native/file';
 import { Platform } from 'ionic-angular';
 import { INIT_SQL } from './sql';
+import { ConfigProvider } from '../config/config';
 
 const DB_LOCATION = 'default';
 
@@ -109,26 +110,24 @@ export class DatabaseProvider {
 
   private win: any = window;
 
-  private DB_NAME = 'BA_DATA.db';
-  private DB_LOCATION = 'default';
-
   private db: SQLiteObject;
   constructor(
     protected sqlite: SQLite,
     protected sqliteDbCopy: SqliteDbCopy,
     protected file: File,
-    protected platform: Platform
+    protected platform: Platform,
+    protected configProvider: ConfigProvider
   ) {
   }
 
   initDatabase(): Promise<any> {
     return new Promise((resolve, reject) => {
       if (this.platform.is('cordova')) {
-        this.sqliteDbCopy.checkDbOnStorage(this.DB_NAME, this.file.externalRootDirectory).then(
+        this.sqliteDbCopy.checkDbOnStorage(this.configProvider.DB_FILE_NAME, this.configProvider.DB_FILE_LOCATION).then(
           () => {
             this.sqlite.deleteDatabase({
-              name: this.DB_NAME,
-              location: this.DB_LOCATION
+              name: this.configProvider.DB_NAME,
+              location: this.configProvider.DB_LOCATION
             }).then(
               () => {
                 this.copyDatabase().then(resolve).catch(reject);
@@ -146,7 +145,7 @@ export class DatabaseProvider {
           }
         );
       } else {
-        this.db = this.win.openDatabase(this.DB_NAME, '1.0', this.DB_NAME, 10 * 1024 * 1024);
+        this.db = this.win.openDatabase(this.configProvider.DB_NAME, '1.0', this.configProvider.DB_NAME, 10 * 1024 * 1024);
 
         // String.prototype.trim = function() {
         //   return this.replace(/^\s\s*/, '').replace(/\s\s*$/, '');
@@ -175,9 +174,9 @@ export class DatabaseProvider {
 
   copyDatabase(): Promise<any> {
     return new Promise((resolve, reject) => {
-      this.sqliteDbCopy.copyDbFromStorage(this.DB_NAME, 0, this.file.externalRootDirectory + this.DB_NAME, false).then(
+      this.sqliteDbCopy.copyDbFromStorage(this.configProvider.DB_NAME, 0, this.configProvider.DB_FILE_LOCATION + this.configProvider.DB_FILE_NAME, false).then(
         () => {
-          this.file.removeFile(this.file.externalRootDirectory, this.DB_NAME);
+          this.file.removeFile(this.configProvider.DB_FILE_LOCATION, this.configProvider.DB_FILE_NAME);
           this.openDatabase().then(resolve).catch(reject);
         }
       ).catch(
@@ -192,8 +191,8 @@ export class DatabaseProvider {
   openDatabase(): Promise<any> {
     return new Promise((resolve, reject) => {
       this.sqlite.create({
-        name: this.DB_NAME,
-        location: this.DB_LOCATION
+        name: this.configProvider.DB_NAME,
+        location: this.configProvider.DB_LOCATION
       }).then(db => {
         this.db = db;
         resolve(db);

@@ -76,7 +76,48 @@ page-unit-search {
     .notFound {
         width: 100%;
         text-align: center;
-        margin-top: 250px;
-        font-size: 25px;
+        margin-top: 180px;
+        font-size: px(60);
     }
+    .clearStorage {
+        height: px(120);
+        line-height: px(120);
+        font-size: px(50);
+        color: red;
+    }
+    ion-item-options .button {
+        padding: 0 2.5rem;
+    }
+    ion-item-options .button:last-child {
+        padding-right: 2.5rem;
+    }
+// .alert-md .alert-message {
+//   font-size: px(58);
+//   color: #565656;
+//   padding-top: 24px;
+// }
+// .alert-head {
+//   display: none;
+// }
+// .alert-md .alert-button-group {
+//   padding: 0;
+//   justify-content: space-around;
+//   border-top: 1px solid #999;
+  
+//   .alert-button {
+//     flex: 1;
+//     text-align: center;
+//     margin-right: 0;
+//     border-radius: 0;
+//     .button-inner {
+//       justify-content: center;
+//       font-size: px(45);
+//       color: #575757;
+//     }
+//   }
+//   .alert-button:nth-child(1) {
+//     border-right: 1px solid #999;
+//   }
+// }
+    
 }

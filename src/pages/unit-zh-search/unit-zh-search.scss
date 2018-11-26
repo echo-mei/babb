@@ -112,7 +112,7 @@ page-unit-zh-search {
                 font-size: px(78);
                 z-index: 1000;
                 color: #7a7a80;
-                top: px(215);
+                top: px(250);
                 left: px(30);
                 margin-top: px(-19);
             }
@@ -154,12 +154,15 @@ page-unit-zh-search {
             border: 1px solid #c9161f;
         }
         .button.activated {
-            background-color: #c9161f;
+            background-color: #c9161f !important;
             color: #ffe487;
         }
         .searchBtn {
             background-color: #c9161f;
             color: #ffe487;
+        }
+        .button-md:hover:not(.disable-hover) {
+            background-color: #fff;
         }
     }
 }

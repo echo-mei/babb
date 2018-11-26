@@ -32,6 +32,7 @@ export class UnitPage {
     }else {
       this.babbUnitProvider.getUnit(this.unit.unitOid).then(res => {
         this.unit = res;
+        console.log(this.unit)
       });
     }
 
@@ -46,7 +47,8 @@ export class UnitPage {
   onClickUnitFunction() {
     this.navCtrl.push(UnitFuntionPage, {
       unitName: this.unit.unitName,
-      unitFunction: this.unit.unitFunction
+      unitFunction: this.unit.unitFunction,
+      type:1
     });
   }
 
@@ -79,11 +81,15 @@ export class UnitPage {
 
   // 三定文件
   onClickThreeFile() {
-    this.navCtrl.push(ThreeFilePage);
+    this.navCtrl.push(ThreeFilePage, {
+      unit: this.unit
+    });
   }
 
   // 历史沿革
   onClickHistory() {
-    this.navCtrl.push(HistoryFilePage);
+    this.navCtrl.push(HistoryFilePage, {
+      unit: this.unit
+    });
   }
 }

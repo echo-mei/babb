@@ -19,7 +19,14 @@
         <ion-label>姓名:</ion-label>
         <ion-input type="text" formControlName="userName" placeholder="请输入用户姓名"></ion-input>
       </ion-item>
+      <ion-item>
+        <ion-label>用户类型:</ion-label>
+        <ion-select type="text" formControlName="userType" placeholder="请选择用户类型" okText="确定" cancelText="取消">
+          <ion-option value=1>管理员</ion-option>
+          <ion-option value=2>普通用户</ion-option>
+        </ion-select>
+      </ion-item>
     </ion-list>
-    <button class="post-button" ion-button block (click)="onClickAdd()" [disabled]="userForm.invalid">创建用户</button>
+    <button class="post-button" ion-button block (click)="onClickAdd()" [disabled]="userForm.invalid">保存</button>
   </form>
 </ion-content>

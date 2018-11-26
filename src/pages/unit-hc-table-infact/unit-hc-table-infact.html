@@ -5,43 +5,46 @@
   Ionic pages and navigation.
 -->
 <ion-header no-border>
-    <ion-navbar>
-      <ion-title>{{unit.unitName}}</ion-title>
-      <ion-buttons end (click)="onClickHome()">
-        <button ion-button icon-only>
-          <ion-icon name="md-shouye1"></ion-icon>
-        </button>
-      </ion-buttons>
-    </ion-navbar>
-  </ion-header>
+  <ion-navbar>
+    <ion-title>{{unit.unitName}}</ion-title>
+    <ion-buttons end (click)="onClickHome()">
+      <button ion-button icon-only>
+        <ion-icon name="md-shouye1"></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+</ion-header>
 
 
 <ion-content>
-    <div class="unit-hc-wrap">
-  <h2 class="unit-hc-title">实有人员信息</h2>
-  <table class="unit-hc-table" border="1">
-    <thead>
-      <tr>
-        <th>序号</th>
-        <th>姓名</th>
-        <th>性别</th>
-        <th>所在单位</th>
-        <th>职务层次</th>
-        <th>职务属性</th>
-        <th>编制类型</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let person of personList;let i=index;">
-        <td>{{i+1}}</td>
-        <td>{{person.name}}</td>
-        <td>{{person.sexCodeName}}</td>
-        <td>{{person.unitName}}</td>
-        <td>{{person.administrativeDutyLevelName}}</td>
-        <td>{{person.dutyAttributeBzName}}</td>
-        <td>{{person.dPositionTypeName}}</td>
-      </tr>
-    </tbody>
-  </table>
+  <div class="unit-hc-wrap">
+    <h2 class="unit-hc-title">实有人员信息</h2>
+    <div class="unit-hc-table-wrap">
+      <table class="unit-hc-table" border="1">
+        <thead>
+          <tr>
+            <th class="num">序号</th>
+            <th class="name">姓名</th>
+            <th class="sex">性别</th>
+            <th class="unit">所在单位</th>
+            <th class="level">职务层次</th>
+            <th class="property">职务属性</th>
+            <th class="hctype">编制类型</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let person of personList;let i=index;">
+            <td class="num">{{i+1}}</td>
+            <td class="name">{{person.name}}</td>
+            <td class="sex">{{person.sexCodeName}}</td>
+            <td class="unit">{{person.unitName}}</td>
+            <td class="level">{{person.administrativeDutyLevelName}}</td>
+            <td class="property">{{person.dutyAttributeBzName}}</td>
+            <td class="hctype">{{person.dPositionTypeName}}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
   </div>
 </ion-content>

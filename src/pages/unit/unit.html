@@ -63,7 +63,7 @@
       </svg>
       <h2>内设机构</h2>
     </div>
-    <div class="ug-item" *ngIf="unit.unitKind == 3" (click)="onClickUnitInterUnit()">
+    <div class="ug-item" *ngIf="unit.unitKind != 3" (click)="onClickUnitInterUnit()">
       <svg class="icon" aria-hidden="true">
         <use xlink:href="#ion-md-xiashejigou"></use>
       </svg>

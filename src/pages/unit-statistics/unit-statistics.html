@@ -2,6 +2,11 @@
 
   <ion-navbar>
     <ion-title>区机构数统计</ion-title>
+    <ion-buttons end>
+      <button ion-button icon-only (click)="onClickHome()">
+        <ion-icon name="md-shouye1"></ion-icon>
+      </button>
+    </ion-buttons>
   </ion-navbar>
 
 </ion-header>
@@ -12,34 +17,34 @@
   <div class="unit-wrapper">
     <div id="unit"></div>
   </div>
-  <div class="title">事业单位数量情况<span>(按最高行政管理岗位等级分类)</span></div>
-  <div class="unit-wrapper">
-    <div id="sy-unit-level"></div>
-  </div>
   <div class="title">单位数统计</div>
   <div class="unit-wrapper">
     <table class="unit-table">
       <tr class="table-header">
         <td></td>
-        <td *ngFor="let category of categoryList">{{category.unitCategoryName}}</td>
+        <td *ngFor="let category of categoryList">{{category.unitCategoryName?category.unitCategoryName:0}}</td>
       </tr>
       <tr>
         <td>机关</td>
-        <td *ngFor="let category of categoryList">{{category.jgCount}}</td>
+        <td *ngFor="let category of categoryList">{{category.jgCount?category.jgCount:0}}</td>
       </tr>
       <tr>
         <td>事业</td>
-        <td *ngFor="let category of categoryList">{{category.syCount}}</td>
+        <td *ngFor="let category of categoryList">{{category.syCount?category.syCount:0}}</td>
       </tr>
       <tr>
         <td>参公</td>
-        <td *ngFor="let category of categoryList">{{category.cgCount}}</td>
+        <td *ngFor="let category of categoryList">{{category.cgCount?category.cgCount:0}}</td>
       </tr>
       <tr>
         <td>总计</td>
-        <td *ngFor="let category of categoryList">{{category.sumCount}}</td>
+        <td *ngFor="let category of categoryList">{{category.sumCount?category.sumCount:0}}</td>
       </tr>
     </table>
+  </div>
+  <div class="title">事业单位数量情况<span>(按最高行政管理岗位等级分类)</span></div>
+  <div class="unit-wrapper">
+    <div id="sy-unit-level"></div>
   </div>
   <div class="title">事业单位数量情况<span>(按经费形式划分)</span></div>
   <div class="unit-wrapper">

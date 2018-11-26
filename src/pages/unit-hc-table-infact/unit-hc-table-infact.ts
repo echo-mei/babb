@@ -16,6 +16,7 @@ export class UnitHcTableInfactPage {
   hcInfactFunc: any;
   // 编制实有数人员列表
   personList: Array<Object> = [];
+
   constructor(public navCtrl: NavController, public navParams: NavParams,
     public babbUnitProvider: BabbUnitProvider) {
     this.unit = this.navParams.get("unit");
@@ -26,7 +27,7 @@ export class UnitHcTableInfactPage {
 
   // 获取单位职数的实有人数详情
   getUnitHcInfact() {
-    this.babbUnitProvider[this.hcInfactFunc](this.unit.unitOid,this.hc.hcOid).then(res => {
+    this.babbUnitProvider[this.hcInfactFunc](this.unit.unitOid, this.hc.hcOid).then(res => {
       this.personList = res;
     });
   }
@@ -35,4 +36,6 @@ export class UnitHcTableInfactPage {
   onClickHome() {
     this.navCtrl.popToRoot();
   }
+
+
 }

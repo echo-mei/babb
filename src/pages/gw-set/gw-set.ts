@@ -73,10 +73,12 @@ export class GwSetPage {
           if(children&&children.length) {
             let n = {
               orgName: '内设机构',
+              orgType: 1,
               children: []
             };
             let x = {
               orgName: '下设机构',
+              orgType: 2,
               children: []
             };
             children.forEach((c) => {
@@ -85,10 +87,16 @@ export class GwSetPage {
               }
               if(c.orgType==2) {
                 x.children.push(c);
+                reBuild(c);
               }
-              reBuild(c);
             });
-            node.children = [n, x];
+            node.children = [];
+            if(n.children.length) {
+              node.children.push(n);
+            }
+            if(x.children.length) {
+              node.children.push(x);
+            }
           }
         }
         reBuild(data[0]);
@@ -116,6 +124,17 @@ export class GwSetPage {
             });
             r += '</table>';
             return r;
+          },
+          titleStyle: function(nodeData) {
+            if(nodeData.orgType==0) {
+              return 'background: linear-gradient(to right, #ff5c55, #ff9a85)';
+            }
+            if(nodeData.orgType==1) {
+              return 'background: linear-gradient(to right, #5e8bfe, #84b5ff)';
+            }
+            if(nodeData.orgType==2) {
+              return 'background: linear-gradient(to right, #fba47a, #f7c06a)';
+            }
           },
           data: data[0]
         });

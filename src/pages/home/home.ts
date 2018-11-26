@@ -10,12 +10,15 @@ import { UnitZhSearchPage } from '../unit-zh-search/unit-zh-search';
 
 import { UNIT_CATEGORY } from '../../providers/babb-dic/babb-dic';
 import { ModifyPasswordPage } from '../modify-password/modify-password';
+import { UnitDistrictPage } from '../unit-district/unit-district';
 
 @Component({
   selector: 'page-home',
   templateUrl: 'home.html',
 })
 export class HomePage {
+
+  versionInfo: string = '';
 
   // 右侧树
   tree: any[];
@@ -29,6 +32,11 @@ export class HomePage {
   ) {
     this.user = this.navParams.get("user");
     this.getUnitTree();
+    this.babbUnitProvider.getVersion().then(
+      data => {
+        this.versionInfo = data;
+      }
+    );
   }
 
   getUnitTree() {
@@ -59,6 +67,10 @@ export class HomePage {
 
   toUnitSearch() {
     this.navCtrl.push(UnitSearchPage);
+  }
+
+  goUnitDistrict() {
+    this.navCtrl.push(UnitDistrictPage);
   }
 
   // 点击修改密码

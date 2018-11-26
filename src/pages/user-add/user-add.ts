@@ -25,15 +25,16 @@ export class UserAddPage {
       this.onUpdate = this.navParams.get('onUpdate');
       this.userForm = this.formBuilder.group({
         userId: ['', Validators.compose([Validators.required])],
-        userName: ['', Validators.compose([Validators.required])]
+        userName: ['', Validators.compose([Validators.required])],
+        userType: [2, Validators.compose([Validators.required])]
       });
   }
 
   onClickAdd(){
-    this.babbUserProvider.addUser(
-      this.userForm.controls['userId'].value,
-      this.userForm.controls['userName'].value
-    ).then(()=>{
+    let params = {
+      ...this.userForm.value
+    }
+    this.babbUserProvider.addUser(params).then(()=>{
         this.toastCtrl.create({
           cssClass: 'mini',
           position: 'middle',

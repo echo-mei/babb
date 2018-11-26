@@ -12,10 +12,13 @@ export class UnitFuntionPage {
   unitName: any;
   // 单位职能
   unitFunction: any;
+  // 单位类型:1是单位 2是内设机构
+  type:any;
   constructor(public navCtrl: NavController,
     public navParams: NavParams) {
     this.unitName = this.navParams.get("unitName");
     this.unitFunction = this.navParams.get("unitFunction");
+    this.type = this.navParams.get("type");
   }
 
   // 点击跳到主页

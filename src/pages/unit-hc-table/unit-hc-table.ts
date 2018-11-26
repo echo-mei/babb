@@ -25,6 +25,7 @@ export class UnitHcTablePage {
   hcList: Array<Object> = [];
   // 职数列表
   leaderList: Array<Object> = [];
+  aviodSuperHcFlag = false;
 
   constructor(public navCtrl: NavController,
     public navParams: NavParams,
@@ -75,5 +76,9 @@ export class UnitHcTablePage {
       hc: hc,
       hcFrzFunc: this.hcFrzFunc
     })
+  }
+
+  aviodSuperJudge(wrap){
+    return (wrap.clientWidth < wrap.scrollWidth)?(wrap.clientWidth < wrap.scrollWidth):null;
   }
 }

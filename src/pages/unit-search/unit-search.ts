@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, AlertController } from 'ionic-angular';
 import { BabbUnitProvider } from '../../providers/babb-unit/babb-unit';
 import { StorageProvider } from '../../providers/storage/storage';
 import { UnitPage } from '../unit/unit';
@@ -17,8 +17,16 @@ export class UnitSearchPage {
     public navCtrl: NavController,
     public navParams: NavParams,
     public babbUnitProvider: BabbUnitProvider,
-    public storage: StorageProvider
+    public storage: StorageProvider,
+    public alerter: AlertController
   ) {
+    this.hasStorage();
+  }
+
+  hasStorage() {
+    if(!this.storage.historyUnitList) {
+      this.storage.historyUnitList = [];
+    }
   }
 
   search() {
@@ -51,4 +59,30 @@ export class UnitSearchPage {
     });
   }
 
+  clearStorage() {
+    const alertCon = this.alerter.create({
+      message: '确定清空历史记录？',
+      buttons: [
+        {
+          text: '确定',
+          handler: () => {
+            this.storage.historyUnitList = [];
+          }
+        },
+        {
+          text: '取消',
+          handler: () => {
+            
+          }
+        }
+      ]
+    });
+    alertCon.present();
+  }
+
+  delectItem(index) {
+    let hisList = this.storage.historyUnitList;
+    hisList.splice(index, 1);
+    this.storage.historyUnitList = hisList;
+  }
 }

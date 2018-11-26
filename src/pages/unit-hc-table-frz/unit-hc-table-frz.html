@@ -18,28 +18,31 @@
 
 <ion-content>
   <div class="unit-hc-wrap">
-<h2 class="unit-hc-title">冻结人员信息</h2>
-<table class="unit-hc-table" border="1">
-  <thead>
-    <tr>
-      <th>序号</th>
-      <th>姓名</th>
-      <th>证件号码</th>
-      <th>单位名称</th>
-      <th>业务事项</th>
-      <th>冻结时间</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr *ngFor="let person of personList; let i=index;">
-      <td>{{i+1}}</td>
-      <td>{{person.name}}</td>
-      <td>{{person.idNo}}</td>
-      <td>{{person.unitName}}</td>
-      <td>{{person.itemCodeName}}</td>
-      <td>{{person.createDate}}</td>
-    </tr>
-  </tbody>
-</table>
-</div>
+    <h2 class="unit-hc-title">冻结人员信息</h2>
+    <div class="unit-hc-table-wrap">
+      <table class="unit-hc-table" border="1">
+        <thead>
+          <tr>
+            <th class="num">序号</th>
+            <th class="name">姓名</th>
+            <th class="idno">证件号码</th>
+            <th class="unit">单位名称</th>
+            <th class="item">业务事项</th>
+            <th class="date">冻结时间</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let person of personList; let i=index;">
+            <td>{{i+1}}</td>
+            <td>{{person.name}}</td>
+            <td>{{person.idNo}}</td>
+            <td>{{person.unitName}}</td>
+            <td>{{person.itemCodeName}}</td>
+            <td>{{person.createDate}}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+  </div>
 </ion-content>

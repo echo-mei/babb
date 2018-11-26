@@ -14,10 +14,13 @@
 
 <ion-content>
 <ion-list inset>
-  <ion-item class="myTitle">
-    <p>三定文件</p>
-  </ion-item>
-  <ion-item *ngFor="let fileName of fileList" (click)="fileOpen(fileName)">{{ fileName.fileTitle }}</ion-item>
-  <div></div>
+  <div [hidden]="!fileList[0]">
+    <ion-item class="myTitle">
+      <p>三定文件</p>
+    </ion-item>
+    <ion-item *ngFor="let fileName of fileList" (click)="fileOpen(fileName)">{{ fileName.FILE_NAME }}</ion-item>
+    <div></div>
+  </div>
+  <div [hidden]="fileList[0]" class="notFound">暂无三定文件</div>
 </ion-list>
 </ion-content>

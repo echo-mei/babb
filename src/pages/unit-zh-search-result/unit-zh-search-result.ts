@@ -37,17 +37,23 @@ export class UnitZhSearchResultPage {
   }
 
   getResultList() {
-    parseInt(this.smallNum) ? this.smallNum = this.smallNum : this.smallNum = 0;
-    parseInt(this.bigNum) ? this.bigNum = this.bigNum : this.bigNum = 999999;
-    if (parseInt(this.smallNum) >= this.bigNum) {
-      this.bigNum = 9999999999;
+    if(this.smallNum || this.bigNum) {
+      parseInt(this.smallNum) ? this.smallNum = this.smallNum : this.smallNum = 0;
+      parseInt(this.bigNum) ? this.bigNum = this.bigNum : this.bigNum = 999999;
+      if (parseInt(this.smallNum) >= this.bigNum) {
+        this.bigNum = 9999999999;
+      }
+      if (parseInt(this.smallNum) < 0) {
+        this.smallNum = 0;
+      }
+      if (parseInt(this.bigNum) < 0) {
+        this.bigNum = 9999999;
+      }
+    }else {
+      this.smallNum = '';
+      this.bigNum = '';
     }
-    if (parseInt(this.smallNum) < 0) {
-      this.smallNum = 0;
-    }
-    if (parseInt(this.bigNum) < 0) {
-      this.bigNum = 9999999;
-    }
+    
     this.babb.getAllResult(this.searchList, this.key, this.smallNum, this.bigNum).then(res => {
       this.resultList = res;
     });

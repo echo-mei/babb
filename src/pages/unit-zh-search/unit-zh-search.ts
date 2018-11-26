@@ -13,7 +13,7 @@ export class UnitZhSearchPage {
   dataList = [
     { 'title': '系统类别', 'detail': [] },
     { 'title': '单位性质', 'detail': [] },
-    { 'title': '机构类别', 'detail': [] },
+    { 'title': '机构级别', 'detail': [] },
     { 'title': '编制类别', 'detail': [] },
     { 'title': '经费形式', 'detail': [] },
     { 'title': '事业单位分类', 'detail': [] }
@@ -21,6 +21,7 @@ export class UnitZhSearchPage {
   key: any;
   smallNum: any;
   bigNum: any;
+  list: any = [];
 
   constructor(
     public navCtrl: NavController,
@@ -61,7 +62,7 @@ export class UnitZhSearchPage {
   };
 
   getSearchList() {
-    let list = [];
+    this.list = [];
     this.dataList.forEach((item) => {
       let search = [];
       item.detail.forEach((item1) => {
@@ -69,12 +70,30 @@ export class UnitZhSearchPage {
           search.push(item1);
         }
       });
-      list.push(search);
+      this.list.push(search);
     })
-    return list;
+    return this.list;
+  }
+
+  reset() {
+    this.key = '';
+    this.bigNum = '';
+    this.smallNum = '';
+    this.dataList.forEach((item) => {
+      item.detail.forEach((item1) => {
+        if (item1.isSelected) {
+          item1.isSelected = !item1.isSelected;
+        }
+      });
+    })
+    this.list = [];
   }
 
   toResult() {
+    if(typeof this.smallNum == 'object' || typeof this.bigNum == 'object') {
+      alert('核定数范围不符合规范， 请输入纯数字');
+      return;
+    }
     this.navCtrl.push(UnitZhSearchResultPage, {
       searchList: this.getSearchList(),
       waveList: this.dataList[3],

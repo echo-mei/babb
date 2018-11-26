@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams, AlertController, App } from 'ionic-angular';
+import { NavController, NavParams, AlertController, App, ToastController } from 'ionic-angular';
 import { BabbUserProvider } from '../../providers/babb-user/babb-user';
 import { UserAddPage } from '../user-add/user-add';
 import { UserUpdatePage } from '../user-update/user-update';
@@ -21,14 +21,15 @@ export class AdminHomePage {
     public navParams: NavParams,
     public alertCtrl:AlertController,
     public babbUserProvider:BabbUserProvider,
+    public toastCtrl:ToastController,
     public app: App
   ) {
     this.user = this.navParams.get("user");
-    this.getNormalUser();
+    this.getExceptMeUsers();
   }
 
-  getNormalUser(){
-    this.babbUserProvider.getNormalUsers().then(res => {
+  getExceptMeUsers(){
+    this.babbUserProvider.getExceptMeUsers(this.user.identifyId).then(res => {
       this.userList = res;
     })
   }
@@ -41,7 +42,7 @@ export class AdminHomePage {
   // 点击新增
   onClickAdd(){
     this.navCtrl.push(UserAddPage,{
-      onUpdate: this.getNormalUser.bind(this)
+      onUpdate: this.getExceptMeUsers.bind(this)
     });
   }
 
@@ -49,7 +50,7 @@ export class AdminHomePage {
   onClickUpdate(user){
     this.navCtrl.push(UserUpdatePage,{
       user:user,
-      onUpdate: this.getNormalUser.bind(this)
+      onUpdate: this.getExceptMeUsers.bind(this)
     });
   }
 
@@ -63,7 +64,13 @@ export class AdminHomePage {
           text: '确定', handler: () => {
             this.babbUserProvider.modifyPassword(user.userId,"88888888").then(
               () => {
-                this.getNormalUser();
+                this.getExceptMeUsers();
+                this.toastCtrl.create({
+                  cssClass: 'mini',
+                  position: 'middle',
+                  message: '密码重置为"88888888"',
+                  duration: 1000
+                }).present();
               }
             );
           }
@@ -82,7 +89,13 @@ export class AdminHomePage {
           text: '确定', handler: () => {
             this.babbUserProvider.deleteUser(user.userId).then(
               () => {
-                this.getNormalUser();
+                this.toastCtrl.create({
+                  cssClass: 'mini',
+                  position: 'middle',
+                  message: '删除成功',
+                  duration: 1000
+                }).present();
+                this.getExceptMeUsers();
               }
             );
           }

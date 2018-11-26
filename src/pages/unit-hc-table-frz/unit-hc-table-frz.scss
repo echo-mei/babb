@@ -1,35 +1,59 @@
 page-unit-hc-table-frz {
   .unit-hc-wrap{
+    position: relative;
     width: 100%;
     padding: px(44);
     .unit-hc-title{
-      font-size: 25px;
+      font-size: px(64);
       font-weight: bold;
       margin: 0 0 px(44) 0;
+      height: px(75);
     }
-    .unit-hc-table{
-      border: 1px solid color($colors,tableColor);
-      table-layout: fixed;
-      &.complex-table{
-        th{
-          height: px(128);
+    .unit-hc-table-wrap{
+      position: absolute;
+      top:px(120);
+      bottom: 0;
+      width: 100%;
+      overflow-x: auto;
+      .unit-hc-table{
+        border: 1px solid color($colors,tableColor);
+        table-layout: fixed;
+        &.complex-table{
+          th{
+            height: px(128);
+          }
         }
-      }
-      thead{
-        background: #f2f5fa;
-      }
-      th{
-        color: color($colors,textMainColor);
-        font-size: 19px;
-        height: px(220);
-        padding: 0 px(25);
-        font-weight: normal;
-      }
-      td{
-        font-size: 19px;
-        height: px(150);
-        padding: 0 px(25);
-        text-align: center;
+        thead{
+          background: #f2f5fa;
+        }
+        th{
+          color: color($colors,textMainColor);
+          font-size: px(58);
+          height: px(220);
+          padding: 0 px(25);
+          font-weight: normal;
+          &.num{
+            min-width: 60px;
+          }
+          &.name{
+            min-width: 120px;
+          }
+          &.unit{
+            min-width: 200px;
+          }
+          &.item{
+            min-width: 200px;
+          }
+          &.date{
+            min-width: 150px;
+          }
+        }
+        td{
+          font-size: px(58);
+          height: px(150);
+          padding: 0 px(25);
+          text-align: center;
+        }
       }
     }
   }
