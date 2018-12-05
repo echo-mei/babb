@@ -19,8 +19,12 @@
 <ion-content>
   <div class="unit-hc-wrap">
     <h2 class="unit-hc-title">实有人员信息</h2>
-    <div class="unit-hc-table-wrap">
-      <table class="unit-hc-table" border="1">
+    <div class="unit-hc-table-wrap" #infactTableWrapper>
+      <div style="text-align:center;" *ngIf="isLoading">
+        <span style="font-size:22px;">数据正在加载中，请稍后......</span><br>
+        <ion-spinner name="crescent"></ion-spinner>
+      </div>
+      <table class="unit-hc-table" border="1" *ngIf="!isLoading">
         <thead>
           <tr>
             <th class="num">序号</th>
@@ -34,13 +38,13 @@
         </thead>
         <tbody>
           <tr *ngFor="let person of personList;let i=index;">
-            <td class="num">{{i+1}}</td>
-            <td class="name">{{person.name}}</td>
-            <td class="sex">{{person.sexCodeName}}</td>
-            <td class="unit">{{person.unitName}}</td>
-            <td class="level">{{person.administrativeDutyLevelName}}</td>
-            <td class="property">{{person.dutyAttributeBzName}}</td>
-            <td class="hctype">{{person.dPositionTypeName}}</td>
+            <td>{{i+1}}</td>
+            <td>{{person.name}}</td>
+            <td>{{person.sexCodeName}}</td>
+            <td>{{person.unitName}}</td>
+            <td>{{person.administrativeDutyLevelName}}</td>
+            <td>{{person.dutyAttributeBzName}}</td>
+            <td>{{person.dPositionTypeName}}</td>
           </tr>
         </tbody>
       </table>

@@ -24,8 +24,12 @@ export class UnitZhSearchResultPage {
     public babb: BabbUnitProvider
   ) {
     Object.assign(this, navParams.data);
+    this.smallNum = this.navParams.get('smallNum');
+    this.bigNum = this.navParams.get('bigNum');
+
     this.getSearchKey();
     this.getResultList();
+    
   }
 
   getSearchKey() {
@@ -37,7 +41,13 @@ export class UnitZhSearchResultPage {
   }
 
   getResultList() {
-    if(this.smallNum || this.bigNum) {
+    if(this.smallNum == undefined || this.smallNum == '' || this.smallNum == null) {
+      this.smallNum = '';
+    }
+    if(this.bigNum == undefined || this.bigNum == null || this.bigNum == '') {
+      this.bigNum = '';
+    };
+    if(this.smallNum ||this.bigNum) {
       parseInt(this.smallNum) ? this.smallNum = this.smallNum : this.smallNum = 0;
       parseInt(this.bigNum) ? this.bigNum = this.bigNum : this.bigNum = 999999;
       if (parseInt(this.smallNum) >= this.bigNum) {
@@ -53,7 +63,6 @@ export class UnitZhSearchResultPage {
       this.smallNum = '';
       this.bigNum = '';
     }
-    
     this.babb.getAllResult(this.searchList, this.key, this.smallNum, this.bigNum).then(res => {
       this.resultList = res;
     });

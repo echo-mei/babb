@@ -21,13 +21,17 @@ export class GwSetPage {
     this.unit = this.navParams.get('unit');
   }
 
+  onClickHome() {
+    this.navCtrl.popToRoot();
+  }
+  
   ionViewDidLoad() {
     let promise = new Promise((resolve, reject) => {
       this.babbUnitProvider.getGwList(this.unit.unitOid).then(
         gwList => {
           if(!gwList) resolve(gwList);
           gwList.forEach((item, index) => {
-            this.babbUnitProvider.getGwDetailList(item.unitGwOid).then(
+            this.babbUnitProvider.getGwDetailList(item.orgOid, item.orgType).then(
               gwDetailList => {
                 let sum;
                 item.gwDetailList = gwDetailList;
@@ -92,6 +96,10 @@ export class GwSetPage {
             });
             node.children = [];
             if(n.children.length) {
+              n.children = [{
+                nsChildren: true,
+                gwChildren: n.children
+              }];
               node.children.push(n);
             }
             if(x.children.length) {
@@ -109,12 +117,40 @@ export class GwSetPage {
           canAddNode: false,
           editable: false,
           showContent: true,
-          showContentEvent: 'click',
+          showContentEvent: '',
           renderTitle: function(nodeData) {
+            if(nodeData.nsChildren) {
+              return '';
+            }
             return '<span>'+nodeData.orgName+'</span><span>'+(nodeData.sumCount ? nodeData.sumCount : '')+'</span>';
           },
           renderContent: function(nodeData) {
-            var r = '<table>';
+            var r = '';
+            if(nodeData.nsChildren) {
+              nodeData.gwChildren.forEach((gw) => {
+                var title = '<span>'+gw.orgName+'</span><span>'+(gw.sumCount ? gw.sumCount : '')+'</span>';
+                var content = '<table>';
+                gw.gwDetailList&&gw.gwDetailList.forEach(function(detail) {
+                  content +=
+                    '<tr>'+
+                        '<td>'+detail.gwName+'</td>'+
+                        '<td>'+detail.curCount+'</td>'+
+                    '</tr>';
+                });
+                content += '</table>';
+                r += `
+                  <div class="node-main" style="margin-bottom:5px;">
+                    <div class="title">
+                      <div class="title-main">${title}</div>
+                    </div>
+                    <div class="content" style="">
+                      <div class="content-main">${content}</div>
+                    </div>
+                  </div>`;
+              });
+              return r;
+            }
+            r = '<table>';
             nodeData.gwDetailList&&nodeData.gwDetailList.forEach(function(detail) {
               r +=
                 '<tr>'+
@@ -126,6 +162,9 @@ export class GwSetPage {
             return r;
           },
           titleStyle: function(nodeData) {
+            if(nodeData.nsChildren) {
+              return 'display:none;';
+            }
             if(nodeData.orgType==0) {
               return 'background: linear-gradient(to right, #ff5c55, #ff9a85)';
             }

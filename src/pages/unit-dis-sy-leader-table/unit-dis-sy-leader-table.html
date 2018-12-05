@@ -1,0 +1,80 @@
+
+<div class="main-wrapper">
+  <div class="table-wrapper" avoid-super-tabs="true" id="sy">
+    <table class="officeLeaderTable">
+      <thead>
+        <tr>
+          <th rowspan="2" colspan="2"></th>
+          <th rowspan="2">总职数</th>
+          <th [attr.colspan]="syUnitLeaderCountList.length">单位领导职数</th>
+          <th [attr.colspan]="syOrgLeaderCountList.length">内下设机构领导职数</th>
+        </tr>
+        <tr>
+          <th *ngFor="let item of syUnitLeaderCountList">{{item.duteLevelName}}</th>
+          <th *ngFor="let item of syOrgLeaderCountList">{{item.duteLevelName}}</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="table-title" rowspan="3">合计</td>
+          <td class="table-title">核定数</td>
+          <td [innerHTML]="(syLeaderSum.hjCurCount?syLeaderSum.hjCurCount:0) | redMinus"></td>
+          <td *ngFor="let item of syUnitLeaderCountList" [innerHTML]="(item.hjCurCount?item.hjCurCount:0) | redMinus"></td>
+          <td *ngFor="let item of syOrgLeaderCountList" [innerHTML]="(item.hjCurCount?item.hjCurCount:0) | redMinus"></td>
+        </tr>
+        <tr>
+          <td class="table-title">实有数</td>
+          <td [innerHTML]="(syLeaderSum.hjInfactCount?syLeaderSum.hjInfactCount:0) | redMinus"></td>
+          <td *ngFor="let item of syUnitLeaderCountList" [innerHTML]="(item.hjInfactCount?item.hjInfactCount:0) | redMinus"></td>
+          <td *ngFor="let item of syOrgLeaderCountList" [innerHTML]="(item.hjInfactCount?item.hjInfactCount:0) | redMinus"></td>
+        </tr>
+        <tr>
+          <td class="table-title">空缺数</td>
+          <td [innerHTML]="(syLeaderSum.hjFreeCount?syLeaderSum.hjFreeCount:0) | redMinus"></td>
+          <td *ngFor="let item of syUnitLeaderCountList" [innerHTML]="(item.hjFreeCount?item.hjFreeCount:0) | redMinus"></td>
+          <td *ngFor="let item of syOrgLeaderCountList" [innerHTML]="(item.hjFreeCount?item.hjFreeCount:0) | redMinus"></td>
+        </tr>
+
+        <tr>
+          <td class="table-title" rowspan="3">区直</td>
+          <td class="table-title">核定数</td>
+          <td [innerHTML]="(syLeaderSum.qzCurCount?syLeaderSum.qzCurCount:0) | redMinus"></td>
+          <td *ngFor="let item of syUnitLeaderCountList" [innerHTML]="(item.qzCurCount?item.qzCurCount:0) | redMinus"></td>
+          <td *ngFor="let item of syOrgLeaderCountList" [innerHTML]="(item.qzCurCount?item.qzCurCount:0) | redMinus"></td>
+        </tr>
+        <tr>
+          <td class="table-title">实有数</td>
+          <td [innerHTML]="(syLeaderSum.qzInfactCount?syLeaderSum.qzInfactCount:0) | redMinus"></td>
+          <td *ngFor="let item of syUnitLeaderCountList" [innerHTML]="(item.qzInfactCount?item.qzInfactCount:0) | redMinus"></td>
+          <td *ngFor="let item of syOrgLeaderCountList" [innerHTML]="(item.qzInfactCount?item.qzInfactCount:0) | redMinus"></td>
+        </tr>
+        <tr>
+          <td class="table-title">空缺数</td>
+          <td [innerHTML]="(syLeaderSum.qzFreeCount?syLeaderSum.qzFreeCount:0) | redMinus"></td>
+          <td *ngFor="let item of syUnitLeaderCountList" [innerHTML]="(item.qzFreeCount?item.qzFreeCount:0) | redMinus"></td>
+          <td *ngFor="let item of syOrgLeaderCountList" [innerHTML]="(item.qzFreeCount?item.qzFreeCount:0) | redMinus"></td>
+        </tr>
+
+        <tr>
+          <td class="table-title" rowspan="3">街道</td>
+          <td class="table-title">核定数</td>
+          <td [innerHTML]="(syLeaderSum.jdCurCount?syLeaderSum.jdCurCount:0) | redMinus"></td>
+          <td *ngFor="let item of syUnitLeaderCountList" [innerHTML]="(item.jdCurCount?item.jdCurCount:0) | redMinus"></td>
+          <td *ngFor="let item of syOrgLeaderCountList" [innerHTML]="(item.jdCurCount?item.jdCurCount:0) | redMinus"></td>
+        </tr>
+        <tr>
+          <td class="table-title">实有数</td>
+          <td [innerHTML]="(syLeaderSum.jdInfactCount?syLeaderSum.jdInfactCount:0) | redMinus"></td>
+          <td *ngFor="let item of syUnitLeaderCountList" [innerHTML]="(item.jdInfactCount?item.jdInfactCount:0) | redMinus"></td>
+          <td *ngFor="let item of syOrgLeaderCountList" [innerHTML]="(item.jdInfactCount?item.jdInfactCount:0) | redMinus"></td>
+        </tr>
+        <tr>
+          <td class="table-title">空缺数</td>
+          <td [innerHTML]="(syLeaderSum.jdFreeCount?syLeaderSum.jdFreeCount:0) | redMinus"></td>
+          <td *ngFor="let item of syUnitLeaderCountList" [innerHTML]="(item.jdFreeCount?item.jdFreeCount:0) | redMinus"></td>
+          <td *ngFor="let item of syOrgLeaderCountList" [innerHTML]="(item.jdFreeCount?item.jdFreeCount:0) | redMinus"></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

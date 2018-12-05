@@ -13,6 +13,7 @@ import { FilePath } from '@ionic-native/file-path';
 import { FileChooser } from '@ionic-native/file-chooser';
 import { FileTransfer } from '@ionic-native/file-transfer';
 import { FileOpener } from '@ionic-native/file-opener';
+import { ScreenOrientation } from '@ionic-native/screen-orientation';
 
 import { MyApp } from './app.component';
 
@@ -32,6 +33,7 @@ import { UnitPage } from '../pages/unit/unit';
 import { UnitFuntionPage } from '../pages/unit-funtion/unit-funtion';
 import { UnitHcPage } from '../pages/unit-hc/unit-hc';
 import { UnitHcTablePage } from '../pages/unit-hc-table/unit-hc-table';
+import { UnitPosTablePage } from '../pages/unit-pos-table/unit-pos-table';
 import { UnitSearchPage } from '../pages/unit-search/unit-search';
 import { UnitZhSearchPage } from '../pages/unit-zh-search/unit-zh-search';
 import { UnitZhSearchResultPage } from '../pages/unit-zh-search-result/unit-zh-search-result';
@@ -47,12 +49,16 @@ import { HistoryFilePage } from '../pages/history-file/history-file';
 import { UserAddPage } from '../pages/user-add/user-add';
 import { UserUpdatePage } from '../pages/user-update/user-update';
 import { ModifyPasswordPage } from '../pages/modify-password/modify-password';
-import { UnitDisLeaderTablePage } from '../pages/unit-dis-leader-table/unit-dis-leader-table';
+import { UnitDisJgLeaderTablePage } from '../pages/unit-dis-jg-leader-table/unit-dis-jg-leader-table';
+import { UnitDisSyLeaderTablePage } from '../pages/unit-dis-sy-leader-table/unit-dis-sy-leader-table';
 import { UnitDisTablePage } from '../pages/unit-dis-table/unit-dis-table';
 import { UnitDistrictPage } from '../pages/unit-district/unit-district';
 import { UnitDisPersonTablePage } from '../pages/unit-dis-person-table/unit-dis-person-table';
 import { ConfigProvider } from '../providers/config/config';
-new VConsole();
+import { UnitDisTableSyPage } from '../pages/unit-dis-table-sy/unit-dis-table-sy';
+import { UnitDisTableJgPage } from '../pages/unit-dis-table-jg/unit-dis-table-jg';
+import { BabbHcProvider } from '../providers/babb-hc/babb-hc';
+// new VConsole();
 
 @NgModule({
   declarations: [
@@ -63,6 +69,7 @@ new VConsole();
     UnitFuntionPage,
     UnitHcPage,
     UnitHcTablePage,
+    UnitPosTablePage,
     UnitStatisticsPage,
     UnitSearchPage,
     UnitZhSearchPage,
@@ -78,10 +85,13 @@ new VConsole();
     UserAddPage,
     UserUpdatePage,
     ModifyPasswordPage,
-    UnitDisLeaderTablePage,
+    UnitDisJgLeaderTablePage,
+    UnitDisSyLeaderTablePage,
     UnitDisTablePage,
     UnitDistrictPage,
-    UnitDisPersonTablePage
+    UnitDisPersonTablePage,
+    UnitDisTableSyPage,
+    UnitDisTableJgPage
   ],
   imports: [
     BrowserModule,
@@ -98,6 +108,7 @@ new VConsole();
     UnitFuntionPage,
     UnitHcPage,
     UnitHcTablePage,
+    UnitPosTablePage,
     UnitStatisticsPage,
     UnitSearchPage,
     UnitPage,
@@ -116,10 +127,13 @@ new VConsole();
     UserAddPage,
     UserUpdatePage,
     ModifyPasswordPage,
-    UnitDisLeaderTablePage,
+    UnitDisJgLeaderTablePage,
+    UnitDisSyLeaderTablePage,
     UnitDisTablePage,
     UnitDistrictPage,
-    UnitDisPersonTablePage
+    UnitDisPersonTablePage,
+    UnitDisTableSyPage,
+    UnitDisTableJgPage
   ],
   providers: [
     StatusBar,
@@ -139,9 +153,11 @@ new VConsole();
     BabbUnitProvider,
     TreeProvider,
     FileOpener,
+    ScreenOrientation ,
     FileProvider,
     BabbDisProvider,
-    ConfigProvider
+    ConfigProvider,
+    BabbHcProvider
   ]
 })
 export class AppModule {}

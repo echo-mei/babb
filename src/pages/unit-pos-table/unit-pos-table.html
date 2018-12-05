@@ -1,0 +1,42 @@
+<div class="separate"></div>
+<div class="unit-hc-wrap">
+  <h2 class="unit-hc-title">{{name}}领导职数情况表</h2>
+  <p class="unit-hc-tips" *ngIf="leaderList.length <= 1">{{name}}暂未下达领导职数信息</p>
+  <div class="unit-hc-table-wrap" [attr.avoid-super-tabs]="aviodSuperJudge(posTableWrap)" #posTableWrap>
+    <table class="unit-hc-table" border="1" *ngIf="leaderList.length > 1">
+      <thead>
+        <tr>
+          <th width="120" rowspan="2" class="table-title"></th>
+          <th width="120" rowspan="2">总职数</th>
+          <th [attr.colspan]="getCol('单位领导')" *ngIf="getCol('单位领导')">单位领导职数</th>
+          <th [attr.colspan]="getCol('内设机构领导')" *ngIf="getCol('内设机构领导')">内设机构领导职数</th>
+        </tr>
+        <tr>
+          <th width="120" *ngFor="let leader of leaderList | slice:1:leaderList.length">
+            {{leader.dutyLevelName}}
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="table-title">核定数</td>
+          <td *ngFor="let leader of leaderList;">
+            {{leader.curCount}}
+          </td>
+        </tr>
+        <tr>
+          <td class="table-title">实有数</td>
+          <td *ngFor="let leader of leaderList;">
+            {{leader.infactCount}}
+          </td>
+        </tr>
+        <tr>
+          <td class="table-title">空缺数</td>
+          <td *ngFor="let leader of leaderList;" [innerHTML]="(leader.freeCount?leader.freeCount:0) | redMinus">
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+</div>

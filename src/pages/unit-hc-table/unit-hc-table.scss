@@ -3,7 +3,7 @@ page-unit-hc-table {
   overflow: auto;
   .unit-hc-wrap{
     width: 100%;
-    padding: px(44);
+    padding: 20px;
     .unit-hc-title{
       font-size: px(64);
       font-weight: bold;
@@ -18,38 +18,33 @@ page-unit-hc-table {
       .unit-hc-table{
         border: 1px solid color($colors,tableColor);
         table-layout: fixed;
-        &.complex-table{
-          th{
-            height: px(128);
-          }
-        }
-        &.bianzhi-table{
-          td{
-            min-width: px(250);
-          }
-        }
+        font-size: px(50);
         thead{
           background: #f2f5fa;
         }
+        .table-title {
+          background-color: #F2F5FA;
+        }
         th{
           color: color($colors,textMainColor);
-          font-size: px(58);
-          height: px(220);
-          padding: 0 px(25);
-          font-weight: normal;
+          padding:px(25);
+          // white-space: nowrap;
         }
         td{
-          font-size: px(58);
-          height: px(150);
-          padding: 0 px(25);
+          padding:  px(25);
           text-align: center;
+          white-space: nowrap;
+
+          &.red{
+            color: red;
+          }
           &.detail{
             color: #009cff;
 
             .button{
               border-color: #009cff;
               color: #009cff;
-              margin: 0;
+              margin: px(-6) 0 0 0;
               height: px(60);
               line-height: px(60);
               width: px(120);

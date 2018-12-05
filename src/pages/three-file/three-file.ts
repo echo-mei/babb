@@ -130,4 +130,10 @@ export class ThreeFilePage {
     // )
   }
 
+
+  
+  onClickHome() {
+    this.navCtrl.popToRoot();
+  }
+
 }

@@ -1,0 +1,75 @@
+page-unit-dis-table-jg {
+  overflow: auto;
+  background-color: #EFEFF4;
+  .main-wrapper {
+    padding: 15px;
+    background: #fff;
+    height: 100%;
+    .main-title {
+      font-size: 25px;
+      font-weight: bold;
+      margin: 0 auto;
+      text-align: left;
+      height: 50px;
+    }
+    position: relative;
+  }
+   .table-wrapper{
+    background-color: #fff;
+    overflow: auto;
+    height: 100%;
+    width: 100%;
+      p{
+          font-size:25px;
+          font-weight: bold;
+          margin:0 auto;
+          text-align: left;
+      }
+      .officeLeaderTable{
+          min-width: 100%;
+          table-layout: fixed;
+          border:1px solid #B9CFF4;
+          font-size: 16px;
+          thead{
+            background-color: #F2F5FA;
+            tr>th{
+              padding:5px;
+              border:1px solid #B9CFF4;
+              // white-space: nowrap;
+              min-width: 50px;
+              &.lie{
+                min-width: 20px;
+                max-width: 30px;
+              }
+            }
+
+          }
+          tbody{
+            .table-title {
+              background-color: #F2F5FA;
+            }
+            tr>td{
+              padding:10px 5px;
+              text-align: center;
+              border:1px solid #B9CFF4;
+              white-space: nowrap;
+              &.unitName {
+                white-space: pre-wrap;
+                min-width: 260px;
+              }
+              &.lie{
+                white-space: pre-wrap;
+                min-width: 20px;
+                max-width: 30px;
+              }
+              &.num{
+                max-width: 40px;
+              }
+            }
+            tr>.total{
+              background-color: #F2F5FA;
+            }
+          }
+      }
+  }
+}

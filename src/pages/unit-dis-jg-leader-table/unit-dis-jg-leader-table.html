@@ -1,0 +1,80 @@
+
+<div class="main-wrapper">
+  <div class="table-wrapper" avoid-super-tabs="true" #jgLeaderTable>
+    <table class="officeLeaderTable">
+      <thead>
+        <tr>
+          <th rowspan="2" colspan="2"></th>
+          <th rowspan="2">总职数</th>
+          <th [attr.colspan]="jgUnitLeaderCountList.length">单位领导职数</th>
+          <th [attr.colspan]="jgOrgLeaderCountList.length">内下设机构领导职数</th>
+        </tr>
+        <tr>
+          <th *ngFor="let item of jgUnitLeaderCountList">{{item.duteLevelName}}</th>
+          <th *ngFor="let item of jgOrgLeaderCountList">{{item.duteLevelName}}</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="table-title" rowspan="3">合计</td>
+          <td class="table-title">核定数</td>
+          <td [innerHTML]="(jgLeaderSum.hjCurCount?jgLeaderSum.hjCurCount:0) | redMinus"></td>
+          <td *ngFor="let item of jgUnitLeaderCountList" [innerHTML]="(item.hjCurCount?item.hjCurCount:0) | redMinus"></td>
+          <td *ngFor="let item of jgOrgLeaderCountList" [innerHTML]="(item.hjCurCount?item.hjCurCount:0) | redMinus"></td>
+        </tr>
+        <tr>
+          <td class="table-title">实有数</td>
+          <td [innerHTML]="(jgLeaderSum.hjInfactCount?jgLeaderSum.hjInfactCount:0) | redMinus"></td>
+          <td *ngFor="let item of jgUnitLeaderCountList" [innerHTML]="(item.hjInfactCount?item.hjInfactCount:0) | redMinus"></td>
+          <td *ngFor="let item of jgOrgLeaderCountList" [innerHTML]="(item.hjInfactCount?item.hjInfactCount:0) | redMinus"></td>
+        </tr>
+        <tr>
+          <td class="table-title">空缺数</td>
+          <td [innerHTML]="(jgLeaderSum.hjFreeCount?jgLeaderSum.hjFreeCount:0) | redMinus"></td>
+          <td *ngFor="let item of jgUnitLeaderCountList" [innerHTML]="(item.hjFreeCount?item.hjFreeCount:0) | redMinus"></td>
+          <td *ngFor="let item of jgOrgLeaderCountList" [innerHTML]="(item.hjFreeCount?item.hjFreeCount:0) | redMinus"></td>
+        </tr>
+
+        <tr>
+          <td class="table-title" rowspan="3">区直</td>
+          <td class="table-title">核定数</td>
+          <td [innerHTML]="(jgLeaderSum.qzCurCount?jgLeaderSum.qzCurCount:0) | redMinus"></td>
+          <td *ngFor="let item of jgUnitLeaderCountList" [innerHTML]="(item.qzCurCount?item.qzCurCount:0) | redMinus"></td>
+          <td *ngFor="let item of jgOrgLeaderCountList" [innerHTML]="(item.qzCurCount?item.qzCurCount:0) | redMinus"></td>
+        </tr>
+        <tr>
+          <td class="table-title">实有数</td>
+          <td [innerHTML]="(jgLeaderSum.qzInfactCount?jgLeaderSum.qzInfactCount:0) | redMinus"></td>
+          <td *ngFor="let item of jgUnitLeaderCountList" [innerHTML]="(item.qzInfactCount?item.qzInfactCount:0) | redMinus"></td>
+          <td *ngFor="let item of jgOrgLeaderCountList" [innerHTML]="(item.qzInfactCount?item.qzInfactCount:0) | redMinus"></td>
+        </tr>
+        <tr>
+          <td class="table-title">空缺数</td>
+          <td [innerHTML]="(jgLeaderSum.qzFreeCount?jgLeaderSum.qzFreeCount:0) | redMinus"></td>
+          <td *ngFor="let item of jgUnitLeaderCountList" [innerHTML]="(item.qzFreeCount?item.qzFreeCount:0) | redMinus"></td>
+          <td *ngFor="let item of jgOrgLeaderCountList" [innerHTML]="(item.qzFreeCount?item.qzFreeCount:0) | redMinus"></td>
+        </tr>
+
+        <tr>
+          <td class="table-title" rowspan="3">街道</td>
+          <td class="table-title">核定数</td>
+          <td [innerHTML]="(jgLeaderSum.jdCurCount?jgLeaderSum.jdCurCount:0) | redMinus"></td>
+          <td *ngFor="let item of jgUnitLeaderCountList" [innerHTML]="(item.jdCurCount?item.jdCurCount:0) | redMinus"></td>
+          <td *ngFor="let item of jgOrgLeaderCountList" [innerHTML]="(item.jdCurCount?item.jdCurCount:0) | redMinus"></td>
+        </tr>
+        <tr>
+          <td class="table-title">实有数</td>
+          <td [innerHTML]="(jgLeaderSum.jdInfactCount?jgLeaderSum.jdInfactCount:0) | redMinus"></td>
+          <td *ngFor="let item of jgUnitLeaderCountList" [innerHTML]="(item.jdInfactCount?item.jdInfactCount:0) | redMinus"></td>
+          <td *ngFor="let item of jgOrgLeaderCountList" [innerHTML]="(item.jdInfactCount?item.jdInfactCount:0) | redMinus"></td>
+        </tr>
+        <tr>
+          <td class="table-title">空缺数</td>
+          <td [innerHTML]="(jgLeaderSum.jdFreeCount?jgLeaderSum.jdFreeCount:0) | redMinus"></td>
+          <td *ngFor="let item of jgUnitLeaderCountList" [innerHTML]="(item.jdFreeCount?item.jdFreeCount:0) | redMinus"></td>
+          <td *ngFor="let item of jgOrgLeaderCountList" [innerHTML]="(item.jdFreeCount?item.jdFreeCount:0) | redMinus"></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

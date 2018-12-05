@@ -1,0 +1,98 @@
+<div class="main-wrapper">
+  <div class="table-wrapper" avoid-super-tabs="true" #disTableSy>
+    <div style="text-align:center;" *ngIf="isLoading">
+      <span style="font-size:22px;">数据正在加载中，请稍后......</span><br>
+      <ion-spinner name="crescent"></ion-spinner>
+    </div>
+    <table class="officeLeaderTable" *ngIf="!isLoading">
+      <thead>
+        <tr>
+          <th rowspan="3" class="table-title">主管部门</th>
+          <th rowspan="3" class="lie">序号</th>
+          <th rowspan="3">单位名称</th>
+          <th rowspan="3">单位最高行政管理岗位等级</th>
+          <th colspan="5" rowspan="2">编制情况</th>
+          <th rowspan="3">经费形式</th>
+          <th rowspan="3">雇员</th>
+          <th colspan="6">领导职数</th>
+        </tr>
+        <tr>
+          <th colspan="4">单位</th>
+          <th colspan="2">内下设机构</th>
+        </tr>
+        <tr>
+          <th>分配</th>
+          <th>实有</th>
+          <th>空编</th>
+          <th>预留4%</th>
+          <th>可用空编</th>
+          <th>正处</th>
+          <th>副处</th>
+          <th>正科</th>
+          <th>副科</th>
+          <th>正科</th>
+          <th>副科</th>
+        </tr>
+      </thead>
+      <tbody *ngFor="let group of dataList;">
+        <tr *ngFor="let unit of group.unitList;let i = index;">
+          <td class="table-title" *ngIf="i==0" [attr.rowspan]="group.unitList.length">{{group.adminUnitName}}</td>
+          <td *ngIf="unit.numb" class="lie">{{unit.numb}}</td>
+          <td [attr.colspan]="unit.numb?1:2" class="name">{{unit.unitName}}</td>
+          <td>{{unit.levelName}}</td>
+          <td [innerHTML]="unit.sybzNum | redMinus"></td>
+          <td [innerHTML]="unit.infactNum | redMinus"></td>
+          <td [innerHTML]="unit.freeNum | redMinus"></td>
+          <td [innerHTML]="unit.ylNum | redMinus"></td>
+          <td [innerHTML]="unit.kyNum | redMinus"></td>
+          <td class="budget">{{unit.budgetFromName}}</td>
+          <td [innerHTML]="unit.gyyeNum | redMinus"></td>
+          <td [innerHTML]="unit.unit5Num | redMinus"></td>
+          <td [innerHTML]="unit.unit6Num | redMinus"></td>
+          <td [innerHTML]="unit.unit7Num | redMinus"></td>
+          <td [innerHTML]="unit.unit8Num | redMinus"></td>
+          <td [innerHTML]="unit.org7Num | redMinus"></td>
+          <td [innerHTML]="unit.org8Num | redMinus"></td>
+        </tr>
+      </tbody>
+      <tbody>
+        <tr>
+          <td>&nbsp;</td>
+          <td colspan="2">各街道事业单位小计（共{{jdAllSum.unitSum}}个单位）</td>
+          <td>{{jdAllSum.levelName}}</td>
+          <td [innerHTML]="jdAllSum.sybzNum | redMinus"></td>
+          <td [innerHTML]="jdAllSum.infactNum | redMinus"></td>
+          <td [innerHTML]="jdAllSum.freeNum | redMinus"></td>
+          <td [innerHTML]="jdAllSum.ylNum | redMinus"></td>
+          <td [innerHTML]="jdAllSum.kyNum | redMinus"></td>
+          <td>{{jdAllSum.budgetFromName}}</td>
+          <td [innerHTML]="jdAllSum.gyyeNum | redMinus"></td>
+          <td [innerHTML]="jdAllSum.unit5Num | redMinus"></td>
+          <td [innerHTML]="jdAllSum.unit6Num | redMinus"></td>
+          <td [innerHTML]="jdAllSum.unit7Num | redMinus"></td>
+          <td [innerHTML]="jdAllSum.unit8Num | redMinus"></td>
+          <td [innerHTML]="jdAllSum.org7Num | redMinus"></td>
+          <td [innerHTML]="jdAllSum.org8Num | redMinus"></td>
+        </tr>
+        <tr>
+          <td>&nbsp;</td>
+          <td colspan="2">各街道事业单位小计（共{{allSum.unitSum}}个单位）</td>
+          <td>{{allSum.levelName}}</td>
+          <td [innerHTML]="allSum.sybzNum | redMinus"></td>
+          <td [innerHTML]="allSum.infactNum | redMinus"></td>
+          <td [innerHTML]="allSum.freeNum | redMinus"></td>
+          <td [innerHTML]="allSum.ylNum | redMinus"></td>
+          <td [innerHTML]="allSum.kyNum | redMinus"></td>
+          <td>{{allSum.budgetFromName}}</td>
+          <td [innerHTML]="allSum.gyyeNum | redMinus"></td>
+          <td [innerHTML]="allSum.unit5Num | redMinus"></td>
+          <td [innerHTML]="allSum.unit6Num | redMinus"></td>
+          <td [innerHTML]="allSum.unit7Num | redMinus"></td>
+          <td [innerHTML]="allSum.unit8Num | redMinus"></td>
+          <td [innerHTML]="allSum.org7Num | redMinus"></td>
+          <td [innerHTML]="allSum.org8Num | redMinus"></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

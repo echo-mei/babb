@@ -1,58 +1,57 @@
 page-unit-hc-table-frz {
+  .scroll-content {
+    overflow: hidden;
+  }
   .unit-hc-wrap{
     position: relative;
     width: 100%;
-    padding: px(44);
+    height: 100%;
+    padding: 15px;
     .unit-hc-title{
       font-size: px(64);
       font-weight: bold;
-      margin: 0 0 px(44) 0;
-      height: px(75);
+      height: 50px;
+      margin: 0;
     }
     .unit-hc-table-wrap{
-      position: absolute;
-      top:px(120);
-      bottom: 0;
       width: 100%;
-      overflow-x: auto;
+      height: calc(100% - 50px);
+      overflow: auto;
       .unit-hc-table{
         border: 1px solid color($colors,tableColor);
         table-layout: fixed;
-        &.complex-table{
-          th{
-            height: px(128);
-          }
-        }
+        font-size: px(50);
         thead{
           background: #f2f5fa;
         }
         th{
           color: color($colors,textMainColor);
-          font-size: px(58);
-          height: px(220);
-          padding: 0 px(25);
-          font-weight: normal;
+          padding: 5px;
+          white-space: nowrap;
           &.num{
-            min-width: 60px;
+            max-width: 60px;
           }
           &.name{
-            min-width: 120px;
+            min-width: 80px;
+            max-width: 90px;
+          }
+          &.idno{
+            min-width: 150px;
           }
           &.unit{
-            min-width: 200px;
+            min-width: 260px;
           }
           &.item{
-            min-width: 200px;
+            min-width: 160px;
           }
           &.date{
             min-width: 150px;
           }
         }
         td{
-          font-size: px(58);
-          height: px(150);
-          padding: 0 px(25);
+          padding: 5px;
           text-align: center;
+          // white-space: nowrap;
         }
       }
     }

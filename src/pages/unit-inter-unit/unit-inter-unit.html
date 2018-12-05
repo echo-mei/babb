@@ -21,7 +21,7 @@
 
 <ion-content>
   <h2 class="orglist-title" *ngIf="unitKind==3">下设事业单位</h2>
-  <h2 class="orglist-title" *ngIf="unitKind!=3">下设单位</h2>
+  <h2 class="orglist-title" *ngIf="unitKind!=3">下设机构</h2>
   <div class="orglist-cont">
     <div class="orglist-item" *ngFor="let unit of unitList" (click)="onClickUnit(unit)">
       <h3 class="orglist-item-title">

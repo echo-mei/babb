@@ -12,8 +12,8 @@
 <ion-content padding>
   <ion-list inset>
     <div *ngIf="!key">
-      <ion-item><p class="his">历史记录<span *ngIf="!(storage.historyUnitList&&storage.historyUnitList.length)">(无历史记录)</span></p></ion-item>
-      <ion-item-sliding *ngFor="let item of storage.historyUnitList; let index = index">
+      <ion-item><p class="his">历史记录<span *ngIf="!(storage.historyUnitList&&storage.historyUnitList.length)">(无历史记录)</span></p><span *ngIf="storage.historyUnitList.length" (click)="clearStorage()" class="clearStorage" item-end>清空</span></ion-item>
+      <ion-item-sliding *ngFor="let item of historyUnitList; let index = index">
         <ion-item (click)="onClickUnit(item)"><p [innerHTML]="item.unitName | highLight:key"></p></ion-item>
         <ion-item-options side="right">
           <button ion-button color="primary" (click)="delectItem(index)">
@@ -21,13 +21,27 @@
           </button>
         </ion-item-options>
       </ion-item-sliding> 
-      <div *ngIf="storage.historyUnitList.length" class="clearStorage">
-        <span (click)="clearStorage()">清空</span>
-      </div>
+
+      <!-- <div *ngIf="storage.historyUnitList.length" class="clearStorage"> -->
+        <!-- <span (click)="clearStorage()">清空</span> -->
+      <!-- </div> -->
+
     </div>
     <div *ngIf="key">
       <ion-item *ngFor="let item of unitList" (click)="onClickUnit(item)"><p [innerHTML]="item.unitName | highLight:key"></p></ion-item>
     </div>
+    
+    <!-- <ion-item-sliding  *ngFor="let item of historyUnitList">
+      <ion-item>
+        <h2>Slimer</h2>
+      </ion-item>
+      <ion-item-options side="right">
+        <button ion-button color="primary">
+          <ion-icon name="mail"></ion-icon>
+          Email
+        </button>
+      </ion-item-options>
+    </ion-item-sliding> -->
     
   </ion-list>
   <div class="notFound" *ngIf="key && !(unitList&&unitList.length)">找不到相关单位</div>

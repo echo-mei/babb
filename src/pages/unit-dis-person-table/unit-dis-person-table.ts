@@ -1,3 +1,4 @@
+///<reference path="../../services/jquery.d.ts"/>
 import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
 import { BabbDisProvider } from '../../providers/babb-dis/babb-dis';

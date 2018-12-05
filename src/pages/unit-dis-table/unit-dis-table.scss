@@ -1,11 +1,28 @@
 page-unit-dis-table {
   overflow: auto;
   background-color: #EFEFF4;
+  .main-wrapper {
+    padding: 15px;
+    position: relative;
+    background: #fff;
+    height: 100%;
+    .main-title {
+      font-size: 25px;
+      font-weight: bold;
+      margin: 0 auto;
+      text-align: left;
+      height: 50px;
+    }
+  }
+  .displayer{
+    background-color: #F2F5FA;
+    border:1px solid #B9CFF4;
+    font-size: 16px;
+  }
    .table-wrapper{
-       margin-top:15px;
        background-color: #fff;
-       padding:15px 30px;
        overflow: auto;
+       height: 100%;
       p{
           font-size:25px;
           font-weight: bold;
@@ -16,18 +33,20 @@ page-unit-dis-table {
           min-width: 100%;
           table-layout: fixed;
           border:1px solid #B9CFF4;
-          font-size: 20px;
-          margin-top:20px;
+          font-size: 16px;
           thead{
               background-color: #F2F5FA;
               tr>th{
                 padding:10px 5px;
                 border:1px solid #B9CFF4;
-                white-space: nowrap;
+                // white-space: nowrap;
               }
 
           }
           tbody{
+            .table-title {
+              background-color: #F2F5FA;
+            }
               tr>td{
                   padding:10px 5px;
                   text-align: center;

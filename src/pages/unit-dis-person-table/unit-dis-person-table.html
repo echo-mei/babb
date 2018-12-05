@@ -1,75 +1,83 @@
-<div class="table-wrapper" avoid-super-tabs="true">
-  <p>雇员核定数</p>
-  <table class="officeLeaderTable">
-    <thead>
-      <tr>
-        <th>&nbsp;</th>
-        <th *ngFor="let item of gyPersonList">{{item.personTypeName}}</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td>合计</td>
-        <td *ngFor="let item of gyPersonList">{{item.hjCurCount?item.hjCurCount:0}}</td>
-      </tr>
-      <tr>
-        <td>区直</td>
-        <td *ngFor="let item of gyPersonList">{{item.qzCurCount?item.qzCurCount:0}}</td>
-      </tr>
-      <tr>
-        <td>街道</td>
-        <td *ngFor="let item of gyPersonList">{{item.jdCurCount?item.jdCurCount:0}}</td>
-      </tr>
-    </tbody>
-  </table>
+<div class="main-wrapper">
+  <p class="main-title">雇员核定数</p>
+  <div class="table-wrapper" avoid-super-tabs="true">
+    <table class="officeLeaderTable">
+      <thead>
+        <tr>
+          <th>&nbsp;</th>
+          <th *ngFor="let item of gyPersonList">{{item.personTypeName}}</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="table-title">合计</td>
+          <td *ngFor="let item of gyPersonList">{{item.hjCurCount?item.hjCurCount:0}}</td>
+        </tr>
+        <tr>
+          <td class="table-title">区直</td>
+          <td *ngFor="let item of gyPersonList">{{item.qzCurCount?item.qzCurCount:0}}</td>
+        </tr>
+        <tr>
+          <td class="table-title">街道</td>
+          <td *ngFor="let item of gyPersonList">{{item.jdCurCount?item.jdCurCount:0}}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
 </div>
-<div class="table-wrapper" avoid-super-tabs="true">
-  <p>临聘核定数</p>
-  <table class="officeLeaderTable">
-    <thead>
-      <tr>
-        <th>&nbsp;</th>
-        <th *ngFor="let item of lpPersonList">{{item.personTypeName}}</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td>合计</td>
-        <td *ngFor="let item of lpPersonList">{{item.hjCurCount?item.hjCurCount:0}}</td>
-      </tr>
-      <tr>
-        <td>区直</td>
-        <td *ngFor="let item of lpPersonList">{{item.qzCurCount?item.qzCurCount:0}}</td>
-      </tr>
-      <tr>
-        <td>街道</td>
-        <td *ngFor="let item of lpPersonList">{{item.jdCurCount?item.jdCurCount:0}}</td>
-      </tr>
-    </tbody>
-  </table>
+
+<div class="main-wrapper">
+  <p class="main-title">临聘核定数</p>
+  <div class="table-wrapper" avoid-super-tabs="true">
+    <table class="officeLeaderTable">
+      <thead>
+        <tr>
+          <th>&nbsp;</th>
+          <th *ngFor="let item of lpPersonList">{{item.personTypeName}}</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="table-title">合计</td>
+          <td *ngFor="let item of lpPersonList">{{item.hjCurCount?item.hjCurCount:0}}</td>
+        </tr>
+        <tr>
+          <td class="table-title">区直</td>
+          <td *ngFor="let item of lpPersonList">{{item.qzCurCount?item.qzCurCount:0}}</td>
+        </tr>
+        <tr>
+          <td class="table-title">街道</td>
+          <td *ngFor="let item of lpPersonList">{{item.jdCurCount?item.jdCurCount:0}}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
 </div>
-<div class="table-wrapper" avoid-super-tabs="true">
-  <p>购买服务核定数</p>
-  <table class="officeLeaderTable">
-    <thead>
-      <tr>
-        <th>&nbsp;</th>
-        <th *ngFor="let item of gmfwPersonList">{{item.personTypeName}}</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td>合计</td>
-        <td *ngFor="let item of gmfwPersonList">{{item.hjCurCount?item.hjCurCount:0}}</td>
-      </tr>
-      <tr>
-        <td>区直</td>
-        <td *ngFor="let item of gmfwPersonList">{{item.qzCurCount?item.qzCurCount:0}}</td>
-      </tr>
-      <tr>
-        <td>街道</td>
-        <td *ngFor="let item of gmfwPersonList">{{item.jdCurCount?item.jdCurCount:0}}</td>
-      </tr>
-    </tbody>
-  </table>
+
+<div class="main-wrapper">
+  <p class="main-title">第三方用人情况核定数</p>
+  <div class="table-wrapper" avoid-super-tabs="true">
+    <table class="officeLeaderTable">
+      <thead>
+        <tr>
+          <th>&nbsp;</th>
+          <th *ngFor="let item of gmfwPersonList">{{item.personTypeName}}</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="table-title">合计</td>
+          <td *ngFor="let item of gmfwPersonList">{{item.hjCurCount?item.hjCurCount:0}}</td>
+        </tr>
+        <tr>
+          <td class="table-title">区直</td>
+          <td *ngFor="let item of gmfwPersonList">{{item.qzCurCount?item.qzCurCount:0}}</td>
+        </tr>
+        <tr>
+          <td class="table-title">街道</td>
+          <td *ngFor="let item of gmfwPersonList">{{item.jdCurCount?item.jdCurCount:0}}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
 </div>

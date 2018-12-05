@@ -7,20 +7,25 @@
         <ion-icon name="md-shouye1"></ion-icon>
       </button>
     </ion-buttons>
+    
   </ion-navbar>
-
+  <ion-item class="searchCondition">
+    <div class='p'>
+      <div>
+        查询条件 :
+        <span *ngIf="key">{{ key }}<em [hidden]="searchKeyList.length==0">、</em></span>
+        <span *ngFor="let item of searchKeyList; let index = index">{{ item }}<em [hidden]="index == searchKeyList.length-1">、</em></span>
+        <span *ngIf="!searchKeyList.length && !key">( 未选择条件 )</span>
+      </div>
+    </div>
+    <i item-end>共计{{ resultList.length }}条</i>
+  </ion-item>
 </ion-header>
 
 
 <ion-content>
   <ion-list inset>
-    <ion-item class="searchCondition">
-      <p>查询条件 :
-        <span *ngIf="key">{{ key }}<em [hidden]="searchKeyList.length==0">、</em></span>
-        <span *ngFor="let item of searchKeyList; let index = index">{{ item }}<em [hidden]="index == searchKeyList.length-1">、</em></span>
-        <span *ngIf="!searchKeyList.length && !key">( 未选择条件 )</span>
-      </p>
-    </ion-item>
+    
     <ion-item *ngFor="let result of resultList" (click)="goUnit(result)">
       {{ result.UNIT_NAME }}
     </ion-item>

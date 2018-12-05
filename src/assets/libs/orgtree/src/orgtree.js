@@ -74,7 +74,7 @@ function Orgtree(options) {
               '<div class="orgtree"></div>'+
               '<div class="modal"><table><tr><td>'+
                   '<div class="form">'+
-                      '<div class="form-header">新增<span class="close">×</span></div>'+
+                      '<div class="form-header"><span class="form-title">修改</span><span class="close">×</span></div>'+
                       '<div class="form-body"></div>'+
                       '<div class="form-footer"><button class="sure">保存</button><button class="cancel">取消</button></div>'+
                   '</div>'+
@@ -325,9 +325,10 @@ Orgtree.prototype = {
       $node.on('click', '.fa-pencil', function() {
           that.openModal($node.data('nodeData'));
           that.$modal.find('.sure').unbind('click').bind('click', function() {
-              that.closeModal();
-              that.options.editNodeData($node.data('nodeData'));
-              that.resetNodeValue($node, $node.data('nodeData'));
+              that.options.editNodeData($node.data('nodeData'), function(data) {
+                  that.closeModal();
+                  that.resetNodeValue($node, data);
+              });
           });
       });
       $node.on('click', '.delete-node', function() {
@@ -357,6 +358,7 @@ Orgtree.prototype = {
               $tbody.children('tr').eq(0).children('td').eq(1).attr('rowspan', cLength*2);
               $tbody.children('tr').eq(0).children('td').eq(2).attr('rowspan', cLength*2);
               if(index==0) {
+                  console.log($tr, $tbody.children('tr').eq(index+2));
                   $tr.append($tbody.children('tr').eq(index+2).children('.nodes'));
                   $nodes.remove();
                   $tbody.children('tr').eq(index+1).remove();

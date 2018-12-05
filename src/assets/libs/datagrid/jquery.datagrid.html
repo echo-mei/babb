@@ -1,0 +1,511 @@
+<html>
+<head>
+	<meta charset="utf-8">
+	<link rel="stylesheet" href="jquery.datagrid.css">
+	<script src="../jquery/jquery.js"></script>
+	<script src="jquery.datagrid.js"></script>
+	<style>
+	.wa-datagrid-hr button{
+		outline:none;border:0;color:#fff;height: 26px;margin:15px 10px;padding:0 10px;cursor:pointer;
+	}
+	.wa-datagrid-hr .add{background:#00ab3c;}
+	.wa-datagrid-hr .add:hover{background:#00852f;}
+	.wa-datagrid-hr .delete{background:#e20000;}
+	.wa-datagrid-hr .delete:hover{background:#bf0000;}
+	.wa-datagrid-hr .check{background:#0084e2;}
+	.wa-datagrid-hr .check:hover{background:#0064ac;}
+	
+	.wa-datagrid-etyy button{background: #fff;cursor:pointer;border: 1px solid #1cc6a3;outline:none;border-radius:3px;padding:0 10px;height:26px;margin:10px;}
+	.wa-datagrid-etyy button:hover{background:#1cc6a3;color:#fff;}
+	.wa-datagrid-etyy .add{}
+	.wa-datagrid-etyy .add:hover{}
+	.wa-datagrid-etyy .delete{}
+	.wa-datagrid-etyy .delete:hover{}
+	.wa-datagrid-etyy .check{}
+	.wa-datagrid-etyy .check:hover{}
+	
+	</style>
+</head>
+<body>
+<div id="a"></div><br><br>
+<div id="b"></div><br><br>
+<div id="d"></div><br><br>
+<script>
+
+$('#a').datagrid({
+	className: 'wa-datagrid-hr',
+	width: 1000,
+	height: 300,
+	topContent: function() {
+		var cellHeight = 20;
+		var striped = false;
+		var froze = false;
+		return $('<div>')
+		.append($('<button class="add">行高</button>').click(function(){
+				$('#a').datagrid('changeCellHeight', cellHeight==60?(cellHeight=20):(cellHeight+=10));
+			}))
+			.append($('<button class="delete">斑马线</button>').click(function(){
+				$('#a').datagrid('striped', striped=!striped);
+			}))
+			.append($('<button class="check">冻结行</button>').click(function(){
+				$('#a').datagrid('frozeRow', 0);
+				froze ? $(this).html('冻结行') : $(this).html('取消冻结行');
+				froze = !froze;
+			}))
+	}(),
+	bottomContent: function() {
+		
+	}(),
+	breakWord: false,
+	checkable: true,
+	checkWidth: 40,
+	rowNumber: false,
+	numberWidth: 30,
+	numberText: '...',
+	toggleRow: false,
+	toggleWidth: 20,
+	toggleText: '',
+	cellHeight: 50,
+	striped: false,
+	resizable: true,
+	pageable: true,
+	pagerPosition: 'bottom',
+	pageSize: 100,
+	columns: [
+		[
+			{field: '1', text: '姓名代办业务'},
+			{field: '2', text: '证件号码'},
+			{field: '3', text: '调动类型'},
+			{field: '4', text: '当前环节(当前环节状态)'},
+			{field: '5', text: '上一环节(上一环节状态)'},
+			{field: '6', text: '单位'},
+			{field: '7', text: '主管单位'},
+			{field: '8', text: '创建时间'},
+			{field: '9', text: '最近处理时间'}
+		]
+	],
+	data: {
+		total: 91,
+		rows: [
+			{1: '张三', 2: '511423196008520666', 3: '顺向调动', 4: '单位申报(未上报)', 5: '事管处审批(业务退回)', 6: '衢州市人力资源社会保障信息中心', 7: '衢州市人力资源和社会保障局', 8: '2016-12-16 13:01:32', 9: '2016-12-16 13:01:32核定工资 修改业务 查看业务信息'},
+			{1: '李四', 2: '511423196008520666', 3: '顺向调动', 4: '单位申报(未上报)', 5: '事管处审批(业务退回)', 6: '衢州市人力资源社会保障信息中心', 7: '衢州市人力资源和社会保障局', 8: '2016-12-16 13:01:32', 9: '2016-12-16 13:01:32核定工资 修改业务 查看业务信息'},
+			{1: '王五', 2: '511423196008520666', 3: '顺向调动', 4: '单位申报(未上报)', 5: '事管处审批(业务退回)', 6: '衢州市人力资源社会保障信息中心', 7: '衢州市人力资源和社会保障局', 8: '2016-12-16 13:01:32', 9: '2016-12-16 13:01:32核定工资 修改业务 查看业务信息'},
+			{1: '赵六', 2: '511423196008520666', 3: '顺向调动', 4: '单位申报(未上报)', 5: '事管处审批(业务退回)', 6: '衢州市人力资源社会保障信息中心', 7: '衢州市人力资源和社会保障局', 8: '2016-12-16 13:01:32', 9: '2016-12-16 13:01:32核定工资 修改业务 查看业务信息'},
+			{1: '张三', 2: '511423196008520666', 3: '顺向调动', 4: '单位申报(未上报)', 5: '事管处审批(业务退回)', 6: '衢州市人力资源社会保障信息中心', 7: '衢州市人力资源和社会保障局', 8: '2016-12-16 13:01:32', 9: '2016-12-16 13:01:32核定工资 修改业务 查看业务信息'},
+			{1: '赵六', 2: '511423196008520666', 3: '顺向调动', 4: '单位申报(未上报)', 5: '事管处审批(业务退回)', 6: '衢州市人力资源社会保障信息中心', 7: '衢州市人力资源和社会保障局', 8: '2016-12-16 13:01:32', 9: '2016-12-16 13:01:32核定工资 修改业务 查看业务信息'},
+			{1: '李四', 2: '511423196008520666', 3: '顺向调动', 4: '单位申报(未上报)', 5: '事管处审批(业务退回)', 6: '衢州市人力资源社会保障信息中心', 7: '衢州市人力资源和社会保障局', 8: '2016-12-16 13:01:32', 9: '2016-12-16 13:01:32核定工资 修改业务 查看业务信息'},
+			{1: '王五', 2: '511423196008520666', 3: '顺向调动', 4: '单位申报(未上报)', 5: '事管处审批(业务退回)', 6: '衢州市人力资源社会保障信息中心', 7: '衢州市人力资源和社会保障局', 8: '2016-12-16 13:01:32', 9: '2016-12-16 13:01:32核定工资 修改业务 查看业务信息'},
+			{1: '赵六', 2: '511423196008520666', 3: '顺向调动', 4: '单位申报(未上报)', 5: '事管处审批(业务退回)', 6: '衢州市人力资源社会保障信息中心', 7: '衢州市人力资源和社会保障局', 8: '2016-12-16 13:01:32', 9: '2016-12-16 13:01:32核定工资 修改业务 查看业务信息'},
+			{1: '张三', 2: '511423196008520666', 3: '顺向调动', 4: '单位申报(未上报)', 5: '事管处审批(业务退回)', 6: '衢州市人力资源社会保障信息中心', 7: '衢州市人力资源和社会保障局', 8: '2016-12-16 13:01:32', 9: '2016-12-16 13:01:32核定工资 修改业务 查看业务信息'},
+			{1: '张三', 2: '511423196008520666', 3: '顺向调动', 4: '单位申报(未上报)', 5: '事管处审批(业务退回)', 6: '衢州市人力资源社会保障信息中心', 7: '衢州市人力资源和社会保障局', 8: '2016-12-16 13:01:32', 9: '2016-12-16 13:01:32核定工资 修改业务 查看业务信息'},
+			{1: '赵六', 2: '511423196008520666', 3: '顺向调动', 4: '单位申报(未上报)', 5: '事管处审批(业务退回)', 6: '衢州市人力资源社会保障信息中心', 7: '衢州市人力资源和社会保障局', 8: '2016-12-16 13:01:32', 9: '2016-12-16 13:01:32核定工资 修改业务 查看业务信息'},
+			{1: '张三', 2: '511423196008520666', 3: '顺向调动', 4: '单位申报(未上报)', 5: '事管处审批(业务退回)', 6: '衢州市人力资源社会保障信息中心', 7: '衢州市人力资源和社会保障局', 8: '2016-12-16 13:01:32', 9: '2016-12-16 13:01:32核定工资 修改业务 查看业务信息'},
+			{1: '李四', 2: '511423196008520666', 3: '顺向调动', 4: '单位申报(未上报)', 5: '事管处审批(业务退回)', 6: '衢州市人力资源社会保障信息中心', 7: '衢州市人力资源和社会保障局', 8: '2016-12-16 13:01:32', 9: '2016-12-16 13:01:32核定工资 修改业务 查看业务信息'},
+			{1: '李四', 2: '511423196008520666', 3: '顺向调动', 4: '单位申报(未上报)', 5: '事管处审批(业务退回)', 6: '衢州市人力资源社会保障信息中心', 7: '衢州市人力资源和社会保障局', 8: '2016-12-16 13:01:32', 9: '2016-12-16 13:01:32核定工资 修改业务 查看业务信息'},
+			{1: '张三', 2: '511423196008520666', 3: '顺向调动', 4: '单位申报(未上报)', 5: '事管处审批(业务退回)', 6: '衢州市人力资源社会保障信息中心', 7: '衢州市人力资源和社会保障局', 8: '2016-12-16 13:01:32', 9: '2016-12-16 13:01:32核定工资 修改业务 查看业务信息'},
+		]
+	}
+});
+
+$('#b').datagrid({
+	className: 'wa-datagrid-etyy',
+	width: 1000,
+	height: 300,
+	topContent: function() {
+		var cellHeight = 20;
+		var striped = false;
+		var froze = false;
+		return $('<div>')
+		.append($('<button class="add">行高</button>').click(function(){
+				$('#b').datagrid('changeCellHeight', cellHeight==60?(cellHeight=20):(cellHeight+=10));
+			}))
+			.append($('<button class="delete">斑马线</button>').click(function(){
+				$('#b').datagrid('striped', striped=!striped);
+			}))
+			.append($('<button class="check">冻结行</button>').click(function(){
+				$('#b').datagrid('frozeRow', 0);
+				froze ? $(this).html('冻结行') : $(this).html('取消冻结行');
+				froze = !froze;
+			}))
+	}(),
+	bottomContent: function() {
+		
+	}(),
+	breakWord: false,
+	checkable: true,
+	checkWidth: 40,
+	rowNumber: true,
+	numberWidth: 30,
+	numberText: '...',
+	toggleRow: false,
+	toggleWidth: 20,
+	toggleText: '',
+	cellHeight: 40,
+	striped: false,
+	resizable: true,
+	pageable: true,
+	pagerPosition: 'bottom',
+	pageSize: 100,
+	columns: [
+		[
+			{field: '1', text: '姓名代办业务'},
+			{field: '2', text: '证件号码'},
+			{field: '3', text: '调动类型'},
+			{field: '4', text: '当前环节(当前环节状态)'},
+			{field: '5', text: '上一环节(上一环节状态)'},
+			{field: '6', text: '单位'},
+			{field: '7', text: '主管单位'},
+			{field: '8', text: '创建时间'},
+			{field: '9', text: '最近处理时间'}
+		]
+	],
+	data: {
+		total: 91,
+		rows: [
+			{1: '张三', 2: '511423196008520666', 3: '顺向调动', 4: '单位申报(未上报)', 5: '事管处审批(业务退回)', 6: '衢州市人力资源社会保障信息中心', 7: '衢州市人力资源和社会保障局', 8: '2016-12-16 13:01:32', 9: '2016-12-16 13:01:32核定工资 修改业务 查看业务信息'},
+			{1: '李四', 2: '511423196008520666', 3: '顺向调动', 4: '单位申报(未上报)', 5: '事管处审批(业务退回)', 6: '衢州市人力资源社会保障信息中心', 7: '衢州市人力资源和社会保障局', 8: '2016-12-16 13:01:32', 9: '2016-12-16 13:01:32核定工资 修改业务 查看业务信息'},
+			{1: '王五', 2: '511423196008520666', 3: '顺向调动', 4: '单位申报(未上报)', 5: '事管处审批(业务退回)', 6: '衢州市人力资源社会保障信息中心', 7: '衢州市人力资源和社会保障局', 8: '2016-12-16 13:01:32', 9: '2016-12-16 13:01:32核定工资 修改业务 查看业务信息'},
+			{1: '赵六', 2: '511423196008520666', 3: '顺向调动', 4: '单位申报(未上报)', 5: '事管处审批(业务退回)', 6: '衢州市人力资源社会保障信息中心', 7: '衢州市人力资源和社会保障局', 8: '2016-12-16 13:01:32', 9: '2016-12-16 13:01:32核定工资 修改业务 查看业务信息'},
+			{1: '张三', 2: '511423196008520666', 3: '顺向调动', 4: '单位申报(未上报)', 5: '事管处审批(业务退回)', 6: '衢州市人力资源社会保障信息中心', 7: '衢州市人力资源和社会保障局', 8: '2016-12-16 13:01:32', 9: '2016-12-16 13:01:32核定工资 修改业务 查看业务信息'},
+			{1: '赵六', 2: '511423196008520666', 3: '顺向调动', 4: '单位申报(未上报)', 5: '事管处审批(业务退回)', 6: '衢州市人力资源社会保障信息中心', 7: '衢州市人力资源和社会保障局', 8: '2016-12-16 13:01:32', 9: '2016-12-16 13:01:32核定工资 修改业务 查看业务信息'},
+			{1: '李四', 2: '511423196008520666', 3: '顺向调动', 4: '单位申报(未上报)', 5: '事管处审批(业务退回)', 6: '衢州市人力资源社会保障信息中心', 7: '衢州市人力资源和社会保障局', 8: '2016-12-16 13:01:32', 9: '2016-12-16 13:01:32核定工资 修改业务 查看业务信息'},
+			{1: '王五', 2: '511423196008520666', 3: '顺向调动', 4: '单位申报(未上报)', 5: '事管处审批(业务退回)', 6: '衢州市人力资源社会保障信息中心', 7: '衢州市人力资源和社会保障局', 8: '2016-12-16 13:01:32', 9: '2016-12-16 13:01:32核定工资 修改业务 查看业务信息'},
+			{1: '赵六', 2: '511423196008520666', 3: '顺向调动', 4: '单位申报(未上报)', 5: '事管处审批(业务退回)', 6: '衢州市人力资源社会保障信息中心', 7: '衢州市人力资源和社会保障局', 8: '2016-12-16 13:01:32', 9: '2016-12-16 13:01:32核定工资 修改业务 查看业务信息'},
+			{1: '张三', 2: '511423196008520666', 3: '顺向调动', 4: '单位申报(未上报)', 5: '事管处审批(业务退回)', 6: '衢州市人力资源社会保障信息中心', 7: '衢州市人力资源和社会保障局', 8: '2016-12-16 13:01:32', 9: '2016-12-16 13:01:32核定工资 修改业务 查看业务信息'},
+			{1: '张三', 2: '511423196008520666', 3: '顺向调动', 4: '单位申报(未上报)', 5: '事管处审批(业务退回)', 6: '衢州市人力资源社会保障信息中心', 7: '衢州市人力资源和社会保障局', 8: '2016-12-16 13:01:32', 9: '2016-12-16 13:01:32核定工资 修改业务 查看业务信息'},
+			{1: '赵六', 2: '511423196008520666', 3: '顺向调动', 4: '单位申报(未上报)', 5: '事管处审批(业务退回)', 6: '衢州市人力资源社会保障信息中心', 7: '衢州市人力资源和社会保障局', 8: '2016-12-16 13:01:32', 9: '2016-12-16 13:01:32核定工资 修改业务 查看业务信息'},
+			{1: '张三', 2: '511423196008520666', 3: '顺向调动', 4: '单位申报(未上报)', 5: '事管处审批(业务退回)', 6: '衢州市人力资源社会保障信息中心', 7: '衢州市人力资源和社会保障局', 8: '2016-12-16 13:01:32', 9: '2016-12-16 13:01:32核定工资 修改业务 查看业务信息'},
+			{1: '李四', 2: '511423196008520666', 3: '顺向调动', 4: '单位申报(未上报)', 5: '事管处审批(业务退回)', 6: '衢州市人力资源社会保障信息中心', 7: '衢州市人力资源和社会保障局', 8: '2016-12-16 13:01:32', 9: '2016-12-16 13:01:32核定工资 修改业务 查看业务信息'},
+			{1: '李四', 2: '511423196008520666', 3: '顺向调动', 4: '单位申报(未上报)', 5: '事管处审批(业务退回)', 6: '衢州市人力资源社会保障信息中心', 7: '衢州市人力资源和社会保障局', 8: '2016-12-16 13:01:32', 9: '2016-12-16 13:01:32核定工资 修改业务 查看业务信息'},
+			{1: '张三', 2: '511423196008520666', 3: '顺向调动', 4: '单位申报(未上报)', 5: '事管处审批(业务退回)', 6: '衢州市人力资源社会保障信息中心', 7: '衢州市人力资源和社会保障局', 8: '2016-12-16 13:01:32', 9: '2016-12-16 13:01:32核定工资 修改业务 查看业务信息'},
+		]
+	}
+});
+
+
+/*
+$('#a').datagrid({
+	$el: $('<div>').appendTo($('body')),
+	width: $(window).width(),
+	height: $(window).height()/2,
+	topContent: function() {
+		var cellHeight = 20;
+		var striped = true;
+		return $('<div>')
+			.append($('<button>行高</button>').click(function(){
+				$('#a').datagrid('changeCellHeight', cellHeight==60?(cellHeight=20):(cellHeight+=10));
+			}))
+			.append($('<button>斑马线</button>').click(function(){
+				$('#a').datagrid('striped', striped=!striped);
+			}))
+			.append($('<button>冻结行</button>').click(function(){
+				$('#a').datagrid('frozeRow', 0);
+			}))
+	}(),
+	bottomContent: function() {
+		
+	}(),
+	breakWord: false,
+	checkable: false,
+	checkWidth: 30,
+	rowNumber: false,
+	numberWidth: 30,
+	numberText: '...',
+	toggleRow: false,
+	toggleWidth: 20,
+	toggleText: '',
+	cellHeight: 20,
+	striped: false,
+	resizable: false,
+	pageable: false,
+	pagerPosition: 'bottom',
+	pageSize: 100,
+	url: 'jquery.datagrid.json',
+	columns: [
+		[
+			{field: null, cols: 2, text: 'Name'},
+			{field: 'sex', rows: 2, text: 'Sex', width: 200}
+		],
+		[
+			{field: 'firstName', text: 'First Name'},
+			{field: 'lastName', text: 'Last Name'}
+		]
+	],
+	frozenColumns: [
+		[
+			{field: 'do', rows: 2, text: '', formatter: function(row, value) {return $('<a href="javascript:void(0)">修改</a>')}},
+			{field: '$', rows: 2, text: '$', formatter: function(row, value) {return '$'+(value?value:'');}},
+			{field: null, cols: 2, text: 'N'},
+			{field: 'id', rows: 2, text: 'Id', width: 100}
+		],
+		[
+			{field: 'num', text: 'Num'},
+			{field: 'num', text: 'Num'}
+		]
+	],
+	data: {
+		total: 91,
+		rows: [
+			{id: 1, sex: 'w', firstName: 'BXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX', lastName: 'W', num: '0001'},
+			{id: 2, sex: 'w', firstName: 'B', lastName: 'W', num: '0002'},
+			{id: 3, sex: 'w', firstName: 'B', lastName: 'W', num: '0003'},
+			{id: 4, sex: 'w', firstName: 'B', lastName: 'W', num: '0004'},
+			{id: 5, sex: 'w', firstName: 'B', lastName: 'W', num: '0005'},
+			{id: 6, sex: 'w', firstName: 'B', lastName: 'W', num: '0006'},
+			{id: 6, sex: 'w', firstName: 'B', lastName: 'W', num: '0006'},
+			{id: 6, sex: 'w', firstName: 'B', lastName: 'W', num: '0006'},
+			{id: 6, sex: 'w', firstName: 'B', lastName: 'W', num: '0006'},
+			{id: 6, sex: 'w', firstName: 'B', lastName: 'W', num: '0006'},
+			{id: 6, sex: 'w', firstName: 'B', lastName: 'W', num: '0006'},
+			{id: 6, sex: 'w', firstName: 'B', lastName: 'W', num: '0006'},
+			{id: 6, sex: 'w', firstName: 'B', lastName: 'W', num: '0006'},
+			{id: 6, sex: 'w', firstName: 'B', lastName: 'W', num: '0006'},
+			{id: 6, sex: 'w', firstName: 'B', lastName: 'W', num: '0006'},
+			{id: 6, sex: 'w', firstName: 'B', lastName: 'W', num: '0006'},
+			{id: 6, sex: 'w', firstName: 'B', lastName: 'W', num: '0006'},
+			{id: 6, sex: 'w', firstName: 'B', lastName: 'W', num: '0006'},
+			{id: 6, sex: 'w', firstName: 'B', lastName: 'W', num: '0006'},
+			{id: 6, sex: 'w', firstName: 'B', lastName: 'W', num: '0006'},
+			{id: 6, sex: 'w', firstName: 'B', lastName: 'W', num: '0006'},
+			{id: 6, sex: 'w', firstName: 'B', lastName: 'W', num: '0006'},
+			{id: 6, sex: 'w', firstName: 'B', lastName: 'W', num: '0006'},
+			{id: 6, sex: 'w', firstName: 'B', lastName: 'W', num: '0006'},
+			{id: 6, sex: 'w', firstName: 'B', lastName: 'W', num: '0006'},
+			{id: 6, sex: 'w', firstName: 'B', lastName: 'W', num: '0006'},
+			{id: 6, sex: 'w', firstName: 'B', lastName: 'W', num: '0006'},
+			{id: 6, sex: 'w', firstName: 'B', lastName: 'W', num: '0006'},
+			{id: 6, sex: 'w', firstName: 'B', lastName: 'W', num: '0006'},
+			{id: 6, sex: 'w', firstName: 'B', lastName: 'W', num: '0006'},
+			{id: 6, sex: 'w', firstName: 'B', lastName: 'W', num: '0006'},
+			{id: 6, sex: 'w', firstName: 'B', lastName: 'W', num: '0006'},
+			{id: 6, sex: 'w', firstName: 'B', lastName: 'W', num: '0006'},
+			{id: 6, sex: 'w', firstName: 'B', lastName: 'W', num: '0006'},
+			{id: 6, sex: 'w', firstName: 'B', lastName: 'W', num: '0006'},
+			{id: 6, sex: 'w', firstName: 'B', lastName: 'W', num: '0006'},
+			{id: 6, sex: 'w', firstName: 'B', lastName: 'W', num: '0006'},
+			{id: 6, sex: 'w', firstName: 'B', lastName: 'W', num: '0006'},
+			{id: 6, sex: 'w', firstName: 'B', lastName: 'W', num: '0006'},
+			{id: 6, sex: 'w', firstName: 'B', lastName: 'W', num: '0006'},
+			{id: 6, sex: 'w', firstName: 'B', lastName: 'W', num: '0006'},
+			{id: 6, sex: 'w', firstName: 'B', lastName: 'W', num: '0006'},
+			{id: 6, sex: 'w', firstName: 'B', lastName: 'W', num: '0006'},
+			{id: 6, sex: 'w', firstName: 'B', lastName: 'W', num: '0006'},
+			{id: 6, sex: 'w', firstName: 'B', lastName: 'W', num: '0006'},
+			{id: 6, sex: 'w', firstName: 'B', lastName: 'W', num: '0006'},
+			{id: 6, sex: 'w', firstName: 'B', lastName: 'W', num: '0006'},
+			{id: 6, sex: 'w', firstName: 'B', lastName: 'W', num: '0006'},
+			{id: 6, sex: 'w', firstName: 'B', lastName: 'W', num: '0006'},
+			{id: 6, sex: 'w', firstName: 'B', lastName: 'W', num: '0006'},
+			{id: 6, sex: 'w', firstName: 'B', lastName: 'W', num: '0006'},
+			{id: 6, sex: 'w', firstName: 'B', lastName: 'W', num: '0006'},
+			{id: 6, sex: 'w', firstName: 'B', lastName: 'W', num: '0006'},
+			{id: 6, sex: 'w', firstName: 'B', lastName: 'W', num: '0006'},
+			{id: 6, sex: 'w', firstName: 'B', lastName: 'W', num: '0006'},
+			{id: 6, sex: 'w', firstName: 'B', lastName: 'W', num: '0006'},
+			{id: 6, sex: 'w', firstName: 'B', lastName: 'W', num: '0006'},
+			{id: 6, sex: 'w', firstName: 'B', lastName: 'W', num: '0006'},
+			{id: 6, sex: 'w', firstName: 'B', lastName: 'W', num: '0006'},
+			{id: 6, sex: 'w', firstName: 'B', lastName: 'W', num: '0006'},
+			{id: 6, sex: 'w', firstName: 'B', lastName: 'W', num: '0006'},
+			{id: 6, sex: 'w', firstName: 'B', lastName: 'W', num: '0006'},
+			{id: 6, sex: 'w', firstName: 'B', lastName: 'W', num: '0006'},
+			{id: 6, sex: 'w', firstName: 'B', lastName: 'W', num: '0006'},
+			{id: 6, sex: 'w', firstName: 'B', lastName: 'W', num: '0006'},
+			{id: 6, sex: 'w', firstName: 'B', lastName: 'W', num: '0006'},
+			{id: 6, sex: 'w', firstName: 'B', lastName: 'W', num: '0006'},
+			{id: 6, sex: 'w', firstName: 'B', lastName: 'W', num: '0006'},
+			{id: 6, sex: 'w', firstName: 'B', lastName: 'W', num: '0006'},
+			{id: 6, sex: 'w', firstName: 'B', lastName: 'W', num: '0006'},
+			{id: 6, sex: 'w', firstName: 'B', lastName: 'W', num: '0006'},
+			{id: 6, sex: 'w', firstName: 'B', lastName: 'W', num: '0006'},
+			{id: 6, sex: 'w', firstName: 'B', lastName: 'W', num: '0006'},
+			{id: 6, sex: 'w', firstName: 'B', lastName: 'W', num: '0006'},
+			{id: 6, sex: 'w', firstName: 'B', lastName: 'W', num: '0006'},
+			{id: 6, sex: 'w', firstName: 'B', lastName: 'W', num: '0006'},
+			{id: 6, sex: 'w', firstName: 'B', lastName: 'W', num: '0006'},
+			{id: 6, sex: 'w', firstName: 'B', lastName: 'W', num: '0006'},
+			{id: 6, sex: 'w', firstName: 'B', lastName: 'W', num: '0006'},
+			{id: 6, sex: 'w', firstName: 'B', lastName: 'W', num: '0006'},
+			{id: 6, sex: 'w', firstName: 'B', lastName: 'W', num: '0006'},
+			{id: 6, sex: 'w', firstName: 'B', lastName: 'W', num: '0006'},
+			{id: 6, sex: 'w', firstName: 'B', lastName: 'W', num: '0006'},
+			{id: 6, sex: 'w', firstName: 'B', lastName: 'W', num: '0006'},
+			{id: 6, sex: 'w', firstName: 'B', lastName: 'W', num: '0006'},
+			{id: 6, sex: 'w', firstName: 'B', lastName: 'W', num: '0006'},
+			{id: 6, sex: 'w', firstName: 'B', lastName: 'W', num: '0006'},
+			{id: 6, sex: 'w', firstName: 'B', lastName: 'W', num: '0006'},
+			{id: 6, sex: 'w', firstName: 'B', lastName: 'W', num: '0006'},
+			{id: 6, sex: 'w', firstName: 'B', lastName: 'W', num: '0006'},
+			{id: 6, sex: 'w', firstName: 'B', lastName: 'W', num: '0006'},
+		],
+		footer: [
+			{num: '0006'},
+			{num: '0006'},
+		]
+	}
+});
+*/
+
+
+$('#d').datagrid({
+	width: 700,
+	height: 300,
+	topContent: function() {
+		var cellHeight = 20;
+		var striped = true;
+		var froze = false;
+		return $('<div>')
+			.append($('<button>行高</button>').click(function(){
+				$('#d').datagrid('changeCellHeight', cellHeight==60?(cellHeight=20):(cellHeight+=10));
+			}))
+			.append($('<button>斑马线</button>').click(function(){
+				$('#d').datagrid('striped', striped=!striped);
+			}))
+			.append($('<button>冻结行</button>').click(function(){
+				$('#d').datagrid('frozeRow', 0);
+				froze ? $(this).html('冻结行') : $(this).html('取消冻结行');
+				froze = !froze;
+			}))
+	}(),
+	bottomContent: function() {
+		
+	}(),
+	breakWord: false,
+	checkable: true,
+	checkWidth: 30,
+	rowNumber: true,
+	numberWidth: 30,
+	numberText: '...',
+	cellHeight: 20,
+	striped: true,
+	resizable: true,
+	pageable: true,
+	pagerPosition: 'bottom',
+	pageSize: 100,
+	url: 'jquery.datagrid.json',
+	columns: [
+		[
+			{field: null, cols: 2, text: 'Name'},
+			{field: 'sex', rows: 2, text: 'Sex', width: 900}
+		],
+		[
+			{field: 'firstName', text: 'First Name'},
+			{field: 'lastName', text: 'Last Name'}
+		]
+	],
+	frozenColumns: [
+		[
+			{field: 'do', rows: 2, text: '', formatter: function(row, value) {return $('<a href="javascript:void(0)">修改</a>')}, sortable: false},
+			{field: '$', rows: 2, text: '$', formatter: function(row, value) {return '$'+(value?value:'');}, sortable: false},
+			{field: null, cols: 2, text: 'N'},
+			{field: 'id', rows: 2, text: 'Id', width: 100}
+		],
+		[
+			{field: 'num', text: 'Num'},
+			{field: 'num', text: 'Num'}
+		]
+	],
+	data: {
+		total: 91,
+		rows: [
+			{id: 1, sex: 'w', firstName: 'BXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX', lastName: 'W', num: '0001'},
+			{id: 2, sex: 'w', firstName: 'B', lastName: 'W', num: '0002'},
+			{id: 3, sex: 'w', firstName: 'B', lastName: 'W', num: '0003'},
+			{id: 4, sex: 'w', firstName: 'B', lastName: 'W', num: '0004'},
+			{id: 5, sex: 'w', firstName: 'B', lastName: 'W', num: '0005'},
+			{id: 6, sex: 'w', firstName: 'B', lastName: 'W', num: '0006'},
+			{id: 6, sex: 'w', firstName: 'B', lastName: 'W', num: '0006'},
+			{id: 6, sex: 'w', firstName: 'B', lastName: 'W', num: '0006'},
+			{id: 6, sex: 'w', firstName: 'B', lastName: 'W', num: '0006'},
+			{id: 6, sex: 'w', firstName: 'B', lastName: 'W', num: '0006'},
+			{id: 6, sex: 'w', firstName: 'B', lastName: 'W', num: '0006'},
+			{id: 6, sex: 'w', firstName: 'B', lastName: 'W', num: '0006'},
+			{id: 6, sex: 'w', firstName: 'B', lastName: 'W', num: '0006'},
+			{id: 6, sex: 'w', firstName: 'B', lastName: 'W', num: '0006'},
+			{id: 6, sex: 'w', firstName: 'B', lastName: 'W', num: '0006'},
+			{id: 6, sex: 'w', firstName: 'B', lastName: 'W', num: '0006'},
+			{id: 6, sex: 'w', firstName: 'B', lastName: 'W', num: '0006'},
+			{id: 6, sex: 'w', firstName: 'B', lastName: 'W', num: '0006'},
+			{id: 6, sex: 'w', firstName: 'B', lastName: 'W', num: '0006'},
+			{id: 6, sex: 'w', firstName: 'B', lastName: 'W', num: '0006'},
+			{id: 6, sex: 'w', firstName: 'B', lastName: 'W', num: '0006'},
+			{id: 6, sex: 'w', firstName: 'B', lastName: 'W', num: '0006'},
+			{id: 6, sex: 'w', firstName: 'B', lastName: 'W', num: '0006'},
+			{id: 6, sex: 'w', firstName: 'B', lastName: 'W', num: '0006'},
+			{id: 6, sex: 'w', firstName: 'B', lastName: 'W', num: '0006'},
+			{id: 6, sex: 'w', firstName: 'B', lastName: 'W', num: '0006'},
+			{id: 6, sex: 'w', firstName: 'B', lastName: 'W', num: '0006'},
+			{id: 6, sex: 'w', firstName: 'B', lastName: 'W', num: '0006'},
+			{id: 6, sex: 'w', firstName: 'B', lastName: 'W', num: '0006'},
+			{id: 6, sex: 'w', firstName: 'B', lastName: 'W', num: '0006'},
+			{id: 6, sex: 'w', firstName: 'B', lastName: 'W', num: '0006'},
+			{id: 6, sex: 'w', firstName: 'B', lastName: 'W', num: '0006'},
+			{id: 6, sex: 'w', firstName: 'B', lastName: 'W', num: '0006'},
+			{id: 6, sex: 'w', firstName: 'B', lastName: 'W', num: '0006'},
+			{id: 6, sex: 'w', firstName: 'B', lastName: 'W', num: '0006'},
+			{id: 6, sex: 'w', firstName: 'B', lastName: 'W', num: '0006'},
+			{id: 6, sex: 'w', firstName: 'B', lastName: 'W', num: '0006'},
+			{id: 6, sex: 'w', firstName: 'B', lastName: 'W', num: '0006'},
+			{id: 6, sex: 'w', firstName: 'B', lastName: 'W', num: '0006'},
+			{id: 6, sex: 'w', firstName: 'B', lastName: 'W', num: '0006'},
+			{id: 6, sex: 'w', firstName: 'B', lastName: 'W', num: '0006'},
+			{id: 6, sex: 'w', firstName: 'B', lastName: 'W', num: '0006'},
+			{id: 6, sex: 'w', firstName: 'B', lastName: 'W', num: '0006'},
+			{id: 6, sex: 'w', firstName: 'B', lastName: 'W', num: '0006'},
+			{id: 6, sex: 'w', firstName: 'B', lastName: 'W', num: '0006'},
+			{id: 6, sex: 'w', firstName: 'B', lastName: 'W', num: '0006'},
+			{id: 6, sex: 'w', firstName: 'B', lastName: 'W', num: '0006'},
+			{id: 6, sex: 'w', firstName: 'B', lastName: 'W', num: '0006'},
+			{id: 6, sex: 'w', firstName: 'B', lastName: 'W', num: '0006'},
+			{id: 6, sex: 'w', firstName: 'B', lastName: 'W', num: '0006'},
+			{id: 6, sex: 'w', firstName: 'B', lastName: 'W', num: '0006'},
+			{id: 6, sex: 'w', firstName: 'B', lastName: 'W', num: '0006'},
+			{id: 6, sex: 'w', firstName: 'B', lastName: 'W', num: '0006'},
+			{id: 6, sex: 'w', firstName: 'B', lastName: 'W', num: '0006'},
+			{id: 6, sex: 'w', firstName: 'B', lastName: 'W', num: '0006'},
+			{id: 6, sex: 'w', firstName: 'B', lastName: 'W', num: '0006'},
+			{id: 6, sex: 'w', firstName: 'B', lastName: 'W', num: '0006'},
+			{id: 6, sex: 'w', firstName: 'B', lastName: 'W', num: '0006'},
+			{id: 6, sex: 'w', firstName: 'B', lastName: 'W', num: '0006'},
+			{id: 6, sex: 'w', firstName: 'B', lastName: 'W', num: '0006'},
+			{id: 6, sex: 'w', firstName: 'B', lastName: 'W', num: '0006'},
+			{id: 6, sex: 'w', firstName: 'B', lastName: 'W', num: '0006'},
+			{id: 6, sex: 'w', firstName: 'B', lastName: 'W', num: '0006'},
+			{id: 6, sex: 'w', firstName: 'B', lastName: 'W', num: '0006'},
+			{id: 6, sex: 'w', firstName: 'B', lastName: 'W', num: '0006'},
+			{id: 6, sex: 'w', firstName: 'B', lastName: 'W', num: '0006'},
+			{id: 6, sex: 'w', firstName: 'B', lastName: 'W', num: '0006'},
+			{id: 6, sex: 'w', firstName: 'B', lastName: 'W', num: '0006'},
+			{id: 6, sex: 'w', firstName: 'B', lastName: 'W', num: '0006'},
+			{id: 6, sex: 'w', firstName: 'B', lastName: 'W', num: '0006'},
+			{id: 6, sex: 'w', firstName: 'B', lastName: 'W', num: '0006'},
+			{id: 6, sex: 'w', firstName: 'B', lastName: 'W', num: '0006'},
+			{id: 6, sex: 'w', firstName: 'B', lastName: 'W', num: '0006'},
+			{id: 6, sex: 'w', firstName: 'B', lastName: 'W', num: '0006'},
+			{id: 6, sex: 'w', firstName: 'B', lastName: 'W', num: '0006'},
+			{id: 6, sex: 'w', firstName: 'B', lastName: 'W', num: '0006'},
+			{id: 6, sex: 'w', firstName: 'B', lastName: 'W', num: '0006'},
+			{id: 6, sex: 'w', firstName: 'B', lastName: 'W', num: '0006'},
+			{id: 6, sex: 'w', firstName: 'B', lastName: 'W', num: '0006'},
+			{id: 6, sex: 'w', firstName: 'B', lastName: 'W', num: '0006'},
+			{id: 6, sex: 'w', firstName: 'B', lastName: 'W', num: '0006'},
+			{id: 6, sex: 'w', firstName: 'B', lastName: 'W', num: '0006'},
+			{id: 6, sex: 'w', firstName: 'B', lastName: 'W', num: '0006'},
+			{id: 6, sex: 'w', firstName: 'B', lastName: 'W', num: '0006'},
+			{id: 6, sex: 'w', firstName: 'B', lastName: 'W', num: '0006'},
+			{id: 6, sex: 'w', firstName: 'B', lastName: 'W', num: '0006'},
+			{id: 6, sex: 'w', firstName: 'B', lastName: 'W', num: '0006'},
+			{id: 6, sex: 'w', firstName: 'B', lastName: 'W', num: '0006'},
+			{id: 6, sex: 'w', firstName: 'B', lastName: 'W', num: '0006'},
+			{id: 6, sex: 'w', firstName: 'B', lastName: 'W', num: '0006'},
+			{id: 6, sex: 'w', firstName: 'B', lastName: 'W', num: '0006'},
+		],
+		footer: [
+			{num: '0006'},
+			{num: '0006'},
+		]
+	}
+});
+</script>
+</body>
+</html>

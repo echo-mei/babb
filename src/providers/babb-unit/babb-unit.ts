@@ -45,8 +45,10 @@ export class BabbUnitProvider {
         UNIT_OID as unitOid,
         PARENT_UNIT_OID as parentUnitOid,
         UNIT_CATEGORY_CODE as unitCategoryCode,
-        UNIT_CATEGORY_NAME as unitCategoryName
+        UNIT_CATEGORY_NAME as unitCategoryName,
+        STREET_OFF_FLAG as streetOffFlag
       FROM pad_base_unit
+      order by unit_category_code, unit_kind, ORDER_OF_ALL
     `;
     return new Promise((resolve, reject) => {
       this.db.select(sql).then(rows => {
@@ -76,7 +78,7 @@ export class BabbUnitProvider {
     const sql = `
       select
           -1 as unitCategoryCode,
-          '总计' as unitCategoryName,
+          '小计' as unitCategoryName,
           SUM(syCount) AS syCount,
           SUM(cgCount) AS cgCount,
           SUM(jgCount) AS jgCount,
@@ -123,7 +125,7 @@ export class BabbUnitProvider {
       FROM PAD_UNIT_STATISTICS
       WHERE UNIT_KIND = 103
       GROUP BY UNIT_KIND, LEVEL_CODE
-      ORDER BY LEVEL_CODE desc`;
+      ORDER BY LEVEL_CODE asc`;
     return this.db.select(sql);
   }
 
@@ -158,7 +160,7 @@ export class BabbUnitProvider {
         UNIT_NAME as unitName
       FROM PAD_BASE_UNIT
       WHERE UNIT_NAME LIKE ?`;
-    return this.db.select(sql, ['%'+unitName.split('').join('%')+'%']);
+    return this.db.select(sql, ['%' + unitName.split('').join('%') + '%']);
   }
 
   // 以下获取综合查询条件
@@ -177,10 +179,11 @@ export class BabbUnitProvider {
   getUnitXz(): Promise<any> {
     const sql = `
       SELECT
-        UNIT_KIND,
-        UNIT_KIND as dicItemCode,
-        UNIT_KIND_NAME as dicItemName
-      FROM PAD_BASE_UNIT group by UNIT_KIND`;
+        UNIT_KIND_NEW,
+        UNIT_KIND_NEW as dicItemCode,
+        UNIT_KIND_NEW_NAME as dicItemName
+      FROM PAD_BASE_UNIT group by UNIT_KIND_NEW`;
+
     return this.db.select(sql);
   }
 
@@ -243,7 +246,6 @@ export class BabbUnitProvider {
           UNIT_OID
         FROM PAD_BASE_UNIT
         WHERE UNIT_NAME like '%${key}%' AND (UNIT_OID IN (select UNIT_OID from PAD_BASE_UNIT_HC where  cur_count >= ${sNum} and cur_count <= ${bNum}))`;
-        console.log(defaultSql, 'd')
         return this.db.select(defaultSql);
       } else {
         let defaultSql = `
@@ -252,7 +254,6 @@ export class BabbUnitProvider {
           UNIT_OID
         FROM PAD_BASE_UNIT
         WHERE UNIT_NAME like '%${key}%'`;
-        console.log(defaultSql, 'ddd')
         return this.db.select(defaultSql);
       }
     } else {
@@ -269,10 +270,11 @@ export class BabbUnitProvider {
         // })
         let ins = '';
         itemList[0].forEach((item, index, list) => {
-          ins += item.dicItemCode+',';
+          ins += item.dicItemCode + ',';
         });
-        ins = ins.substr(0, ins.length-1);
+        ins = ins.substr(0, ins.length - 1);
         sql2 += sql2 ? ` AND UNIT_CATEGORY_CODE IN (${ins})` : ` UNIT_CATEGORY_CODE IN (${ins})`;
+
       }
       if (itemList[1].length > 0) { // UNIT_KIND
         // itemList[1].forEach((item, index, list) => {
@@ -280,10 +282,10 @@ export class BabbUnitProvider {
         // })
         let ins = '';
         itemList[1].forEach((item, index, list) => {
-          ins += item.dicItemCode+',';
+          ins += item.dicItemCode + ',';
         });
-        ins = ins.substr(0, ins.length-1);
-        sql2 += sql2 ? ` AND UNIT_KIND IN (${ins})` : ` UNIT_KIND IN (${ins})`;
+        ins = ins.substr(0, ins.length - 1);
+        sql2 += sql2 ? ` AND UNIT_KIND_NEW IN (${ins})` : ` UNIT_KIND_NEW IN (${ins})`;
       }
       if (itemList[2].length > 0) { // LEVEL_CODE
         // itemList[2].forEach((item, index, list) => {
@@ -291,9 +293,9 @@ export class BabbUnitProvider {
         // })
         let ins = '';
         itemList[2].forEach((item, index, list) => {
-          ins += item.dicItemCode+',';
+          ins += item.dicItemCode + ',';
         });
-        ins = ins.substr(0, ins.length-1);
+        ins = ins.substr(0, ins.length - 1);
         sql2 += sql2 ? ` AND LEVEL_CODE IN (${ins})` : ` LEVEL_CODE IN (${ins})`;
       }
 
@@ -303,9 +305,9 @@ export class BabbUnitProvider {
         // })
         let ins = '';
         itemList[4].forEach((item, index, list) => {
-          ins += item.dicItemCode+',';
+          ins += item.dicItemCode + ',';
         });
-        ins = ins.substr(0, ins.length-1);
+        ins = ins.substr(0, ins.length - 1);
         sql2 += sql2 ? ` AND BUDGET_FROM_CODE IN (${ins})` : ` BUDGET_FROM_CODE IN (${ins})`;
       }
       if (itemList[5].length > 0) { // UNIT_OID
@@ -314,9 +316,9 @@ export class BabbUnitProvider {
         // })
         let ins = '';
         itemList[5].forEach((item, index, list) => {
-          ins += item.dicItemCode+',';
+          ins += item.dicItemCode + ',';
         });
-        ins = ins.substr(0, ins.length-1);
+        ins = ins.substr(0, ins.length - 1);
         sql2 += sql2 ? ` AND UNIT_TYPE_BIZ_CODE IN (${ins})` : ` UNIT_TYPE_BIZ_CODE IN (${ins})`;
       }
       if (itemList[3].length > 0) { // LEVEL_CODE
@@ -325,20 +327,24 @@ export class BabbUnitProvider {
         // })
         let ins = '';
         itemList[3].forEach((item, index, list) => {
-          ins += item.dicItemCode+',';
+          ins += item.dicItemCode + ',';
         });
-        ins = ins.substr(0, ins.length-1);
-        sql2 += sql2 ? ` AND UNIT_OID IN (select UNIT_OID from PAD_BASE_UNIT_HC where HC_OID IN (${ins}) and cur_count >= ${sNum} and cur_count <= ${bNum})` : ` UNIT_OID IN (select UNIT_OID from PAD_BASE_UNIT_HC where HC_OID IN (${ins}) and cur_count >= ${sNum} and cur_count <= ${bNum})`;
+        ins = ins.substr(0, ins.length - 1);
+        if (sNum != '' || bNum != '') {
+          sql2 += sql2 ? ` AND UNIT_OID IN (select UNIT_OID from PAD_BASE_UNIT_HC where HC_OID IN (${ins}) and cur_count >= ${sNum} and cur_count <= ${bNum})` : ` UNIT_OID IN (select UNIT_OID from PAD_BASE_UNIT_HC where HC_OID IN (${ins}) and cur_count >= ${sNum} and cur_count <= ${bNum})`;
+        } else {
+          sql2 += sql2 ? ` AND UNIT_OID IN (select UNIT_OID from PAD_BASE_UNIT_HC where HC_OID IN (${ins}))` : ` UNIT_OID IN (select UNIT_OID from PAD_BASE_UNIT_HC where HC_OID IN (${ins}))`;
+        }
       }
       let sql1 = `)`;
       let sql3 = sql + sql2 + sql1;
-      console.log(sql3)
       return this.db.select(sql3);
     }
   }
 
   getGwList(unitOid): Promise<any> {
-    const sql = `select
+    return new Promise((resolve, reject) => {
+      let sql = `select
         UNIT_GW_OID as unitGwOid,
         UNIT_OID as unitOid,
         ORG_OID as orgOid,
@@ -346,9 +352,29 @@ export class BabbUnitProvider {
         PRAENT_ORG_OID as parentOrgOid,
         PRAENT_ORG_NAME as parentOrgName,
         ORG_TYPE as orgType
-      from pad_base_unit_gw a
-      where unit_oid = (select admin_unit_oid from pad_base_unit where unit_oid = ${unitOid})`;
-    return this.db.select(sql);
+      from pad_base_unit_gw a`;
+      this.db.select(`select unit_kind as unitKind from pad_base_unit where unit_oid = ${unitOid}`).then(
+        unit => {
+          if (unit[0]['unitKind'] != 3) { // 机关、参公
+            sql += ` where unit_oid = (select admin_unit_oid from pad_base_unit where unit_oid = ${unitOid})`;
+          } else { // 事业
+            sql += ` where unit_oid = ${unitOid}`;
+          }
+          this.db.select(sql).then(resolve).catch(reject);
+        }
+      );
+    });
+    // const sql = `select
+    //     UNIT_GW_OID as unitGwOid,
+    //     UNIT_OID as unitOid,
+    //     ORG_OID as orgOid,
+    //     ORG_NAME as orgName,
+    //     PRAENT_ORG_OID as parentOrgOid,
+    //     PRAENT_ORG_NAME as parentOrgName,
+    //     ORG_TYPE as orgType
+    //   from pad_base_unit_gw a
+    //   where unit_oid = (select admin_unit_oid from pad_base_unit where unit_oid = ${unitOid})`;
+    // return this.db.select(sql);
   }
 
   // 岗位设置表
@@ -370,7 +396,7 @@ export class BabbUnitProvider {
   }
 
   // 岗位设置表 detail
-  getGwDetailList(unitGwOid): Promise<any> {
+  getGwDetailList(orgOid, orgType): Promise<any> {
     const sql = `
       SELECT
         UNIT_GW_DETAIL_OID as unitGwDetailOid,
@@ -378,7 +404,9 @@ export class BabbUnitProvider {
         GW_NAME as gwName,
         CUR_COUNT as curCount,
         ORDER_OF_ALL as orderOfAll
-      FROM PAD_BASE_UNIT_GW_DETAIL WHERE UNIT_GW_OID = ${unitGwOid}`;
+      FROM PAD_BASE_UNIT_GW_DETAIL
+      WHERE UNIT_GW_OID = ${orgOid}
+      AND ORG_TYPE = ${orgType}`;
     return this.db.select(sql);
   }
 
@@ -397,7 +425,7 @@ export class BabbUnitProvider {
   }
 
   // 获取单位具体信息
-  getUnit(oid): Promise<any> {
+  getUnit(unitOid): Promise<any> {
     const sql = `
         SELECT
           UNIT_NAME as unitName,
@@ -417,7 +445,7 @@ export class BabbUnitProvider {
           BUDGET_FROM_NAME as budgetFromName,
           UNIT_TYPE_BIZ_CODE as unitTypeBizCode,
           UNIT_TYPE_BIZ_NAME as unitTypeBizName
-        FROM pad_base_unit  WHERE UNIT_OID=${oid}
+        FROM pad_base_unit  WHERE UNIT_OID=${unitOid}
       `;
     return new Promise((resolve, reject) => {
       this.db.select(sql).then(rows => {
@@ -427,22 +455,21 @@ export class BabbUnitProvider {
   }
 
   // 获取下设单位
-  getChildUnit(oid): Promise<any> {
+  getChildUnit(unitOid): Promise<any> {
     const sql = `
-    SELECT COUNT(UNIT_OID) as count FROM pad_base_unit WHERE ADMIN_UNIT_OID=${oid}
+    SELECT UNIT_OID as unitOid FROM pad_base_unit WHERE PARENT_UNIT_OID=${unitOid}
       `;
     return new Promise((resolve, reject) => {
       this.db.select(sql).then(rows => {
-        resolve(rows[0]);
+        resolve(rows);
       }).catch(reject);
     });
   }
 
-  // 获取本单位编制统计
-  getUnitHc(oid): Promise<any> {
+  // 获取编制sql
+  getHcSql(unitOidRange) {
     const sql = `
     SELECT
-      unitOid,
       0 as hcOid,
       '总编制' as hcName,
       SUM(curCount) as curCount,
@@ -453,28 +480,101 @@ export class BabbUnitProvider {
     from
     (
       SELECT
-        UNIT_OID as unitOid,
         HC_OID as hcOid,
         HC_NAME as hcName,
         SUM(CUR_COUNT) as curCount,
         SUM(CUR_LOCK_COUNT) as curLockCount,
-        SUM(INFACT_COUNT) as infactCount,
-        SUM(FRZ_COUNT) as frzCount,
-        SUM(FREE_COUNT) as freeCount
-      FROM pad_base_unit_hc WHERE UNIT_OID=${oid} GROUP BY HC_OID
+        (select count(*) from pad_person p where p.D_POSITION_TYPE = h.HC_OID and p.UNIT_OID in(`+unitOidRange+`)) as infactCount,
+        (select count(*) from pad_hc_freeze_info p where p.HC_OID = h.HC_OID and p.UNIT_OID in(`+unitOidRange+`)) as frzCount,
+        SUM(CUR_COUNT)-SUM(CUR_LOCK_COUNT)-(select count(*) from pad_person p where p.D_POSITION_TYPE = h.HC_OID and p.UNIT_OID in(`+unitOidRange+`))-(select count(*) from pad_hc_freeze_info p where p.HC_OID = h.HC_OID and p.UNIT_OID in(`+unitOidRange+`)) as freeCount
+      FROM
+        pad_base_unit_hc h WHERE h.UNIT_OID in (`+unitOidRange+`)
+        and
+        (h.CUR_COUNT<>0 or h.CUR_LOCK_COUNT<>0 or h.INFACT_COUNT<>0 or h.FRZ_COUNT<>0 or h.FREE_COUNT<>0)
+      GROUP BY h.HC_OID
+      union all
+        select
+          D_POSITION_TYPE as hcOid,
+          D_POSITION_TYPE_NAME as hcName,
+          0 as curCount,
+          0 as curLockCount,
+          count(*) as infactCount,
+          (select count(*) from pad_hc_freeze_info f where f.UNIT_OID = p.UNIT_OID and f.HC_OID = p.D_POSITION_TYPE) as frzCount,
+          0-count(*)- (select count(*)
+        from pad_hc_freeze_info f where f.UNIT_OID = p.UNIT_OID and f.HC_OID = p.D_POSITION_TYPE) as freeCount from pad_person p
+        where
+          p.unit_oid in (`+unitOidRange+`)
+          and
+          p.D_POSITION_TYPE not in (select hc_oid FROM pad_base_unit_hc WHERE UNIT_OID in (`+unitOidRange+`)) group by D_POSITION_TYPE
+      union all
+        select
+          HC_OID as hcOid,
+          HC_NAME as hcName,
+          0 as curCount,
+          0 as curLockCount,
+          0 as infactCount,
+          count(*) as frzCount,
+          0-count(*) as freeCount from pad_hc_freeze_info p
+        where
+          p.unit_oid in (`+unitOidRange+`)
+          and
+          p.hc_oid not in (select hc_oid FROM pad_base_unit_hc WHERE UNIT_OID in (`+unitOidRange+`))
+          and
+          p.hc_oid not in (select D_POSITION_TYPE FROM pad_person WHERE UNIT_OID in (`+unitOidRange+`))
+        group by p.hc_oid
     )
     UNION ALL
-    SELECT
-      UNIT_OID as unitOid,
-      HC_OID as hcOid,
-      HC_NAME as hcName,
-      SUM(CUR_COUNT) as curCount,
-      SUM(CUR_LOCK_COUNT) as curLockCount,
-      SUM(INFACT_COUNT) as infactCount,
-      SUM(FRZ_COUNT) as frzCount,
-      SUM(FREE_COUNT) as freeCount
-    FROM pad_base_unit_hc WHERE UNIT_OID=${oid} GROUP BY HC_OID
+      SELECT
+        HC_OID as hcOid,
+        HC_NAME as hcName,
+        SUM(CUR_COUNT) as curCount,
+        SUM(CUR_LOCK_COUNT) as curLockCount,
+        (select count(*) from pad_person p where p.D_POSITION_TYPE = h.HC_OID and p.UNIT_OID in(`+unitOidRange+`)) as infactCount,
+        (select count(*) from pad_hc_freeze_info p where p.HC_OID = h.HC_OID and p.UNIT_OID in(`+unitOidRange+`)) as frzCount,
+        SUM(CUR_COUNT)-SUM(CUR_LOCK_COUNT)-(select count(*) from pad_person p where p.D_POSITION_TYPE = h.HC_OID and p.UNIT_OID in(`+unitOidRange+`))-(select count(*) from pad_hc_freeze_info p where p.HC_OID = h.HC_OID and p.UNIT_OID in(`+unitOidRange+`)) as freeCount
+      FROM pad_base_unit_hc h
+      WHERE
+      h.UNIT_OID in (`+unitOidRange+`)
+      and
+      (h.CUR_COUNT<>0 or h.CUR_LOCK_COUNT<>0 or h.INFACT_COUNT<>0 or h.FRZ_COUNT<>0 or h.FREE_COUNT<>0)
+      GROUP BY h.HC_OID
+    union all
+      select
+        D_POSITION_TYPE as hcOid,
+        D_POSITION_TYPE_NAME as hcName,
+        0 as curCount,
+        0 as curLockCount,
+        count(*) as infactCount,
+        (select count(*) from pad_hc_freeze_info f where f.UNIT_OID = p.UNIT_OID and f.HC_OID = p.D_POSITION_TYPE) as frzCount,
+        0-count(*)- (select count(*)
+      from pad_hc_freeze_info f where f.UNIT_OID = p.UNIT_OID and f.HC_OID = p.D_POSITION_TYPE) as freeCount from pad_person p
+      where
+        p.unit_oid in (`+unitOidRange+`)
+        and
+        p.D_POSITION_TYPE not in (select hc_oid FROM pad_base_unit_hc WHERE UNIT_OID in (`+unitOidRange+`)) group by D_POSITION_TYPE
+    union all
+      select
+        HC_OID as hcOid,
+        HC_NAME as hcName,
+        0 as curCount,
+        0 as curLockCount,
+        0 as infactCount,
+        count(*) as frzCount,
+        0-count(*) as freeCount from pad_hc_freeze_info p
+      where
+        p.unit_oid in (`+unitOidRange+`)
+        and
+        p.hc_oid not in (select hc_oid FROM pad_base_unit_hc WHERE UNIT_OID in (`+unitOidRange+`))
+        and
+        p.hc_oid not in (select D_POSITION_TYPE FROM pad_person WHERE UNIT_OID in (`+unitOidRange+`))
+      group by p.hc_oid
     `;
+    return sql;
+  }
+
+  // 获取本单位编制统计
+  getUnitHc(unitOid): Promise<any> {
+    const sql = this.getHcSql(`${unitOid}`);
     return new Promise((resolve, reject) => {
       this.db.select(sql).then(rows => {
         resolve(rows);
@@ -482,82 +582,112 @@ export class BabbUnitProvider {
     });
   }
 
-  // 获取本单位及其下设单位的编制统计
-  getUnitHcAll(oid): Promise<any> {
-    const sql = `
-    SELECT
-    unitOid,
-    0 as hcOid,
-    '总编制' as hcName,
-    SUM(curCount) as curCount,
-    SUM(curLockCount) as curLockCount,
-    SUM(infactCount) as infactCount,
-    SUM(frzCount) as frzCount,
-    SUM(freeCount) as freeCount
-  from
-  (
-    SELECT
-      UNIT_OID as unitOid,
-      HC_OID as hcOid,
-      HC_NAME as hcName,
-      SUM(CUR_COUNT) as curCount,
-      SUM(CUR_LOCK_COUNT) as curLockCount,
-      SUM(INFACT_COUNT) as infactCount,
-      SUM(FRZ_COUNT) as frzCount,
-      SUM(FREE_COUNT) as freeCount
-    FROM pad_base_unit_hc WHERE UNIT_OID in (
-      SELECT UNIT_OID FROM pad_base_unit WHERE UNIT_OID=${oid} OR ADMIN_UNIT_OID=${oid}
-    ) GROUP BY HC_OID
-  )
-  UNION ALL
-  SELECT
-    UNIT_OID as unitOid,
-    HC_OID as hcOid,
-    HC_NAME as hcName,
-    SUM(CUR_COUNT) as curCount,
-    SUM(CUR_LOCK_COUNT) as curLockCount,
-    SUM(INFACT_COUNT) as infactCount,
-    SUM(FRZ_COUNT) as frzCount,
-    SUM(FREE_COUNT) as freeCount
-  FROM pad_base_unit_hc WHERE UNIT_OID in (
-    SELECT UNIT_OID FROM pad_base_unit WHERE UNIT_OID=${oid} OR ADMIN_UNIT_OID=${oid}
-  ) GROUP BY HC_OID
-      `;
+  // 获取下设单位的编制统计
+  getUnitHcInter(unitOid): Promise<any> {
+    const sql=this.getHcSql(`
+      WITH RECURSIVE
+      unit_tree(UNIT_OID, PARENT_UNIT_OID, level) AS (
+        SELECT UNIT_OID, PARENT_UNIT_OID,  0 FROM pad_base_unit WHERE PARENT_UNIT_OID =  ${unitOid}
+        UNION ALL
+        SELECT pbu.UNIT_OID, pbu.PARENT_UNIT_OID, unit_tree.level+1 FROM pad_base_unit pbu JOIN unit_tree ON pbu.PARENT_UNIT_OID=unit_tree.UNIT_OID
+        ORDER BY 1 DESC
+      )
+      SELECT
+        UNIT_OID as unitOid
+      FROM unit_tree
+    `);
+
     return new Promise((resolve, reject) => {
       this.db.select(sql).then(rows => {
         resolve(rows);
       }).catch(reject);
     });
+  }
+
+  // 获取本单位及下设单位的编制统计
+  getUnitHcAll(unitOid): Promise<any> {
+    const sql=this.getHcSql(`
+      WITH RECURSIVE
+      unit_tree(UNIT_OID, PARENT_UNIT_OID, level) AS (
+        SELECT UNIT_OID, PARENT_UNIT_OID,  0 FROM pad_base_unit WHERE UNIT_OID =  ${unitOid}
+        UNION ALL
+        SELECT pbu.UNIT_OID, pbu.PARENT_UNIT_OID, unit_tree.level+1 FROM pad_base_unit pbu JOIN unit_tree ON pbu.PARENT_UNIT_OID=unit_tree.UNIT_OID
+        ORDER BY 1 DESC
+      )
+      SELECT
+        UNIT_OID as unitOid
+      FROM unit_tree
+      `);
+
+    return new Promise((resolve, reject) => {
+      this.db.select(sql).then(rows => {
+        resolve(rows);
+      }).catch(reject);
+    });
+  }
+
+  // 获取卫生和计生局的医院的编制统计
+  getUnitHcHos(unitOid): Promise<any> {
+    const sql=this.getHcSql(`
+      SELECT UNIT_OID FROM PAD_BASE_UNIT WHERE ADMIN_UNIT_OID = ${unitOid} AND INDUSTRY_CODE IN ('80101', '80103', '80302', '80502', '80307')
+      `);
+
+    return new Promise((resolve, reject) => {
+      this.db.select(sql).then(rows => {
+        resolve(rows);
+      }).catch(reject);
+    });
+  }
+
+  // 获取教育局学校的编制统计
+  getUnitHcEdu(unitOid): Promise<any> {
+    const sql=this.getHcSql(`
+    SELECT UNIT_OID FROM PAD_BASE_UNIT WHERE ADMIN_UNIT_OID = ${unitOid} AND INDUSTRY_CODE IN ('10501', '10601', '10602', '10603','10604', '10606')
+    `);
+
+    return new Promise((resolve, reject) => {
+      this.db.select(sql).then(rows => {
+        resolve(rows);
+      }).catch(reject);
+    });
+  }
+
+  // 获取实有人员的sql
+  getHcInfactSql(unitOidRange,hcOid){
+    let sql;
+    // hcOid为0表示总实有数统计
+    if (hcOid) {
+      sql = `
+      SELECT
+        UNIT_OID as unitOid,
+        NAME as name,
+        SEX_CODE_NAME as sexCodeName,
+        UNIT_NAME as unitName,
+        ADMINISTRATIVE_DUTY_LEVEL_NAME as administrativeDutyLevelName,
+        DUTY_ATTRIBUTE_BZ_NAME as dutyAttributeBzName,
+        D_POSITION_TYPE_NAME as dPositionTypeName
+      FROM pad_person WHERE UNIT_OID in (`+unitOidRange+`) AND D_POSITION_TYPE=${hcOid} order by D_POSITION_TYPE
+      `;
+    } else {
+      sql = `
+      SELECT
+        UNIT_OID as unitOid,
+        NAME as name,
+        SEX_CODE_NAME as sexCodeName,
+        UNIT_NAME as unitName,
+        ADMINISTRATIVE_DUTY_LEVEL_NAME as administrativeDutyLevelName,
+        DUTY_ATTRIBUTE_BZ_NAME as dutyAttributeBzName,
+        D_POSITION_TYPE_NAME as dPositionTypeName
+      FROM pad_person WHERE UNIT_OID in (`+unitOidRange+`) AND (D_POSITION_TYPE is not NULL) order by D_POSITION_TYPE
+      `;
+    }
+    return sql;
   }
 
   // 获取单位编制实有人员
   getUnitHcInfact(unitOid, hcOid) {
-    let sql;
-    if (hcOid) {
-      sql = `
-      SELECT
-        UNIT_OID as unitOid,
-        NAME as name,
-        SEX_CODE_NAME as sexCodeName,
-        UNIT_NAME as unitName,
-        ADMINISTRATIVE_DUTY_LEVEL_NAME as administrativeDutyLevelName,
-        DUTY_ATTRIBUTE_BZ_NAME as dutyAttributeBzName,
-        D_POSITION_TYPE_NAME as dPositionTypeName
-      FROM pad_person WHERE UNIT_OID=${unitOid} AND D_POSITION_TYPE=${hcOid}
-      `;
-    } else {
-      sql = `
-      SELECT
-        UNIT_OID as unitOid,
-        NAME as name,
-        SEX_CODE_NAME as sexCodeName,
-        UNIT_NAME as unitName,
-        ADMINISTRATIVE_DUTY_LEVEL_NAME as administrativeDutyLevelName,
-        DUTY_ATTRIBUTE_BZ_NAME as dutyAttributeBzName,
-        D_POSITION_TYPE_NAME as dPositionTypeName
-      FROM pad_person WHERE UNIT_OID=${unitOid} AND (D_POSITION_TYPE is not NULL)
-      `;
-    }
+    const sql = this.getHcInfactSql(`${unitOid}`,hcOid);
+
     return new Promise((resolve, reject) => {
       this.db.select(sql).then(rows => {
         resolve(rows);
@@ -565,38 +695,43 @@ export class BabbUnitProvider {
     });
   }
 
-  // 获取单位及下设单位编制实有人员
+  // 获取下设单位编制实有人员
+  getUnitHcInfactInter(unitOid, hcOid) {
+    const sql = this.getHcInfactSql(`
+      WITH RECURSIVE
+      unit_tree(UNIT_OID, PARENT_UNIT_OID, level) AS (
+        SELECT UNIT_OID, PARENT_UNIT_OID,  0 FROM pad_base_unit WHERE PARENT_UNIT_OID = ${unitOid}
+        UNION ALL
+        SELECT pbu.UNIT_OID, pbu.PARENT_UNIT_OID, unit_tree.level+1 FROM pad_base_unit pbu JOIN unit_tree ON pbu.PARENT_UNIT_OID=unit_tree.UNIT_OID
+        ORDER BY 1 DESC
+      )
+      SELECT
+        UNIT_OID as unitOid
+      FROM unit_tree
+    `,hcOid);
+
+    return new Promise((resolve, reject) => {
+      this.db.select(sql).then(rows => {
+        resolve(rows);
+      }).catch(reject);
+    });
+  }
+
+  // 获取本单位及下设单位编制实有人员
   getUnitHcInfactAll(unitOid, hcOid) {
-    let sql;
-    if (hcOid) {
-      sql = `
+    const sql = this.getHcInfactSql(`
+      WITH RECURSIVE
+      unit_tree(UNIT_OID, PARENT_UNIT_OID, level) AS (
+        SELECT UNIT_OID, PARENT_UNIT_OID,  0 FROM pad_base_unit WHERE UNIT_OID = ${unitOid}
+        UNION ALL
+        SELECT pbu.UNIT_OID, pbu.PARENT_UNIT_OID, unit_tree.level+1 FROM pad_base_unit pbu JOIN unit_tree ON pbu.PARENT_UNIT_OID=unit_tree.UNIT_OID
+        ORDER BY 1 DESC
+      )
       SELECT
-        UNIT_OID as unitOid,
-        NAME as name,
-        SEX_CODE_NAME as sexCodeName,
-        UNIT_NAME as unitName,
-        ADMINISTRATIVE_DUTY_LEVEL_NAME as administrativeDutyLevelName,
-        DUTY_ATTRIBUTE_BZ_NAME as dutyAttributeBzName,
-        D_POSITION_TYPE_NAME as dPositionTypeName
-      FROM pad_person WHERE UNIT_OID in (
-        SELECT UNIT_OID FROM pad_base_unit WHERE UNIT_OID=${unitOid} OR ADMIN_UNIT_OID=${unitOid}
-      ) AND D_POSITION_TYPE=${hcOid}
-      `;
-    } else {
-      sql = `
-      SELECT
-        UNIT_OID as unitOid,
-        NAME as name,
-        SEX_CODE_NAME as sexCodeName,
-        UNIT_NAME as unitName,
-        ADMINISTRATIVE_DUTY_LEVEL_NAME as administrativeDutyLevelName,
-        DUTY_ATTRIBUTE_BZ_NAME as dutyAttributeBzName,
-        D_POSITION_TYPE_NAME as dPositionTypeName
-      FROM pad_person WHERE UNIT_OID in (
-        SELECT UNIT_OID FROM pad_base_unit WHERE UNIT_OID=${unitOid} OR ADMIN_UNIT_OID=${unitOid}
-      ) AND (D_POSITION_TYPE is not NULL)
-      `;
-    }
+        UNIT_OID as unitOid
+      FROM unit_tree
+    `,hcOid);
+
     return new Promise((resolve, reject) => {
       this.db.select(sql).then(rows => {
         resolve(rows);
@@ -604,32 +739,65 @@ export class BabbUnitProvider {
     });
   }
 
+  // 获取卫生和计生局的医院编制实有人员
+  getUnitHcInfactHos(unitOid, hcOid) {
+    const sql = this.getHcInfactSql(`
+    SELECT UNIT_OID FROM PAD_BASE_UNIT WHERE ADMIN_UNIT_OID = ${unitOid} AND INDUSTRY_CODE IN ('80101', '80103', '80302', '80502', '80307')
+    `,hcOid);
+
+    return new Promise((resolve, reject) => {
+      this.db.select(sql).then(rows => {
+        resolve(rows);
+      }).catch(reject);
+    });
+  }
+
+  // 获取教育局下学校的编制实有人员
+  getUnitHcInfactEdu(unitOid, hcOid) {
+    const sql = this.getHcInfactSql(`
+    SELECT UNIT_OID FROM PAD_BASE_UNIT WHERE ADMIN_UNIT_OID = ${unitOid} AND INDUSTRY_CODE IN ('10501', '10601', '10602', '10603','10604', '10606')
+    `,hcOid);
+
+    return new Promise((resolve, reject) => {
+      this.db.select(sql).then(rows => {
+        resolve(rows);
+      }).catch(reject);
+    });
+  }
+
+  // 获取冻结人员的sql
+  getHcFrzSql(unitOidRange,hcOid){
+    let sql;
+    // hcOid为0表示总实有数统计
+    if (hcOid) {
+      sql = `
+      SELECT
+        UNIT_OID as unitOid,
+        NAME as name,
+        ID_NO as idNo,
+        UNIT_NAME as unitName,
+        ITEM_CODE_NAME as itemCodeName,
+        CREATE_DATE as createDate
+      FROM pad_hc_freeze_info WHERE UNIT_OID in (`+unitOidRange+`) AND HC_OID=${hcOid} order by HC_OID
+      `;
+    } else {
+      sql = `
+      SELECT
+        UNIT_OID as unitOid,
+        NAME as name,
+        ID_NO as idNo,
+        UNIT_NAME as unitName,
+        ITEM_CODE_NAME as itemCodeName,
+        CREATE_DATE as createDate
+      FROM pad_hc_freeze_info WHERE UNIT_OID in (`+unitOidRange+`) AND (HC_OID is not NULL) order by HC_OID
+      `;
+    }
+    return sql;
+  }
   // 获取单位编制冻结人员
   getUnitHcFrz(unitOid, hcOid) {
-    let sql;
-    if(hcOid){
-      sql = `
-      SELECT
-        UNIT_OID as unitOid,
-        NAME as name,
-        ID_NO as idNo,
-        UNIT_NAME as unitName,
-        ITEM_CODE_NAME as itemCodeName,
-        CREATE_DATE as createDate
-      FROM pad_hc_freeze_info WHERE UNIT_OID=${unitOid} AND HC_OID=${hcOid}
-      `;
-    }else{
-      sql = `
-      SELECT
-        UNIT_OID as unitOid,
-        NAME as name,
-        ID_NO as idNo,
-        UNIT_NAME as unitName,
-        ITEM_CODE_NAME as itemCodeName,
-        CREATE_DATE as createDate
-      FROM pad_hc_freeze_info WHERE UNIT_OID=${unitOid} AND (HC_OID is not NULL)
-      `;
-    }
+    const sql = this.getHcFrzSql(`${unitOid}`,hcOid);
+
     return new Promise((resolve, reject) => {
       this.db.select(sql).then(rows => {
         resolve(rows);
@@ -637,36 +805,43 @@ export class BabbUnitProvider {
     });
   }
 
-  // 获取单位及下设单位编制冻结人员
+  // 获取下设单位编制冻结人员
+  getUnitHcFrzInter(unitOid, hcOid) {
+    const sql = this.getHcFrzSql(`
+      WITH RECURSIVE
+      unit_tree(UNIT_OID, PARENT_UNIT_OID, level) AS (
+        SELECT UNIT_OID, PARENT_UNIT_OID,  0 FROM pad_base_unit WHERE PARENT_UNIT_OID =  ${unitOid}
+        UNION ALL
+        SELECT pbu.UNIT_OID, pbu.PARENT_UNIT_OID, unit_tree.level+1 FROM pad_base_unit pbu JOIN unit_tree ON pbu.PARENT_UNIT_OID=unit_tree.UNIT_OID
+        ORDER BY 1 DESC
+      )
+      SELECT
+        UNIT_OID as unitOid
+      FROM unit_tree
+    `,hcOid);
+
+    return new Promise((resolve, reject) => {
+      this.db.select(sql).then(rows => {
+        resolve(rows);
+      }).catch(reject);
+    });
+  }
+
+  // 获取本单位及下设单位编制冻结人员
   getUnitHcFrzAll(unitOid, hcOid) {
-    let sql;
-    if(hcOid){
-      sql = `
+    const sql = this.getHcFrzSql(`
+      WITH RECURSIVE
+      unit_tree(UNIT_OID, PARENT_UNIT_OID, level) AS (
+        SELECT UNIT_OID, PARENT_UNIT_OID,  0 FROM pad_base_unit WHERE UNIT_OID =  ${unitOid}
+        UNION ALL
+        SELECT pbu.UNIT_OID, pbu.PARENT_UNIT_OID, unit_tree.level+1 FROM pad_base_unit pbu JOIN unit_tree ON pbu.PARENT_UNIT_OID=unit_tree.UNIT_OID
+        ORDER BY 1 DESC
+      )
       SELECT
-        UNIT_OID as unitOid,
-        NAME as name,
-        ID_NO as idNo,
-        UNIT_NAME as unitName,
-        ITEM_CODE_NAME as itemCodeName,
-        CREATE_DATE as createDate
-      FROM pad_hc_freeze_info WHERE UNIT_OID in (
-        SELECT UNIT_OID FROM pad_base_unit WHERE UNIT_OID=${unitOid} OR ADMIN_UNIT_OID=${unitOid}
-      ) AND HC_OID=${hcOid}
-      `;
-    }else{
-      sql = `
-      SELECT
-        UNIT_OID as unitOid,
-        NAME as name,
-        ID_NO as idNo,
-        UNIT_NAME as unitName,
-        ITEM_CODE_NAME as itemCodeName,
-        CREATE_DATE as createDate
-      FROM pad_hc_freeze_info WHERE UNIT_OID in (
-        SELECT UNIT_OID FROM pad_base_unit WHERE UNIT_OID=${unitOid} OR ADMIN_UNIT_OID=${unitOid}
-      ) AND (HC_OID is not NULL)
-      `;
-    }
+        UNIT_OID as unitOid
+      FROM unit_tree
+    `,hcOid);
+
     return new Promise((resolve, reject) => {
       this.db.select(sql).then(rows => {
         resolve(rows);
@@ -674,10 +849,35 @@ export class BabbUnitProvider {
     });
   }
 
+  // 获取卫生计生局下医院的编制冻结人员
+  getUnitHcFrzHos(unitOid, hcOid) {
+    const sql = this.getHcFrzSql(`
+    SELECT UNIT_OID FROM PAD_BASE_UNIT WHERE ADMIN_UNIT_OID = ${unitOid} AND INDUSTRY_CODE IN ('80101', '80103', '80302', '80502', '80307')
+    `,hcOid);
 
-  // 获取本单位职数统计
-  getUnitLeader(oid): Promise<any> {
-    const sql = `
+    return new Promise((resolve, reject) => {
+      this.db.select(sql).then(rows => {
+        resolve(rows);
+      }).catch(reject);
+    });
+  }
+
+  // 获取教育局下医院的编制冻结人员
+  getUnitHcFrzEdu(unitOid, hcOid) {
+    const sql = this.getHcFrzSql(`
+    SELECT UNIT_OID FROM PAD_BASE_UNIT WHERE ADMIN_UNIT_OID = ${unitOid} AND INDUSTRY_CODE IN ('10501', '10601', '10602', '10603','10604', '10606')
+    `,hcOid);
+
+    return new Promise((resolve, reject) => {
+      this.db.select(sql).then(rows => {
+        resolve(rows);
+      }).catch(reject);
+    });
+  }
+
+  // 职数统计sql
+  getLeaderSql(unitOidRange){
+    const sql=`
     SELECT
       unitOid,
       '0' as dutyAttribute,
@@ -708,7 +908,8 @@ export class BabbUnitProvider {
           SUM(CUR_COUNT) as curCount,
           SUM(INFACT_COUNT) as infactCount,
           SUM(FREE_COUNT) as freeCount
-        FROM pad_base_unit_leader WHERE UNIT_OID=${oid} GROUP BY DUTY_ATTRIBUTE,DUTY_LEVEL ORDER BY DUTY_ATTRIBUTE
+        FROM pad_base_unit_leader WHERE UNIT_OID in (`+unitOidRange+`) and (CUR_COUNT<>0 or INFACT_COUNT<>0 or FREE_COUNT<>0)
+        GROUP BY DUTY_ATTRIBUTE,DUTY_LEVEL ORDER BY DUTY_ATTRIBUTE
       ) GROUP BY dutyAttribute
     )
     UNION
@@ -732,7 +933,8 @@ export class BabbUnitProvider {
       SUM(CUR_COUNT) as curCount,
       SUM(INFACT_COUNT) as infactCount,
       SUM(FREE_COUNT) as freeCount
-    FROM pad_base_unit_leader WHERE UNIT_OID=${oid} GROUP BY DUTY_ATTRIBUTE,DUTY_LEVEL ORDER BY DUTY_ATTRIBUTE
+    FROM pad_base_unit_leader WHERE UNIT_OID in (`+unitOidRange+`) and (CUR_COUNT<>0 or INFACT_COUNT<>0 or FREE_COUNT<>0)
+    GROUP BY DUTY_ATTRIBUTE,DUTY_LEVEL ORDER BY DUTY_ATTRIBUTE
     ) GROUP BY dutyAttribute
     UNION
     SELECT
@@ -744,8 +946,16 @@ export class BabbUnitProvider {
       SUM(CUR_COUNT) as curCount,
       SUM(INFACT_COUNT) as infactCount,
       SUM(FREE_COUNT) as freeCount
-    FROM pad_base_unit_leader WHERE UNIT_OID=${oid} GROUP BY DUTY_ATTRIBUTE,DUTY_LEVEL ORDER BY DUTY_ATTRIBUTE
+    FROM pad_base_unit_leader WHERE UNIT_OID in (`+unitOidRange+`) and (CUR_COUNT<>0 or INFACT_COUNT<>0 or FREE_COUNT<>0)
+    GROUP BY DUTY_ATTRIBUTE,DUTY_LEVEL ORDER BY DUTY_ATTRIBUTE
     `;
+    return sql;
+  }
+
+  // 获取本单位职数统计
+  getUnitLeader(unitOid): Promise<any> {
+    const sql = this.getLeaderSql(`${unitOid}`);
+
     return new Promise((resolve, reject) => {
       this.db.select(sql).then(rows => {
         resolve(rows);
@@ -753,83 +963,69 @@ export class BabbUnitProvider {
     });
   }
 
-  // 获取本单位职数统计
-  getUnitLeaderAll(oid): Promise<any> {
-    const sql = `
-    SELECT
-    unitOid,
-    '0' as dutyAttribute,
-    '0' as dutyAttributeName,
-    '0' as dutyLevel,
-    '总职数' as dutyLevelName,
-    SUM(curCount) as curCount,
-    SUM(infactCount) as infactCount,
-    SUM(freeCount) as freeCount
-  from(
-    SELECT
-      unitOid,
-      dutyAttribute,
-      dutyAttributeName,
-      '0' as dutyLevel,
-      '小计' as dutyLevelName,
-      SUM(curCount) as curCount,
-      SUM(infactCount) as infactCount,
-      SUM(freeCount) as freeCount
-    from
-    (
+  // 获取下设单位职数统计
+  getUnitLeaderInter(unitOid): Promise<any> {
+    const sql = this.getLeaderSql(`
+      WITH RECURSIVE
+      unit_tree(UNIT_OID, PARENT_UNIT_OID, level) AS (
+        SELECT UNIT_OID, PARENT_UNIT_OID,  0 FROM pad_base_unit WHERE PARENT_UNIT_OID =  ${unitOid}
+        UNION ALL
+        SELECT pbu.UNIT_OID, pbu.PARENT_UNIT_OID, unit_tree.level+1 FROM pad_base_unit pbu JOIN unit_tree ON pbu.PARENT_UNIT_OID=unit_tree.UNIT_OID
+        ORDER BY 1 DESC
+      )
       SELECT
-        UNIT_OID as unitOid,
-        DUTY_ATTRIBUTE as dutyAttribute,
-        DUTY_ATTRIBUTE_NAME as dutyAttributeName,
-        DUTY_LEVEL as dutyLevel,
-        DUTY_LEVEL_NAME as dutyLevelName,
-        SUM(CUR_COUNT) as curCount,
-        SUM(INFACT_COUNT) as infactCount,
-        SUM(FREE_COUNT) as freeCount
-      FROM pad_base_unit_leader WHERE UNIT_OID in (
-        SELECT UNIT_OID FROM pad_base_unit WHERE UNIT_OID=${oid} OR ADMIN_UNIT_OID=${oid}
-      ) GROUP BY DUTY_ATTRIBUTE,DUTY_LEVEL ORDER BY DUTY_ATTRIBUTE
-    ) GROUP BY dutyAttribute
-  )
-  UNION
-  SELECT
-    unitOid,
-    dutyAttribute,
-    dutyAttributeName,
-    '0' as dutyLevel,
-    '小计' as dutyLevelName,
-    SUM(curCount) as curCount,
-    SUM(infactCount) as infactCount,
-    SUM(freeCount) as freeCount
-  from
-  (
-  SELECT
-    UNIT_OID as unitOid,
-    DUTY_ATTRIBUTE as dutyAttribute,
-    DUTY_ATTRIBUTE_NAME as dutyAttributeName,
-    DUTY_LEVEL as dutyLevel,
-    DUTY_LEVEL_NAME as dutyLevelName,
-    SUM(CUR_COUNT) as curCount,
-    SUM(INFACT_COUNT) as infactCount,
-    SUM(FREE_COUNT) as freeCount
-  FROM pad_base_unit_leader WHERE UNIT_OID in (
-      SELECT UNIT_OID FROM pad_base_unit WHERE UNIT_OID=${oid} OR ADMIN_UNIT_OID=${oid}
-    ) GROUP BY DUTY_ATTRIBUTE,DUTY_LEVEL ORDER BY DUTY_ATTRIBUTE
-  ) GROUP BY dutyAttribute
-  UNION
-  SELECT
-    UNIT_OID as unitOid,
-    DUTY_ATTRIBUTE as dutyAttribute,
-    DUTY_ATTRIBUTE_NAME as dutyAttributeName,
-    DUTY_LEVEL as dutyLevel,
-    DUTY_LEVEL_NAME as dutyLevelName,
-    SUM(CUR_COUNT) as curCount,
-    SUM(INFACT_COUNT) as infactCount,
-    SUM(FREE_COUNT) as freeCount
-  FROM pad_base_unit_leader WHERE UNIT_OID in (
-      SELECT UNIT_OID FROM pad_base_unit WHERE UNIT_OID=${oid} OR ADMIN_UNIT_OID=${oid}
-    ) GROUP BY DUTY_ATTRIBUTE,DUTY_LEVEL ORDER BY DUTY_ATTRIBUTE
-    `;
+        UNIT_OID as unitOid
+      FROM unit_tree
+    `);
+
+    return new Promise((resolve, reject) => {
+      this.db.select(sql).then(rows => {
+        resolve(rows);
+      }).catch(reject);
+    });
+  }
+
+  // 获取本单位及下设单位职数统计
+  getUnitLeaderAll(unitOid): Promise<any> {
+    const sql = this.getLeaderSql(`
+      WITH RECURSIVE
+      unit_tree(UNIT_OID, PARENT_UNIT_OID, level) AS (
+        SELECT UNIT_OID, PARENT_UNIT_OID,  0 FROM pad_base_unit WHERE UNIT_OID =  ${unitOid}
+        UNION ALL
+        SELECT pbu.UNIT_OID, pbu.PARENT_UNIT_OID, unit_tree.level+1 FROM pad_base_unit pbu JOIN unit_tree ON pbu.PARENT_UNIT_OID=unit_tree.UNIT_OID
+        ORDER BY 1 DESC
+      )
+      SELECT
+        UNIT_OID as unitOid
+      FROM unit_tree
+    `);
+
+    return new Promise((resolve, reject) => {
+      this.db.select(sql).then(rows => {
+        resolve(rows);
+      }).catch(reject);
+    });
+  }
+
+  // 获取卫生计生局下医院的职数统计
+  getUnitLeaderHos(unitOid): Promise<any> {
+    const sql = this.getLeaderSql(`
+    SELECT UNIT_OID FROM PAD_BASE_UNIT WHERE ADMIN_UNIT_OID = ${unitOid} AND INDUSTRY_CODE IN ('80101', '80103', '80302', '80502', '80307')
+    `);
+
+    return new Promise((resolve, reject) => {
+      this.db.select(sql).then(rows => {
+        resolve(rows);
+      }).catch(reject);
+    });
+  }
+
+  // 获取教育局下学校的职数统计
+  getUnitLeaderEdu(unitOid): Promise<any> {
+    const sql = this.getLeaderSql(`
+    SELECT UNIT_OID FROM PAD_BASE_UNIT WHERE ADMIN_UNIT_OID = ${unitOid} AND INDUSTRY_CODE IN ('10501', '10601', '10602', '10603','10604', '10606')
+    `);
+
     return new Promise((resolve, reject) => {
       this.db.select(sql).then(rows => {
         resolve(rows);
@@ -868,7 +1064,7 @@ export class BabbUnitProvider {
     FROM pad_base_unit as a
     left join pad_base_unit_hc as b
     on a.unit_oid = b.UNIT_OID
-    WHERE a.PARENT_UNIT_OID=${oid} AND a.UNIT_KIND IS NOT 3 group by a.unit_oid ORDER BY a.ORDER_OF_ALL
+    WHERE a.PARENT_UNIT_OID=${oid} AND a.UNIT_KIND<>3 group by a.unit_oid ORDER BY a.ORDER_OF_ALL
     `;
     return new Promise((resolve, reject) => {
       this.db.select(sql).then(rows => {
@@ -898,5 +1094,60 @@ export class BabbUnitProvider {
         resolve(rows);
       }).catch(reject);
     });
+  }
+
+  // 获取宝安区事业编制使用情况表
+  listSyUnitHc() {
+    const sql = `
+      select
+        street_off_flag as streeOffFlag,
+        admin_order as adminOrderFlag,
+        unit_order as unitOrder,
+        admin_unit_oid as adminUnitOid,
+        admin_unit_name as adminUnitName,
+        unit_name as unitName,
+        level_name as levelName,
+        sybz_num as sybzNum,
+        INFACT_NUM as infactNum,
+        FREE_NUM as freeNum,
+        YL_NUM as ylNum,
+        KY_NUM as kyNum,
+        budget_from_name as budgetFromName,
+        GYYE_NUM as gyyeNum,
+        UNIT_5_NUM as unit5Num,
+        UNIT_6_NUM as unit6Num,
+        UNIT_7_NUM as unit7Num,
+        UNIT_8_NUM as unit8Num,
+        ORG_7_NUM as org7Num,
+        ORG_8_NUM as org8Num
+      from pad_sy_unit_hc
+      order by street_off_flag, admin_order, unit_order`;
+    return this.db.select(sql);
+  }
+
+  // 获取宝安区机关编制使用情况表
+  listJgUnitHc() {
+    const sql = `
+      select
+        street_off_flag as streeOffFlag,
+        unit_name as unitName,
+        BZ_NUM as bzNum,
+        XZ_NUM as xzNum,
+        XZGL_NUM as xzglNum,
+        XZZF_NUM as xzzfNum,
+        ZF_NUM as zfNum,
+        INFACT_NUM as infactNum,
+        FREE_NUM as freeNum,
+        YL_NUM as ylNum,
+        KY_NUM as kyNum,
+        GYYE_NUM as gyyeNum,
+        UNITZZLD_NUM as unitzzldNum,
+        UNITFZLD_NUM as unitfzldNum,
+        ORG_FCJ_LD_NUM as orgFcjLdNum,
+        ORG_ZKJ_LD_NUM as orgZkjLdNum,
+        ORG_FKJ_LD_NUM as orgFkjLdNum
+      from pad_jg_unit_hc
+      order by street_off_flag, order_of_all`;
+    return this.db.select(sql);
   }
 }

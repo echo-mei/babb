@@ -74,7 +74,8 @@ export class UnitStatisticsPage {
           type: 'pie',
           center: ['20%', '50%'],
           radius: ['50%', '80%'],
-          avoidLabelOverlap: false,
+          avoidLabelOverlap: true,
+          legendHoverLink: true,
           label: {
             show: true,
             formatter: '{d}%'
@@ -94,6 +95,10 @@ export class UnitStatisticsPage {
 
   getSyUnitsByLevel() {
     this.babbUnitProvider.statisticsSyUnitByLevel().then(res => {
+      // 将"未定级"移到最后
+      let first = res.shift();
+      res.push(first);
+
       let data = [];
       let sumCount = 0;
       res.forEach((item) => {
@@ -136,7 +141,8 @@ export class UnitStatisticsPage {
           type: 'pie',
           center: ['20%', '50%'],
           radius: ['50%', '80%'],
-          avoidLabelOverlap: false,
+          avoidLabelOverlap: true,
+          legendHoverLink: true,
           label: {
             show: true,
             formatter: '{d}%'
@@ -192,7 +198,8 @@ export class UnitStatisticsPage {
           type: 'pie',
           center: ['20%', '50%'],
           radius: ['50%', '80%'],
-          avoidLabelOverlap: false,
+          avoidLabelOverlap: true,
+          legendHoverLink: true,
           label: {
             show: true,
             formatter: '{d}%'

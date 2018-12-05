@@ -1,0 +1,91 @@
+page-unit-dis-table-sy {
+  overflow: auto;
+  background-color: #EFEFF4;
+  .main-wrapper {
+    padding: 15px;
+    background: #fff;
+    height: 100%;
+    position: relative;
+    .main-title {
+      font-size: 25px;
+      font-weight: bold;
+      margin: 0 auto;
+      text-align: left;
+      height: 50px;
+    }
+  }
+  .displayer{
+    background-color: #F2F5FA;
+    border:1px solid #B9CFF4;
+    font-size: 16px;
+  }
+   .table-wrapper{
+       background-color: #fff;
+       overflow: auto;
+       height: 100%;
+       width: 100%;
+      p{
+          font-size:25px;
+          font-weight: bold;
+          margin:0 auto;
+          text-align: left;
+      }
+      .officeLeaderTable{
+          min-width: 100%;
+          table-layout: fixed;
+          border:1px solid #B9CFF4;
+          font-size: 16px;
+          thead{
+              background-color: #F2F5FA;
+              tr>th{
+                padding:10px 5px;
+                border:1px solid #B9CFF4;
+                // white-space: nowrap;
+                min-width: 50px;
+                &.table-title {
+                  white-space: pre-wrap;
+                  min-width: 20px;
+                  max-width: 30px;
+                }
+                &.lie{
+                  white-space: pre-wrap;
+                  min-width: 20px;
+                  max-width: 30px;
+                }
+              }
+
+          }
+          tbody{
+            tr>td{
+              padding:5px;
+              text-align: center;
+              border:1px solid #B9CFF4;
+              white-space: nowrap;
+              &.table-title {
+                background-color: #F2F5FA;
+                white-space: pre-wrap;
+                min-width: 20px;
+                max-width: 30px;
+              }
+              &.name{
+                white-space: pre-wrap;
+                min-width: 200px;
+                max-width: 260px;
+              }
+              &.budget{
+                white-space: pre-wrap;
+                min-width: 80px;
+                max-width: 100px;
+              }
+              &.lie{
+                min-width: 20px;
+                max-width: 50px;
+              }
+            }
+            tr>.total{
+                background-color: #F2F5FA;
+            }
+          }
+      }
+  }
+}

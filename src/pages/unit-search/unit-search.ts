@@ -12,7 +12,7 @@ export class UnitSearchPage {
 
   unitList: any[];
   key: any;
-
+  historyUnitList: any;
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
@@ -26,6 +26,8 @@ export class UnitSearchPage {
   hasStorage() {
     if(!this.storage.historyUnitList) {
       this.storage.historyUnitList = [];
+    }else {
+      this.historyUnitList = this.storage.historyUnitList;
     }
   }
 
@@ -35,6 +37,7 @@ export class UnitSearchPage {
         this.unitList = res;
       }
     );
+    this.historyUnitList = this.storage.historyUnitList;
   }
 
   goBack() {
@@ -54,35 +57,21 @@ export class UnitSearchPage {
     }
     historyUnitList.unshift(unit);
     this.storage.historyUnitList = historyUnitList;
+    this.historyUnitList = this.storage.historyUnitList;
     this.navCtrl.push(UnitPage, {
       unit: unit
     });
   }
 
   clearStorage() {
-    const alertCon = this.alerter.create({
-      message: '确定清空历史记录？',
-      buttons: [
-        {
-          text: '确定',
-          handler: () => {
-            this.storage.historyUnitList = [];
-          }
-        },
-        {
-          text: '取消',
-          handler: () => {
-            
-          }
-        }
-      ]
-    });
-    alertCon.present();
+    this.storage.historyUnitList = [];
+    this.historyUnitList = this.storage.historyUnitList;
   }
 
   delectItem(index) {
     let hisList = this.storage.historyUnitList;
     hisList.splice(index, 1);
     this.storage.historyUnitList = hisList;
+    this.historyUnitList = this.storage.historyUnitList;
   }
 }

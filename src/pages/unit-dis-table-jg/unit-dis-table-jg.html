@@ -1,0 +1,80 @@
+<div class="main-wrapper">
+  <div class="table-wrapper" avoid-super-tabs="true" #disTableJg>
+    <div style="text-align:center;" *ngIf="isLoading">
+      <span style="font-size:22px;">数据正在加载中，请稍后......</span><br>
+      <ion-spinner name="crescent"></ion-spinner>
+    </div>
+    <table class="officeLeaderTable" *ngIf="!isLoading">
+      <thead>
+        <tr>
+          <th rowspan="3" class="lie">单位类别</th>
+          <th rowspan="3" class="lie">序号</th>
+          <th rowspan="3">单位名称</th>
+          <th colspan="9">编制总数</th>
+          <th rowspan="3" class="lie">雇员员额</th>
+          <th rowspan="3" class="lie">单位领导职数</th>
+          <th rowspan="2" colspan="3">内下设机构领导职数</th>
+        </tr>
+        <tr>
+          <th rowspan="2" class="lie">总编制</th>
+          <th colspan="4">其中</th>
+          <th rowspan="2" class="lie">实有</th>
+          <th rowspan="2" class="lie">空编</th>
+          <th colspan="2">其中</th>
+        </tr>
+        <tr>
+          <th>行政编</th>
+          <th>行政管理类事业编</th>
+          <th>行政执法专项编</th>
+          <th>政法专项编</th>
+          <th>预留4%或6%</th>
+          <th>可用空编</th>
+          <th>副处</th>
+          <th>正科</th>
+          <th>副科</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="table-title lie">&nbsp;</td>
+          <td colspan="2">公务员编制合计</td>
+          <td [innerHTML]="allSum.bzNum | redMinus"></td>
+          <td [innerHTML]="allSum.xzNum | redMinus"></td>
+          <td [innerHTML]="allSum.xzglNum | redMinus"></td>
+          <td [innerHTML]="allSum.xzzfNum | redMinus"></td>
+          <td [innerHTML]="allSum.zfNum | redMinus"></td>
+          <td [innerHTML]="allSum.infactNum | redMinus"></td>
+          <td [innerHTML]="allSum.freeNum | redMinus"></td>
+          <td [innerHTML]="allSum.ylNum | redMinus"></td>
+          <td [innerHTML]="allSum.kyNum | redMinus"></td>
+          <td [innerHTML]="allSum.gyyeNum | redMinus"></td>
+          <td [innerHTML]="(allSum.unitzzldNum + allSum.unitfzldNum) | redMinus"></td>
+          <td [innerHTML]="allSum.orgFcjLdNum | redMinus"></td>
+          <td [innerHTML]="allSum.orgZkjLdNum | redMinus"></td>
+          <td [innerHTML]="allSum.orgFkjLdNum | redMinus"></td>
+        </tr>
+      </tbody>
+      <tbody *ngFor="let group of dataList;">
+        <tr *ngFor="let unit of group.unitList;let i = index;">
+          <td class="table-title lie" *ngIf="i==0" [attr.rowspan]="group.unitList.length">{{group.name}}</td>
+          <td *ngIf="unit.numb" class="num">{{unit.numb}}</td>
+          <td [attr.colspan]="unit.numb?1:2" class="unitName">{{unit.unitName}}</td>
+          <td [innerHTML]="unit.bzNum | redMinus"></td>
+          <td [innerHTML]="unit.xzNum | redMinus"></td>
+          <td [innerHTML]="unit.xzglNum | redMinus"></td>
+          <td [innerHTML]="unit.xzzfNum | redMinus"></td>
+          <td [innerHTML]="unit.zfNum | redMinus"></td>
+          <td [innerHTML]="unit.infactNum | redMinus"></td>
+          <td [innerHTML]="unit.freeNum | redMinus"></td>
+          <td [innerHTML]="unit.ylNum | redMinus"></td>
+          <td [innerHTML]="unit.kyNum | redMinus"></td>
+          <td [innerHTML]="unit.gyyeNum | redMinus"></td>
+          <td [innerHTML]="(unit.unitzzldNum + unit.unitfzldNum) | redMinus"></td>
+          <td [innerHTML]="unit.orgFcjLdNum | redMinus"></td>
+          <td [innerHTML]="unit.orgZkjLdNum | redMinus"></td>
+          <td [innerHTML]="unit.orgFkjLdNum | redMinus"></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

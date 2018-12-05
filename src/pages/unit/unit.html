@@ -63,13 +63,13 @@
       </svg>
       <h2>内设机构</h2>
     </div>
-    <div class="ug-item" *ngIf="unit.unitKind != 3" (click)="onClickUnitInterUnit()">
+    <div class="ug-item" *ngIf="unit.unitKind != 3 && jgUnitList && jgUnitList.length>0" (click)="onClickUnitInterUnit()">
       <svg class="icon" aria-hidden="true">
         <use xlink:href="#ion-md-xiashejigou"></use>
       </svg>
-      <h2>下设单位</h2>
+      <h2>下设机构</h2>
     </div>
-    <div class="ug-item" (click)="onClickUnitInterShiYeUnit()">
+    <div class="ug-item" *ngIf="syUnitList && syUnitList.length>0" (click)="onClickUnitInterShiYeUnit()">
       <svg class="icon" aria-hidden="true">
         <use xlink:href="#ion-md-shiyedanwei"></use>
       </svg>

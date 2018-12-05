@@ -1,78 +1,79 @@
-<div class="table-wrapper" avoid-super-tabs="true">
-  <p>编制情况表</p>
-  <table class="officeLeaderTable">
-    <thead>
-      <tr>
-        <th colspan="2">&nbsp;</th>
-        <th *ngFor="let data of dataList">{{data.hcName}}</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td rowspan="5">合计</td>
-        <td>核定数</td>
-        <td *ngFor="let data of dataList">{{data.hjCurCount?data.hjCurCount:0}}</td>
-      </tr>
-      <tr>
-        <td>锁定数</td>
-        <td *ngFor="let data of dataList">{{data.hjCurLockCount?data.hjCurLockCount:0}}</td>
-      </tr>
-      <tr>
-        <td>实有数</td>
-        <td *ngFor="let data of dataList">{{data.hjInfactCount?data.hjInfactCount:0}}</td>
-      </tr>
-      <tr>
-        <td>冻结数</td>
-        <td *ngFor="let data of dataList">{{data.hjFrzCount?data.hjFrzCount:0}}</td>
-      </tr>
-      <tr>
-        <td>空编数</td>
-        <td *ngFor="let data of dataList">{{data.hjFreeCount?data.hjFreeCount:0}}</td>
-      </tr>
+<div class="main-wrapper">
+  <div class="table-wrapper" avoid-super-tabs="true" #disTable>
+    <table class="officeLeaderTable">
+      <thead>
+        <tr>
+          <th colspan="2">&nbsp;</th>
+          <th *ngFor="let data of dataList">{{data.hcName}}</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td rowspan="5" class="table-title">合计</td>
+          <td class="table-title">核定数</td>
+          <td *ngFor="let data of dataList" [innerHTML]="(data.hjCurCount?data.hjCurCount:0) | redMinus"></td>
+        </tr>
+        <tr>
+          <td class="table-title">锁定数</td>
+          <td *ngFor="let data of dataList" [innerHTML]="(data.hjCurLockCount?data.hjCurLockCount:0) | redMinus"></td>
+        </tr>
+        <tr>
+          <td class="table-title">实有数</td>
+          <td *ngFor="let data of dataList" [innerHTML]="(data.hjInfactCount?data.hjInfactCount:0) | redMinus"></td>
+        </tr>
+        <tr>
+          <td class="table-title">冻结数</td>
+          <td *ngFor="let data of dataList" [innerHTML]="(data.hjFrzCount?data.hjFrzCount:0) | redMinus"></td>
+        </tr>
+        <tr>
+          <td class="table-title">空编数</td>
+          <td *ngFor="let data of dataList" [innerHTML]="(data.hjFreeCount?data.hjFreeCount:0) | redMinus"></td>
+        </tr>
 
-      <tr>
-        <td rowspan="5">区直</td>
-        <td>核定数</td>
-        <td *ngFor="let data of dataList">{{data.qzCurCount?data.qzCurCount:0}}</td>
-      </tr>
-      <tr>
-        <td>锁定数</td>
-        <td *ngFor="let data of dataList">{{data.qzCurLockCount?data.qzCurLockCount:0}}</td>
-      </tr>
-      <tr>
-        <td>实有数</td>
-        <td *ngFor="let data of dataList">{{data.qzInfactCount?data.qzInfactCount:0}}</td>
-      </tr>
-      <tr>
-        <td>冻结数</td>
-        <td *ngFor="let data of dataList">{{data.qzFrzCount?data.qzFrzCount:0}}</td>
-      </tr>
-      <tr>
-        <td>空编数</td>
-        <td *ngFor="let data of dataList">{{data.qzFreeCount?data.qzFreeCount:0}}</td>
-      </tr>
+        <tr>
+          <td class="table-title" rowspan="5">区直</td>
+          <td class="table-title">核定数</td>
+          <td *ngFor="let data of dataList" [innerHTML]="(data.qzCurCount?data.qzCurCount:0) | redMinus"></td>
+        </tr>
+        <tr>
+          <td class="table-title">锁定数</td>
+          <td *ngFor="let data of dataList" [innerHTML]="(data.qzCurLockCount?data.qzCurLockCount:0) | redMinus"></td>
+        </tr>
+        <tr>
+          <td class="table-title">实有数</td>
+          <td *ngFor="let data of dataList" [innerHTML]="(data.qzInfactCount?data.qzInfactCount:0) | redMinus"></td>
+        </tr>
+        <tr>
+          <td class="table-title">冻结数</td>
+          <td *ngFor="let data of dataList" [innerHTML]="(data.qzFrzCount?data.qzFrzCount:0) | redMinus"></td>
+        </tr>
+        <tr>
+          <td class="table-title">空编数</td>
+          <td *ngFor="let data of dataList" [innerHTML]="(data.qzFreeCount?data.qzFreeCount:0) | redMinus"></td>
+        </tr>
 
-      <tr>
-        <td rowspan="5">街道</td>
-        <td>核定数</td>
-        <td *ngFor="let data of dataList">{{data.jdCurCount?data.jdCurCount:0}}</td>
-      </tr>
-      <tr>
-        <td>锁定数</td>
-        <td *ngFor="let data of dataList">{{data.jdCurLockCount?data.jdCurLockCount:0}}</td>
-      </tr>
-      <tr>
-        <td>实有数</td>
-        <td *ngFor="let data of dataList">{{data.jdInfactCount?data.jdInfactCount:0}}</td>
-      </tr>
-      <tr>
-        <td>冻结数</td>
-        <td *ngFor="let data of dataList">{{data.jdFrzCount?data.jdFrzCount:0}}</td>
-      </tr>
-      <tr>
-        <td>空编数</td>
-        <td *ngFor="let data of dataList">{{data.jdFreeCount?data.jdFreeCount:0}}</td>
-      </tr>
-    </tbody>
-  </table>
+        <tr>
+          <td class="table-title" rowspan="5">街道</td>
+          <td class="table-title">核定数</td>
+          <td *ngFor="let data of dataList" [innerHTML]="(data.jdCurCount?data.jdCurCount:0) | redMinus"></td>
+        </tr>
+        <tr>
+          <td class="table-title">锁定数</td>
+          <td *ngFor="let data of dataList" [innerHTML]="(data.jdCurLockCount?data.jdCurLockCount:0) | redMinus"></td>
+        </tr>
+        <tr>
+          <td class="table-title">实有数</td>
+          <td *ngFor="let data of dataList" [innerHTML]="(data.jdInfactCount?data.jdInfactCount:0) | redMinus"></td>
+        </tr>
+        <tr>
+          <td class="table-title">冻结数</td>
+          <td *ngFor="let data of dataList" [innerHTML]="(data.jdFrzCurCount?data.jdFrzCurCount:0) | redMinus"></td>
+        </tr>
+        <tr>
+          <td class="table-title">空编数</td>
+          <td *ngFor="let data of dataList" [innerHTML]="(data.jdFreeCount?data.jdFreeCount:0) | redMinus"></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
 </div>

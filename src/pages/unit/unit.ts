@@ -16,27 +16,45 @@ import { HistoryFilePage } from '../history-file/history-file';
   templateUrl: 'unit.html',
 })
 export class UnitPage {
+
   unit: any;
+  // 下设事业单位
+  syUnitList:any;
+  // 下设机关单位
+  jgUnitList:any;
   constructor(public navCtrl: NavController,
     public navParams: NavParams,
     public babbUnitProvider: BabbUnitProvider) {
     this.unit = this.navParams.get("unit");
     this.getUnit();
+    this.getInterUnit();
   }
 
   getUnit() {
-    if(typeof(this.unit) === 'number'){
+    if (typeof (this.unit) === 'number') {
       this.babbUnitProvider.getUnit(this.unit).then(res => {
         this.unit = res;
       });
-    }else {
+    } else {
       this.babbUnitProvider.getUnit(this.unit.unitOid).then(res => {
         this.unit = res;
-        console.log(this.unit)
       });
     }
 
   }
+
+  getInterUnit() {
+    // 下属事业单位
+    this.babbUnitProvider.getUnitInterInstitution(this.unit.unitOid).then(res => {
+      this.syUnitList = res;
+    });
+
+    // 下属参公、机关单位
+    this.babbUnitProvider.getUnitInterUnit(this.unit.unitOid).then(res => {
+      this.jgUnitList = res;
+    });
+  }
+
 
   // 点击跳到主页
   onClickHome() {
@@ -48,7 +66,7 @@ export class UnitPage {
     this.navCtrl.push(UnitFuntionPage, {
       unitName: this.unit.unitName,
       unitFunction: this.unit.unitFunction,
-      type:1
+      type: 1
     });
   }
 
@@ -62,7 +80,7 @@ export class UnitPage {
     this.navCtrl.push(UnitInterOrgPage, { unit: this.unit });
   }
 
-  // 点击跳到下设单位页面
+  // 点击跳到下设机构页面
   onClickUnitInterUnit() {
     this.navCtrl.push(UnitInterUnitPage, { unit: this.unit, unitKind: 1 });
   }

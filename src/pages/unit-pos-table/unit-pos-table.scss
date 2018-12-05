@@ -1,0 +1,57 @@
+page-unit-pos-table {
+  background: #ffffff;
+  overflow: auto;
+  .unit-hc-wrap{
+    width: 100%;
+    padding: 20px;
+    .unit-hc-title{
+      font-size: px(64);
+      font-weight: bold;
+      margin: 0 0 px(44) 0;
+    }
+    .unit-hc-tips{
+      font-size: px(64);
+    }
+    .unit-hc-table-wrap{
+      width: 100%;
+      overflow-x: auto;
+      .unit-hc-table{
+        border: 1px solid color($colors,tableColor);
+        table-layout: fixed;
+        font-size: px(50);
+        thead{
+          background: #f2f5fa;
+        }
+        .table-title {
+          background-color: #F2F5FA;
+        }
+        th{
+          color: color($colors,textMainColor);
+          padding: px(25);
+        }
+        td{
+          padding:px(25);
+          text-align: center;
+          white-space: nowrap;
+          &.red{
+            color: red;
+          }
+          &.detail{
+            color: #009cff;
+
+            .button{
+              border-color: #009cff;
+              color: #009cff;
+              margin: 0;
+              height: px(60);
+              line-height: px(60);
+              width: px(120);
+              font-size: px(36);
+              vertical-align: middle;
+            }
+          }
+        }
+      }
+    }
+  }
+}

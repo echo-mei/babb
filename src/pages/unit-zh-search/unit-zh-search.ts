@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, AlertController } from 'ionic-angular';
 import { UnitZhSearchResultPage } from '../unit-zh-search-result/unit-zh-search-result';
 import { BabbUnitProvider } from '../../providers/babb-unit/babb-unit';
 
@@ -26,7 +26,8 @@ export class UnitZhSearchPage {
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
-    public babb: BabbUnitProvider
+    public babb: BabbUnitProvider,
+    public alertCtrl: AlertController
   ) {
     this.initData();
   }
@@ -39,6 +40,15 @@ export class UnitZhSearchPage {
       this.dataList[1].detail = res;
     })
     this.babb.getJiGou().then(res => {
+      let tempItem;
+      res.forEach((item, index, list) => {
+        if(item.LEVEL_CODE == 113) {
+          tempItem = item;
+          res.splice(index, 1);
+        }
+      });
+      console.log(res);
+      res.push(tempItem);      
       this.dataList[2].detail = res;
     })
     this.babb.getWave().then(res => {
@@ -89,9 +99,46 @@ export class UnitZhSearchPage {
     this.list = [];
   }
 
+  // 判断输入范围是否合法
+  getSmallBig() {
+    var regPos = /^\d+(\.\d+)?$/; 
+    var a = this.smallNum;
+    var b = this.bigNum;
+    if(a == undefined || a == '' || a == null) {
+    }else {
+      if(a.indexOf('+') != -1 || a.indexOf('-') != -1) {
+        this.smallNum = '';
+        return false;
+      };
+      
+      if(!regPos.test(a)) {
+        this.smallNum = '';
+        return false;
+      };
+    }
+    if(b == undefined || b == '' || b == null) {
+    }else {
+      if(b.indexOf('+') != -1 || b.indexOf('-') != -1) {
+        this.bigNum = '';
+        return false;
+      };
+      
+      if(!regPos.test(b)) {
+        this.bigNum = '';
+        return false;
+      };
+    }
+    return true;
+  }
+
   toResult() {
-    if(typeof this.smallNum == 'object' || typeof this.bigNum == 'object') {
-      alert('核定数范围不符合规范， 请输入纯数字');
+    if(!this.getSmallBig()) {
+      const alert1 = this.alertCtrl.create({
+        title: '提示',
+        subTitle: '输入不合法，请输入正整数',
+        buttons: ['确定']
+      });
+      alert1.present();
       return;
     }
     this.navCtrl.push(UnitZhSearchResultPage, {

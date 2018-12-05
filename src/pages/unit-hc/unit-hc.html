@@ -19,8 +19,20 @@
 </ion-header>
 
 <ion-content>
-  <super-tabs class="s-tabs">
-    <super-tab [root]="page1" [rootParams]="page1Params" title="本单位"></super-tab>
-    <super-tab [root]="page2" [rootParams]="page2Params" title="本单位及下设单位" *ngIf="childOrg.length>0"></super-tab>
+  <super-tabs class="s-tabs" *ngIf="childUnits.length==0">
+    <super-tab [root]="page1" [rootParams]="page21Params" title="{{page21Params.name}}编制情况表"></super-tab>
+    <super-tab [root]="page2" [rootParams]="page22Params" title="{{page21Params.name}}领导职数情况表"></super-tab>
+  </super-tabs>
+  <super-tabs class="s-tabs" scrollTabs="true" *ngIf="childUnits.length>0">
+    <super-tab [root]="page1" [rootParams]="page11Params" title="{{page11Params.name}}编制情况表"></super-tab>
+    <super-tab [root]="page2" [rootParams]="page12Params" title="{{page12Params.name}}领导职数情况表"></super-tab>
+    <super-tab [root]="page1" [rootParams]="page21Params" title="{{page21Params.name}}编制情况表"></super-tab>
+    <super-tab [root]="page2" [rootParams]="page22Params" title="{{page21Params.name}}领导职数情况表"></super-tab>
+    <super-tab [root]="page1" [rootParams]="page31Params" title="{{page31Params.name}}编制情况表"></super-tab>
+    <super-tab [root]="page2" [rootParams]="page32Params" title="{{page32Params.name}}领导职数情况表"></super-tab>
+    <super-tab [root]="page1" [rootParams]="page41Params" title="{{page41Params.name}}编制情况表" *ngIf="unit.unitOid==66920"></super-tab>
+    <super-tab [root]="page2" [rootParams]="page42Params" title="{{page42Params.name}}领导职数情况表" *ngIf="unit.unitOid==66920"></super-tab>
+    <super-tab [root]="page1" [rootParams]="page51Params" title="{{page51Params.name}}编制情况表" *ngIf="unit.unitOid==55778"></super-tab>
+    <super-tab [root]="page2" [rootParams]="page52Params" title="{{page51Params.name}}领导职数情况表" *ngIf="unit.unitOid==55778"></super-tab>
   </super-tabs>
 </ion-content>
