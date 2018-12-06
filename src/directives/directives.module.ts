@@ -1,7 +1,8 @@
 import { NgModule } from '@angular/core';
+import { FixHeadDirective } from './fix-head/fix-head';
 @NgModule({
-	declarations: [],
+	declarations: [FixHeadDirective],
 	imports: [],
-	exports: []
+	exports: [FixHeadDirective]
 })
 export class DirectivesModule {}

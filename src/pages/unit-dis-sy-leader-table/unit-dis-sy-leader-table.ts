@@ -15,13 +15,13 @@ export class UnitDisSyLeaderTablePage {
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public babbDisProvider: BabbDisProvider) {
     this.babbDisProvider.getLeaderSum(2).then(
-      list => {this.syLeaderSum = list[0];console.log(this.syLeaderSum)}
+      list => {this.syLeaderSum = list[0];}
     );
     this.babbDisProvider.getLeaderCountListByCondition(2, '010110').then(
-      list => {this.syUnitLeaderCountList = list; console.log(list, '010110')}
+      list => {this.syUnitLeaderCountList = list;}
     );
     this.babbDisProvider.getLeaderCountListByCondition(2, '010120').then(
-      list => {this.syOrgLeaderCountList = list;console.log(list, '010120')}
+      list => {this.syOrgLeaderCountList = list;}
     );
   }
 

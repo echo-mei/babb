@@ -377,6 +377,18 @@ export class BabbUnitProvider {
     // return this.db.select(sql);
   }
 
+  // 获取岗位设置表title编制数
+  getGwHc(uid): Promise<any>{
+    const sql = `
+    select
+      unit_oid as unitOid,
+      hc_name as hcName,
+      cur_count as curCount
+    from pad_base_unit_gw_hc where unit_oid=${uid}
+    `;
+    return this.db.select(sql);
+  }
+
   // 岗位设置表
   getGwSet(uid): Promise<any> {
     const sql = `select

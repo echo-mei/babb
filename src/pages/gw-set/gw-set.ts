@@ -12,6 +12,8 @@ export class GwSetPage {
 
   unit: any;
 
+  hcDetail:any;
+
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
@@ -24,7 +26,7 @@ export class GwSetPage {
   onClickHome() {
     this.navCtrl.popToRoot();
   }
-  
+
   ionViewDidLoad() {
     let promise = new Promise((resolve, reject) => {
       this.babbUnitProvider.getGwList(this.unit.unitOid).then(
@@ -59,9 +61,15 @@ export class GwSetPage {
     });
     promise.then(
       (res: any[]) => {
+
         let root = res.find((item) => {
           return item.orgType == 0;
         });
+        // 获取编制统计
+        this.babbUnitProvider.getGwHc(root.unitOid).then((list)=>{
+          this.hcDetail = list;
+        });
+
         res.forEach((item) => {
           if(!item.parentOrgOid&&item.orgType!=0) {
             item.parentOrgOid = root.orgOid;
@@ -72,6 +80,7 @@ export class GwSetPage {
           parentId: 'parentOrgOid',
           children: 'children'
         });
+        console.log(data)
         function reBuild(node) {
           let children = node.children;
           if(children&&children.length) {

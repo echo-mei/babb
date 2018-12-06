@@ -44,8 +44,8 @@ page-unit-dis-table-sy {
                 min-width: 50px;
                 &.table-title {
                   white-space: pre-wrap;
-                  min-width: 20px;
-                  max-width: 30px;
+                  min-width: 100px;
+                  max-width: 150px;
                 }
                 &.lie{
                   white-space: pre-wrap;
@@ -64,8 +64,8 @@ page-unit-dis-table-sy {
               &.table-title {
                 background-color: #F2F5FA;
                 white-space: pre-wrap;
-                min-width: 20px;
-                max-width: 30px;
+                min-width: 120px;
+                max-width: 150px;
               }
               &.name{
                 white-space: pre-wrap;
@@ -74,8 +74,8 @@ page-unit-dis-table-sy {
               }
               &.budget{
                 white-space: pre-wrap;
-                min-width: 80px;
-                max-width: 100px;
+                min-width: 50px;
+                max-width: 60px;
               }
               &.lie{
                 min-width: 20px;

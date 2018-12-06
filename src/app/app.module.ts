@@ -44,6 +44,7 @@ import { UnitInterUnitPage } from '../pages/unit-inter-unit/unit-inter-unit';
 import { AdminHomePage } from '../pages/admin-home/admin-home';
 import { GwSetPage } from '../pages/gw-set/gw-set';
 import { PipesModule } from '../pipes/pipes.module';
+import { DirectivesModule } from '../directives/directives.module';
 import { ThreeFilePage } from '../pages/three-file/three-file';
 import { HistoryFilePage } from '../pages/history-file/history-file';
 import { UserAddPage } from '../pages/user-add/user-add';
@@ -97,7 +98,8 @@ import { BabbHcProvider } from '../providers/babb-hc/babb-hc';
     BrowserModule,
     IonicModule.forRoot(MyApp),
     SuperTabsModule.forRoot(),
-    PipesModule
+    PipesModule,
+    DirectivesModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [
