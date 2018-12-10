@@ -17,6 +17,8 @@ export class ModifyPasswordPage {
   // 输入的新密码与数据库旧密码对比标志
   newPasswordFlag:boolean = false;
   newPasswordLenFlag:boolean = false;
+  // 再次输入的新密码与之前输入的新密码对比标志
+  newPasswordFlag1:boolean = false;
 
   constructor(public navCtrl: NavController,
     public navParams: NavParams,
@@ -27,7 +29,8 @@ export class ModifyPasswordPage {
     this.user = this.navParams.get("user");
     this.userForm = this.formBuilder.group({
       password: ['', Validators.compose([Validators.required])],
-      password1: ['', Validators.compose([Validators.required,Validators.minLength(6),Validators.maxLength(12)])]
+      password1: ['', Validators.compose([Validators.required,Validators.minLength(6),Validators.maxLength(12)])],
+      password2: ['', Validators.compose([Validators.required,Validators.minLength(6),Validators.maxLength(12)])]
     });
     this.getOldPassword();
   }
@@ -74,5 +77,17 @@ export class ModifyPasswordPage {
   focusInputPw1(){
     this.newPasswordFlag = false;
     this.newPasswordLenFlag = false;
+  }
+
+  blurInputPw2(){
+    if(this.userForm.controls['password1'].value != this.userForm.controls['password2'].value){
+      this.newPasswordFlag1 = true;
+      this.userForm.controls['password1'].setValue("");
+      this.userForm.controls['password2'].setValue("");
+    }
+  }
+
+  focusInputPw2(){
+    this.newPasswordFlag1 = false;
   }
 }

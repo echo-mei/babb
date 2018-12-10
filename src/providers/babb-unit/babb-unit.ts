@@ -160,7 +160,40 @@ export class BabbUnitProvider {
         UNIT_NAME as unitName
       FROM PAD_BASE_UNIT
       WHERE UNIT_NAME LIKE ?`;
-    return this.db.select(sql, ['%' + unitName.split('').join('%') + '%']);
+
+    const secondShowSql = `
+      SELECT
+        UNIT_OID as unitOid,
+        UNIT_NAME as unitName,
+        SECOND_NAME_SHOW as secondNmae
+      FROM PAD_BASE_UNIT
+      WHERE SECOND_NAME_SHOW LIKE ?`;
+
+    const secondWorkSql = `
+      SELECT
+        UNIT_OID as unitOid,
+        UNIT_NAME as unitName,
+        SECOND_NAME_WORK as secondNmae
+      FROM PAD_BASE_UNIT
+      WHERE SECOND_NAME_WORK LIKE ?`;
+
+    return this.db.select(sql, ['%' + unitName.split('').join('%') + '%']).then(res => {
+      if (res.length > 0) {
+        return this.db.select(sql, ['%' + unitName.split('').join('%') + '%']);
+      } else {
+        return this.db.select(secondShowSql, ['%' + unitName.split('').join('%') + '%']).then(res => {
+          if (res.length > 0) {
+            return this.db.select(secondShowSql, ['%' + unitName.split('').join('%') + '%']);
+          } else {
+            return this.db.select(secondWorkSql, ['%' + unitName.split('').join('%') + '%']).then(res => {
+              if (res.length > 0) {
+                return this.db.select(secondWorkSql, ['%' + unitName.split('').join('%') + '%']);
+              }
+            })
+          }
+        })
+      }
+    })
   }
 
   // 以下获取综合查询条件
@@ -378,13 +411,13 @@ export class BabbUnitProvider {
   }
 
   // 获取岗位设置表title编制数
-  getGwHc(uid): Promise<any>{
+  getGwHc(uid): Promise<any> {
     const sql = `
     select
       unit_oid as unitOid,
       hc_name as hcName,
       cur_count as curCount
-    from pad_base_unit_gw_hc where unit_oid=${uid}
+    from pad_base_unit_gw_hc where unit_oid=${uid} and cur_count<>0
     `;
     return this.db.select(sql);
   }
@@ -496,11 +529,11 @@ export class BabbUnitProvider {
         HC_NAME as hcName,
         SUM(CUR_COUNT) as curCount,
         SUM(CUR_LOCK_COUNT) as curLockCount,
-        (select count(*) from pad_person p where p.D_POSITION_TYPE = h.HC_OID and p.UNIT_OID in(`+unitOidRange+`)) as infactCount,
-        (select count(*) from pad_hc_freeze_info p where p.HC_OID = h.HC_OID and p.UNIT_OID in(`+unitOidRange+`)) as frzCount,
-        SUM(CUR_COUNT)-SUM(CUR_LOCK_COUNT)-(select count(*) from pad_person p where p.D_POSITION_TYPE = h.HC_OID and p.UNIT_OID in(`+unitOidRange+`))-(select count(*) from pad_hc_freeze_info p where p.HC_OID = h.HC_OID and p.UNIT_OID in(`+unitOidRange+`)) as freeCount
+        (select count(*) from pad_person p where p.D_POSITION_TYPE = h.HC_OID and p.UNIT_OID in(`+ unitOidRange + `)) as infactCount,
+        (select count(*) from pad_hc_freeze_info p where p.HC_OID = h.HC_OID and p.UNIT_OID in(`+ unitOidRange + `)) as frzCount,
+        SUM(CUR_COUNT)-SUM(CUR_LOCK_COUNT)-(select count(*) from pad_person p where p.D_POSITION_TYPE = h.HC_OID and p.UNIT_OID in(`+ unitOidRange + `))-(select count(*) from pad_hc_freeze_info p where p.HC_OID = h.HC_OID and p.UNIT_OID in(` + unitOidRange + `)) as freeCount
       FROM
-        pad_base_unit_hc h WHERE h.UNIT_OID in (`+unitOidRange+`)
+        pad_base_unit_hc h WHERE h.UNIT_OID in (`+ unitOidRange + `)
         and
         (h.CUR_COUNT<>0 or h.CUR_LOCK_COUNT<>0 or h.INFACT_COUNT<>0 or h.FRZ_COUNT<>0 or h.FREE_COUNT<>0)
       GROUP BY h.HC_OID
@@ -512,12 +545,12 @@ export class BabbUnitProvider {
           0 as curLockCount,
           count(*) as infactCount,
           (select count(*) from pad_hc_freeze_info f where f.UNIT_OID = p.UNIT_OID and f.HC_OID = p.D_POSITION_TYPE) as frzCount,
-          0-count(*)- (select count(*)
-        from pad_hc_freeze_info f where f.UNIT_OID = p.UNIT_OID and f.HC_OID = p.D_POSITION_TYPE) as freeCount from pad_person p
+          0-count(*)- (select count(*) from pad_hc_freeze_info f where f.UNIT_OID = p.UNIT_OID and f.HC_OID = p.D_POSITION_TYPE) as freeCount
+          from pad_person p
         where
-          p.unit_oid in (`+unitOidRange+`)
+          p.unit_oid in (`+ unitOidRange + `)
           and
-          p.D_POSITION_TYPE not in (select hc_oid FROM pad_base_unit_hc WHERE UNIT_OID in (`+unitOidRange+`)) group by D_POSITION_TYPE
+          p.D_POSITION_TYPE not in (select hc_oid FROM pad_base_unit_hc WHERE UNIT_OID in (`+ unitOidRange + `)) group by D_POSITION_TYPE
       union all
         select
           HC_OID as hcOid,
@@ -528,11 +561,11 @@ export class BabbUnitProvider {
           count(*) as frzCount,
           0-count(*) as freeCount from pad_hc_freeze_info p
         where
-          p.unit_oid in (`+unitOidRange+`)
+          p.unit_oid in (`+ unitOidRange + `)
           and
-          p.hc_oid not in (select hc_oid FROM pad_base_unit_hc WHERE UNIT_OID in (`+unitOidRange+`))
+          p.hc_oid not in (select hc_oid FROM pad_base_unit_hc WHERE UNIT_OID in (`+ unitOidRange + `))
           and
-          p.hc_oid not in (select D_POSITION_TYPE FROM pad_person WHERE UNIT_OID in (`+unitOidRange+`))
+          p.hc_oid not in (select D_POSITION_TYPE FROM pad_person WHERE UNIT_OID in (`+ unitOidRange + `))
         group by p.hc_oid
     )
     UNION ALL
@@ -541,12 +574,12 @@ export class BabbUnitProvider {
         HC_NAME as hcName,
         SUM(CUR_COUNT) as curCount,
         SUM(CUR_LOCK_COUNT) as curLockCount,
-        (select count(*) from pad_person p where p.D_POSITION_TYPE = h.HC_OID and p.UNIT_OID in(`+unitOidRange+`)) as infactCount,
-        (select count(*) from pad_hc_freeze_info p where p.HC_OID = h.HC_OID and p.UNIT_OID in(`+unitOidRange+`)) as frzCount,
-        SUM(CUR_COUNT)-SUM(CUR_LOCK_COUNT)-(select count(*) from pad_person p where p.D_POSITION_TYPE = h.HC_OID and p.UNIT_OID in(`+unitOidRange+`))-(select count(*) from pad_hc_freeze_info p where p.HC_OID = h.HC_OID and p.UNIT_OID in(`+unitOidRange+`)) as freeCount
+        (select count(*) from pad_person p where p.D_POSITION_TYPE = h.HC_OID and p.UNIT_OID in(`+ unitOidRange + `)) as infactCount,
+        (select count(*) from pad_hc_freeze_info p where p.HC_OID = h.HC_OID and p.UNIT_OID in(`+ unitOidRange + `)) as frzCount,
+        SUM(CUR_COUNT)-SUM(CUR_LOCK_COUNT)-(select count(*) from pad_person p where p.D_POSITION_TYPE = h.HC_OID and p.UNIT_OID in(`+ unitOidRange + `))-(select count(*) from pad_hc_freeze_info p where p.HC_OID = h.HC_OID and p.UNIT_OID in(` + unitOidRange + `)) as freeCount
       FROM pad_base_unit_hc h
       WHERE
-      h.UNIT_OID in (`+unitOidRange+`)
+      h.UNIT_OID in (`+ unitOidRange + `)
       and
       (h.CUR_COUNT<>0 or h.CUR_LOCK_COUNT<>0 or h.INFACT_COUNT<>0 or h.FRZ_COUNT<>0 or h.FREE_COUNT<>0)
       GROUP BY h.HC_OID
@@ -558,12 +591,12 @@ export class BabbUnitProvider {
         0 as curLockCount,
         count(*) as infactCount,
         (select count(*) from pad_hc_freeze_info f where f.UNIT_OID = p.UNIT_OID and f.HC_OID = p.D_POSITION_TYPE) as frzCount,
-        0-count(*)- (select count(*)
-      from pad_hc_freeze_info f where f.UNIT_OID = p.UNIT_OID and f.HC_OID = p.D_POSITION_TYPE) as freeCount from pad_person p
+        0-count(*)- (select count(*) from pad_hc_freeze_info f where f.UNIT_OID = p.UNIT_OID and f.HC_OID = p.D_POSITION_TYPE) as freeCount
+        from pad_person p
       where
-        p.unit_oid in (`+unitOidRange+`)
+        p.unit_oid in (`+ unitOidRange + `)
         and
-        p.D_POSITION_TYPE not in (select hc_oid FROM pad_base_unit_hc WHERE UNIT_OID in (`+unitOidRange+`)) group by D_POSITION_TYPE
+        p.D_POSITION_TYPE not in (select hc_oid FROM pad_base_unit_hc WHERE UNIT_OID in (`+ unitOidRange + `)) group by D_POSITION_TYPE
     union all
       select
         HC_OID as hcOid,
@@ -574,11 +607,11 @@ export class BabbUnitProvider {
         count(*) as frzCount,
         0-count(*) as freeCount from pad_hc_freeze_info p
       where
-        p.unit_oid in (`+unitOidRange+`)
+        p.unit_oid in (`+ unitOidRange + `)
         and
-        p.hc_oid not in (select hc_oid FROM pad_base_unit_hc WHERE UNIT_OID in (`+unitOidRange+`))
+        p.hc_oid not in (select hc_oid FROM pad_base_unit_hc WHERE UNIT_OID in (`+ unitOidRange + `))
         and
-        p.hc_oid not in (select D_POSITION_TYPE FROM pad_person WHERE UNIT_OID in (`+unitOidRange+`))
+        p.hc_oid not in (select D_POSITION_TYPE FROM pad_person WHERE UNIT_OID in (`+ unitOidRange + `))
       group by p.hc_oid
     `;
     return sql;
@@ -596,7 +629,7 @@ export class BabbUnitProvider {
 
   // 获取下设单位的编制统计
   getUnitHcInter(unitOid): Promise<any> {
-    const sql=this.getHcSql(`
+    const sql = this.getHcSql(`
       WITH RECURSIVE
       unit_tree(UNIT_OID, PARENT_UNIT_OID, level) AS (
         SELECT UNIT_OID, PARENT_UNIT_OID,  0 FROM pad_base_unit WHERE PARENT_UNIT_OID =  ${unitOid}
@@ -618,7 +651,7 @@ export class BabbUnitProvider {
 
   // 获取本单位及下设单位的编制统计
   getUnitHcAll(unitOid): Promise<any> {
-    const sql=this.getHcSql(`
+    const sql = this.getHcSql(`
       WITH RECURSIVE
       unit_tree(UNIT_OID, PARENT_UNIT_OID, level) AS (
         SELECT UNIT_OID, PARENT_UNIT_OID,  0 FROM pad_base_unit WHERE UNIT_OID =  ${unitOid}
@@ -640,7 +673,7 @@ export class BabbUnitProvider {
 
   // 获取卫生和计生局的医院的编制统计
   getUnitHcHos(unitOid): Promise<any> {
-    const sql=this.getHcSql(`
+    const sql = this.getHcSql(`
       SELECT UNIT_OID FROM PAD_BASE_UNIT WHERE ADMIN_UNIT_OID = ${unitOid} AND INDUSTRY_CODE IN ('80101', '80103', '80302', '80502', '80307')
       `);
 
@@ -653,7 +686,7 @@ export class BabbUnitProvider {
 
   // 获取教育局学校的编制统计
   getUnitHcEdu(unitOid): Promise<any> {
-    const sql=this.getHcSql(`
+    const sql = this.getHcSql(`
     SELECT UNIT_OID FROM PAD_BASE_UNIT WHERE ADMIN_UNIT_OID = ${unitOid} AND INDUSTRY_CODE IN ('10501', '10601', '10602', '10603','10604', '10606')
     `);
 
@@ -665,10 +698,10 @@ export class BabbUnitProvider {
   }
 
   // 获取实有人员的sql
-  getHcInfactSql(unitOidRange,hcOid){
+  getHcInfactSql(unitOidRange, hc) {
     let sql;
     // hcOid为0表示总实有数统计
-    if (hcOid) {
+    if (hc.hcOid) {
       sql = `
       SELECT
         UNIT_OID as unitOid,
@@ -678,7 +711,7 @@ export class BabbUnitProvider {
         ADMINISTRATIVE_DUTY_LEVEL_NAME as administrativeDutyLevelName,
         DUTY_ATTRIBUTE_BZ_NAME as dutyAttributeBzName,
         D_POSITION_TYPE_NAME as dPositionTypeName
-      FROM pad_person WHERE UNIT_OID in (`+unitOidRange+`) AND D_POSITION_TYPE=${hcOid} order by D_POSITION_TYPE
+      FROM pad_person WHERE UNIT_OID in (`+ unitOidRange + `) AND D_POSITION_TYPE=${hc.hcOid} order by D_POSITION_TYPE
       `;
     } else {
       sql = `
@@ -690,15 +723,15 @@ export class BabbUnitProvider {
         ADMINISTRATIVE_DUTY_LEVEL_NAME as administrativeDutyLevelName,
         DUTY_ATTRIBUTE_BZ_NAME as dutyAttributeBzName,
         D_POSITION_TYPE_NAME as dPositionTypeName
-      FROM pad_person WHERE UNIT_OID in (`+unitOidRange+`) AND (D_POSITION_TYPE is not NULL) order by D_POSITION_TYPE
+      FROM pad_person WHERE UNIT_OID in (`+ unitOidRange + `) AND (D_POSITION_TYPE is not NULL) order by D_POSITION_TYPE
       `;
     }
     return sql;
   }
 
   // 获取单位编制实有人员
-  getUnitHcInfact(unitOid, hcOid) {
-    const sql = this.getHcInfactSql(`${unitOid}`,hcOid);
+  getUnitHcInfact(unitOid, hc) {
+    const sql = this.getHcInfactSql(`${unitOid}`, hc);
 
     return new Promise((resolve, reject) => {
       this.db.select(sql).then(rows => {
@@ -708,7 +741,7 @@ export class BabbUnitProvider {
   }
 
   // 获取下设单位编制实有人员
-  getUnitHcInfactInter(unitOid, hcOid) {
+  getUnitHcInfactInter(unitOid, hc) {
     const sql = this.getHcInfactSql(`
       WITH RECURSIVE
       unit_tree(UNIT_OID, PARENT_UNIT_OID, level) AS (
@@ -720,7 +753,7 @@ export class BabbUnitProvider {
       SELECT
         UNIT_OID as unitOid
       FROM unit_tree
-    `,hcOid);
+    `, hc);
 
     return new Promise((resolve, reject) => {
       this.db.select(sql).then(rows => {
@@ -730,7 +763,7 @@ export class BabbUnitProvider {
   }
 
   // 获取本单位及下设单位编制实有人员
-  getUnitHcInfactAll(unitOid, hcOid) {
+  getUnitHcInfactAll(unitOid, hc) {
     const sql = this.getHcInfactSql(`
       WITH RECURSIVE
       unit_tree(UNIT_OID, PARENT_UNIT_OID, level) AS (
@@ -742,7 +775,7 @@ export class BabbUnitProvider {
       SELECT
         UNIT_OID as unitOid
       FROM unit_tree
-    `,hcOid);
+    `, hc);
 
     return new Promise((resolve, reject) => {
       this.db.select(sql).then(rows => {
@@ -752,10 +785,10 @@ export class BabbUnitProvider {
   }
 
   // 获取卫生和计生局的医院编制实有人员
-  getUnitHcInfactHos(unitOid, hcOid) {
+  getUnitHcInfactHos(unitOid, hc) {
     const sql = this.getHcInfactSql(`
     SELECT UNIT_OID FROM PAD_BASE_UNIT WHERE ADMIN_UNIT_OID = ${unitOid} AND INDUSTRY_CODE IN ('80101', '80103', '80302', '80502', '80307')
-    `,hcOid);
+    `, hc);
 
     return new Promise((resolve, reject) => {
       this.db.select(sql).then(rows => {
@@ -765,10 +798,10 @@ export class BabbUnitProvider {
   }
 
   // 获取教育局下学校的编制实有人员
-  getUnitHcInfactEdu(unitOid, hcOid) {
+  getUnitHcInfactEdu(unitOid, hc) {
     const sql = this.getHcInfactSql(`
     SELECT UNIT_OID FROM PAD_BASE_UNIT WHERE ADMIN_UNIT_OID = ${unitOid} AND INDUSTRY_CODE IN ('10501', '10601', '10602', '10603','10604', '10606')
-    `,hcOid);
+    `, hc);
 
     return new Promise((resolve, reject) => {
       this.db.select(sql).then(rows => {
@@ -778,7 +811,7 @@ export class BabbUnitProvider {
   }
 
   // 获取冻结人员的sql
-  getHcFrzSql(unitOidRange,hcOid){
+  getHcFrzSql(unitOidRange, hcOid) {
     let sql;
     // hcOid为0表示总实有数统计
     if (hcOid) {
@@ -790,7 +823,7 @@ export class BabbUnitProvider {
         UNIT_NAME as unitName,
         ITEM_CODE_NAME as itemCodeName,
         CREATE_DATE as createDate
-      FROM pad_hc_freeze_info WHERE UNIT_OID in (`+unitOidRange+`) AND HC_OID=${hcOid} order by HC_OID
+      FROM pad_hc_freeze_info WHERE UNIT_OID in (`+ unitOidRange + `) AND HC_OID=${hcOid} order by HC_OID
       `;
     } else {
       sql = `
@@ -801,14 +834,14 @@ export class BabbUnitProvider {
         UNIT_NAME as unitName,
         ITEM_CODE_NAME as itemCodeName,
         CREATE_DATE as createDate
-      FROM pad_hc_freeze_info WHERE UNIT_OID in (`+unitOidRange+`) AND (HC_OID is not NULL) order by HC_OID
+      FROM pad_hc_freeze_info WHERE UNIT_OID in (`+ unitOidRange + `) AND (HC_OID is not NULL) order by HC_OID
       `;
     }
     return sql;
   }
   // 获取单位编制冻结人员
   getUnitHcFrz(unitOid, hcOid) {
-    const sql = this.getHcFrzSql(`${unitOid}`,hcOid);
+    const sql = this.getHcFrzSql(`${unitOid}`, hcOid);
 
     return new Promise((resolve, reject) => {
       this.db.select(sql).then(rows => {
@@ -830,7 +863,7 @@ export class BabbUnitProvider {
       SELECT
         UNIT_OID as unitOid
       FROM unit_tree
-    `,hcOid);
+    `, hcOid);
 
     return new Promise((resolve, reject) => {
       this.db.select(sql).then(rows => {
@@ -852,7 +885,7 @@ export class BabbUnitProvider {
       SELECT
         UNIT_OID as unitOid
       FROM unit_tree
-    `,hcOid);
+    `, hcOid);
 
     return new Promise((resolve, reject) => {
       this.db.select(sql).then(rows => {
@@ -865,7 +898,7 @@ export class BabbUnitProvider {
   getUnitHcFrzHos(unitOid, hcOid) {
     const sql = this.getHcFrzSql(`
     SELECT UNIT_OID FROM PAD_BASE_UNIT WHERE ADMIN_UNIT_OID = ${unitOid} AND INDUSTRY_CODE IN ('80101', '80103', '80302', '80502', '80307')
-    `,hcOid);
+    `, hcOid);
 
     return new Promise((resolve, reject) => {
       this.db.select(sql).then(rows => {
@@ -878,7 +911,7 @@ export class BabbUnitProvider {
   getUnitHcFrzEdu(unitOid, hcOid) {
     const sql = this.getHcFrzSql(`
     SELECT UNIT_OID FROM PAD_BASE_UNIT WHERE ADMIN_UNIT_OID = ${unitOid} AND INDUSTRY_CODE IN ('10501', '10601', '10602', '10603','10604', '10606')
-    `,hcOid);
+    `, hcOid);
 
     return new Promise((resolve, reject) => {
       this.db.select(sql).then(rows => {
@@ -888,8 +921,12 @@ export class BabbUnitProvider {
   }
 
   // 职数统计sql
-  getLeaderSql(unitOidRange){
-    const sql=`
+  getLeaderSql(unitOidRange) {
+    // 单位领导
+    const unitAttribute = '010110';
+    // 内设机构领导
+    const unitInterAttribute = '010120';
+    const sql = `
     SELECT
       unitOid,
       '0' as dutyAttribute,
@@ -911,20 +948,62 @@ export class BabbUnitProvider {
         SUM(freeCount) as freeCount
       from
       (
-        SELECT
-          UNIT_OID as unitOid,
-          DUTY_ATTRIBUTE as dutyAttribute,
-          DUTY_ATTRIBUTE_NAME as dutyAttributeName,
-          DUTY_LEVEL as dutyLevel,
-          DUTY_LEVEL_NAME as dutyLevelName,
-          SUM(CUR_COUNT) as curCount,
-          SUM(INFACT_COUNT) as infactCount,
-          SUM(FREE_COUNT) as freeCount
-        FROM pad_base_unit_leader WHERE UNIT_OID in (`+unitOidRange+`) and (CUR_COUNT<>0 or INFACT_COUNT<>0 or FREE_COUNT<>0)
-        GROUP BY DUTY_ATTRIBUTE,DUTY_LEVEL ORDER BY DUTY_ATTRIBUTE
+        select * from (
+          SELECT
+            UNIT_OID as unitOid,
+            DUTY_ATTRIBUTE as dutyAttribute,
+            DUTY_ATTRIBUTE_NAME as dutyAttributeName,
+            DUTY_LEVEL as dutyLevel,
+            DUTY_LEVEL_NAME as dutyLevelName,
+            SUM(CUR_COUNT) as curCount,
+            (select count(*) from pad_person p where p.DUTY_ATTRIBUTE = h.DUTY_ATTRIBUTE and p.ADMINISTRATIVE_DUTY_LEVEL=h.DUTY_LEVEL and p.UNIT_OID in (`+ unitOidRange + `)) as infactCount,
+            SUM(CUR_COUNT)-(select count(*) from pad_person p where p.DUTY_ATTRIBUTE = h.DUTY_ATTRIBUTE and p.ADMINISTRATIVE_DUTY_LEVEL=h.DUTY_LEVEL and p.UNIT_OID in (`+ unitOidRange + `)) as freeCount
+          FROM pad_base_unit_leader h WHERE UNIT_OID in (`+ unitOidRange + `) and (CUR_COUNT<>0 or INFACT_COUNT<>0 or FREE_COUNT<>0)
+          GROUP BY h.DUTY_ATTRIBUTE,h.DUTY_LEVEL
+          union all
+          select
+            UNIT_OID as unitOid,
+            DUTY_ATTRIBUTE as dutyAttribute,
+            DUTY_ATTRIBUTE_NAME as dutyAttributeName,
+            ADMINISTRATIVE_DUTY_LEVEL as dutyLevel,
+            ADMINISTRATIVE_DUTY_LEVEL_NAME as dutyLevelName,
+            0 as curCount,
+            count(*) as infactCount,
+            0-count(*) as freeCount
+          from pad_person p
+          where
+            p.unit_oid in (`+ unitOidRange + `)
+            and
+            p.ADMINISTRATIVE_DUTY_LEVEL not in (
+              select DUTY_LEVEL FROM pad_base_unit_leader l WHERE l.UNIT_OID in (`+ unitOidRange + `) and l.DUTY_ATTRIBUTE='${unitAttribute}' and (l.CUR_COUNT<>0 or l.INFACT_COUNT<>0 or l.FREE_COUNT<>0)
+            )
+            and
+            p.DUTY_ATTRIBUTE='${unitAttribute}'
+            GROUP BY p.DUTY_ATTRIBUTE,p.ADMINISTRATIVE_DUTY_LEVEL
+          union all
+          select
+            UNIT_OID as unitOid,
+            DUTY_ATTRIBUTE as dutyAttribute,
+            DUTY_ATTRIBUTE_NAME as dutyAttributeName,
+            ADMINISTRATIVE_DUTY_LEVEL as dutyLevel,
+            ADMINISTRATIVE_DUTY_LEVEL_NAME as dutyLevelName,
+            0 as curCount,
+            count(*) as infactCount,
+            0-count(*) as freeCount
+          from pad_person p
+          where
+            p.unit_oid in (`+ unitOidRange + `)
+            and
+            p.ADMINISTRATIVE_DUTY_LEVEL not in (
+              select DUTY_LEVEL FROM pad_base_unit_leader l WHERE l.UNIT_OID in (`+ unitOidRange + `) and l.DUTY_ATTRIBUTE='${unitInterAttribute}' and (l.CUR_COUNT<>0 or l.INFACT_COUNT<>0 or l.FREE_COUNT<>0)
+            )
+            and
+            p.DUTY_ATTRIBUTE='${unitInterAttribute}'
+            GROUP BY p.DUTY_ATTRIBUTE,p.ADMINISTRATIVE_DUTY_LEVEL
+        ) order by dutyAttribute,dutyLevel
       ) GROUP BY dutyAttribute
     )
-    UNION
+    UNION all
     SELECT
       unitOid,
       dutyAttribute,
@@ -934,33 +1013,118 @@ export class BabbUnitProvider {
       SUM(curCount) as curCount,
       SUM(infactCount) as infactCount,
       SUM(freeCount) as freeCount
-    from
-    (
-    SELECT
-      UNIT_OID as unitOid,
-      DUTY_ATTRIBUTE as dutyAttribute,
-      DUTY_ATTRIBUTE_NAME as dutyAttributeName,
-      DUTY_LEVEL as dutyLevel,
-      DUTY_LEVEL_NAME as dutyLevelName,
-      SUM(CUR_COUNT) as curCount,
-      SUM(INFACT_COUNT) as infactCount,
-      SUM(FREE_COUNT) as freeCount
-    FROM pad_base_unit_leader WHERE UNIT_OID in (`+unitOidRange+`) and (CUR_COUNT<>0 or INFACT_COUNT<>0 or FREE_COUNT<>0)
-    GROUP BY DUTY_ATTRIBUTE,DUTY_LEVEL ORDER BY DUTY_ATTRIBUTE
-    ) GROUP BY dutyAttribute
-    UNION
-    SELECT
-      UNIT_OID as unitOid,
-      DUTY_ATTRIBUTE as dutyAttribute,
-      DUTY_ATTRIBUTE_NAME as dutyAttributeName,
-      DUTY_LEVEL as dutyLevel,
-      DUTY_LEVEL_NAME as dutyLevelName,
-      SUM(CUR_COUNT) as curCount,
-      SUM(INFACT_COUNT) as infactCount,
-      SUM(FREE_COUNT) as freeCount
-    FROM pad_base_unit_leader WHERE UNIT_OID in (`+unitOidRange+`) and (CUR_COUNT<>0 or INFACT_COUNT<>0 or FREE_COUNT<>0)
-    GROUP BY DUTY_ATTRIBUTE,DUTY_LEVEL ORDER BY DUTY_ATTRIBUTE
+      from
+      (
+        select * from (
+          SELECT
+            UNIT_OID as unitOid,
+            DUTY_ATTRIBUTE as dutyAttribute,
+            DUTY_ATTRIBUTE_NAME as dutyAttributeName,
+            DUTY_LEVEL as dutyLevel,
+            DUTY_LEVEL_NAME as dutyLevelName,
+            SUM(CUR_COUNT) as curCount,
+            (select count(*) from pad_person p where p.DUTY_ATTRIBUTE = h.DUTY_ATTRIBUTE and p.ADMINISTRATIVE_DUTY_LEVEL=h.DUTY_LEVEL and p.UNIT_OID in (`+ unitOidRange + `)) as infactCount,
+            SUM(CUR_COUNT)-(select count(*) from pad_person p where p.DUTY_ATTRIBUTE = h.DUTY_ATTRIBUTE and p.ADMINISTRATIVE_DUTY_LEVEL=h.DUTY_LEVEL and p.UNIT_OID in (`+ unitOidRange + `)) as freeCount
+          FROM pad_base_unit_leader h WHERE UNIT_OID in (`+ unitOidRange + `) and (CUR_COUNT<>0 or INFACT_COUNT<>0 or FREE_COUNT<>0)
+          GROUP BY h.DUTY_ATTRIBUTE,h.DUTY_LEVEL
+          union all
+          select
+            UNIT_OID as unitOid,
+            DUTY_ATTRIBUTE as dutyAttribute,
+            DUTY_ATTRIBUTE_NAME as dutyAttributeName,
+            ADMINISTRATIVE_DUTY_LEVEL as dutyLevel,
+            ADMINISTRATIVE_DUTY_LEVEL_NAME as dutyLevelName,
+            0 as curCount,
+            count(*) as infactCount,
+            0-count(*) as freeCount
+          from pad_person p
+          where
+            p.unit_oid in (`+ unitOidRange + `)
+            and
+            p.ADMINISTRATIVE_DUTY_LEVEL not in (
+              select DUTY_LEVEL FROM pad_base_unit_leader l WHERE l.UNIT_OID in (`+ unitOidRange + `) and l.DUTY_ATTRIBUTE='${unitAttribute}' and (l.CUR_COUNT<>0 or l.INFACT_COUNT<>0 or l.FREE_COUNT<>0)
+            )
+            and
+            p.DUTY_ATTRIBUTE='${unitAttribute}'
+            GROUP BY p.DUTY_ATTRIBUTE,p.ADMINISTRATIVE_DUTY_LEVEL
+          union all
+          select
+            UNIT_OID as unitOid,
+            DUTY_ATTRIBUTE as dutyAttribute,
+            DUTY_ATTRIBUTE_NAME as dutyAttributeName,
+            ADMINISTRATIVE_DUTY_LEVEL as dutyLevel,
+            ADMINISTRATIVE_DUTY_LEVEL_NAME as dutyLevelName,
+            0 as curCount,
+            count(*) as infactCount,
+            0-count(*) as freeCount
+          from pad_person p
+          where
+            p.unit_oid in (`+ unitOidRange + `)
+            and
+            p.ADMINISTRATIVE_DUTY_LEVEL not in (
+              select DUTY_LEVEL FROM pad_base_unit_leader l WHERE l.UNIT_OID in (`+ unitOidRange + `) and l.DUTY_ATTRIBUTE='${unitInterAttribute}' and (l.CUR_COUNT<>0 or l.INFACT_COUNT<>0 or l.FREE_COUNT<>0)
+            )
+            and
+            p.DUTY_ATTRIBUTE='${unitInterAttribute}'
+            GROUP BY p.DUTY_ATTRIBUTE,p.ADMINISTRATIVE_DUTY_LEVEL
+        ) order by dutyAttribute,dutyLevel
+      ) GROUP BY dutyAttribute
+    UNION all
+    select * from (
+      SELECT
+        UNIT_OID as unitOid,
+        DUTY_ATTRIBUTE as dutyAttribute,
+        DUTY_ATTRIBUTE_NAME as dutyAttributeName,
+        DUTY_LEVEL as dutyLevel,
+        DUTY_LEVEL_NAME as dutyLevelName,
+        SUM(CUR_COUNT) as curCount,
+        (select count(*) from pad_person p where p.DUTY_ATTRIBUTE = h.DUTY_ATTRIBUTE and p.ADMINISTRATIVE_DUTY_LEVEL=h.DUTY_LEVEL and p.UNIT_OID in (`+ unitOidRange + `)) as infactCount,
+        SUM(CUR_COUNT)-(select count(*) from pad_person p where p.DUTY_ATTRIBUTE = h.DUTY_ATTRIBUTE and p.ADMINISTRATIVE_DUTY_LEVEL=h.DUTY_LEVEL and p.UNIT_OID in (`+ unitOidRange + `)) as freeCount
+      FROM pad_base_unit_leader h WHERE UNIT_OID in (`+ unitOidRange + `) and (CUR_COUNT<>0 or INFACT_COUNT<>0 or FREE_COUNT<>0)
+      GROUP BY h.DUTY_ATTRIBUTE,h.DUTY_LEVEL
+      union all
+      select
+        UNIT_OID as unitOid,
+        DUTY_ATTRIBUTE as dutyAttribute,
+        DUTY_ATTRIBUTE_NAME as dutyAttributeName,
+        ADMINISTRATIVE_DUTY_LEVEL as dutyLevel,
+        ADMINISTRATIVE_DUTY_LEVEL_NAME as dutyLevelName,
+        0 as curCount,
+        count(*) as infactCount,
+        0-count(*) as freeCount
+      from pad_person p
+      where
+        p.unit_oid in (`+ unitOidRange + `)
+        and
+        p.ADMINISTRATIVE_DUTY_LEVEL not in (
+          select DUTY_LEVEL FROM pad_base_unit_leader l WHERE l.UNIT_OID in (`+ unitOidRange + `) and l.DUTY_ATTRIBUTE='${unitAttribute}' and (l.CUR_COUNT<>0 or l.INFACT_COUNT<>0 or l.FREE_COUNT<>0)
+        )
+        and
+        p.DUTY_ATTRIBUTE='${unitAttribute}'
+        GROUP BY p.DUTY_ATTRIBUTE,p.ADMINISTRATIVE_DUTY_LEVEL
+      union all
+      select
+        UNIT_OID as unitOid,
+        DUTY_ATTRIBUTE as dutyAttribute,
+        DUTY_ATTRIBUTE_NAME as dutyAttributeName,
+        ADMINISTRATIVE_DUTY_LEVEL as dutyLevel,
+        ADMINISTRATIVE_DUTY_LEVEL_NAME as dutyLevelName,
+        0 as curCount,
+        count(*) as infactCount,
+        0-count(*) as freeCount
+      from pad_person p
+      where
+        p.unit_oid in (`+ unitOidRange + `)
+        and
+        p.ADMINISTRATIVE_DUTY_LEVEL not in (
+          select DUTY_LEVEL FROM pad_base_unit_leader l WHERE l.UNIT_OID in (`+ unitOidRange + `) and l.DUTY_ATTRIBUTE='${unitInterAttribute}' and (l.CUR_COUNT<>0 or l.INFACT_COUNT<>0 or l.FREE_COUNT<>0)
+        )
+        and
+        p.DUTY_ATTRIBUTE='${unitInterAttribute}'
+        GROUP BY p.DUTY_ATTRIBUTE,p.ADMINISTRATIVE_DUTY_LEVEL
+    ) order by dutyAttribute,dutyLevel
     `;
+
     return sql;
   }
 
@@ -1037,6 +1201,122 @@ export class BabbUnitProvider {
     const sql = this.getLeaderSql(`
     SELECT UNIT_OID FROM PAD_BASE_UNIT WHERE ADMIN_UNIT_OID = ${unitOid} AND INDUSTRY_CODE IN ('10501', '10601', '10602', '10603','10604', '10606')
     `);
+
+    return new Promise((resolve, reject) => {
+      this.db.select(sql).then(rows => {
+        resolve(rows);
+      }).catch(reject);
+    });
+  }
+
+  // 获取职数实有人员的sql
+  getLeaderInfactSql(unitOidRange, leader) {
+    let attributeRange;
+    if (leader.dutyAttribute == "0") {
+      attributeRange = "'010110','010120'";
+    } else {
+      attributeRange = `'${leader.dutyAttribute}'`;
+    }
+    let sql = `
+    SELECT
+      UNIT_OID as unitOid,
+      NAME as name,
+      SEX_CODE_NAME as sexCodeName,
+      UNIT_NAME as unitName,
+      ADMINISTRATIVE_DUTY_LEVEL_NAME as administrativeDutyLevelName,
+      DUTY_ATTRIBUTE_NAME as dutyAttributeBzName,
+      D_POSITION_TYPE_NAME as dPositionTypeName
+    FROM pad_person WHERE UNIT_OID in (`+ unitOidRange + `) AND DUTY_ATTRIBUTE IN (` + attributeRange + `) `;
+
+    if (leader.dutyAttribute != "0") {
+      if (leader.dutyLevel != "0") {
+        sql += `AND ADMINISTRATIVE_DUTY_LEVEL='${leader.dutyLevel}' order by DUTY_ATTRIBUTE,ADMINISTRATIVE_DUTY_LEVEL`;
+      } else {
+        // leader.dutyLevel为0表示单位/内设机构实有数统计
+        sql += `order by DUTY_ATTRIBUTE,ADMINISTRATIVE_DUTY_LEVEL`;
+      }
+    } else {
+      // leader.dutyAttribute为0表示总实有数统计
+      sql += `order by DUTY_ATTRIBUTE,ADMINISTRATIVE_DUTY_LEVEL`;
+    }
+
+    return sql;
+  }
+
+
+  // 获取单位职数实有人员
+  getUnitLeaderInfact(unitOid, leader) {
+    const sql = this.getLeaderInfactSql(`${unitOid}`, leader);
+
+    return new Promise((resolve, reject) => {
+      this.db.select(sql).then(rows => {
+        resolve(rows);
+      }).catch(reject);
+    });
+  }
+
+  // 获取下设单位职数实有人员
+  getUnitLeaderInfactInter(unitOid, leader) {
+    const sql = this.getLeaderInfactSql(`
+      WITH RECURSIVE
+      unit_tree(UNIT_OID, PARENT_UNIT_OID, level) AS (
+        SELECT UNIT_OID, PARENT_UNIT_OID,  0 FROM pad_base_unit WHERE PARENT_UNIT_OID = ${unitOid}
+        UNION ALL
+        SELECT pbu.UNIT_OID, pbu.PARENT_UNIT_OID, unit_tree.level+1 FROM pad_base_unit pbu JOIN unit_tree ON pbu.PARENT_UNIT_OID=unit_tree.UNIT_OID
+        ORDER BY 1 DESC
+      )
+      SELECT
+        UNIT_OID as unitOid
+      FROM unit_tree
+    `, leader);
+
+    return new Promise((resolve, reject) => {
+      this.db.select(sql).then(rows => {
+        resolve(rows);
+      }).catch(reject);
+    });
+  }
+
+  // 获取本单位及下设单位职数实有人员
+  getUnitLeaderInfactAll(unitOid, leader) {
+    const sql = this.getLeaderInfactSql(`
+      WITH RECURSIVE
+      unit_tree(UNIT_OID, PARENT_UNIT_OID, level) AS (
+        SELECT UNIT_OID, PARENT_UNIT_OID,  0 FROM pad_base_unit WHERE UNIT_OID = ${unitOid}
+        UNION ALL
+        SELECT pbu.UNIT_OID, pbu.PARENT_UNIT_OID, unit_tree.level+1 FROM pad_base_unit pbu JOIN unit_tree ON pbu.PARENT_UNIT_OID=unit_tree.UNIT_OID
+        ORDER BY 1 DESC
+      )
+      SELECT
+        UNIT_OID as unitOid
+      FROM unit_tree
+    `, leader);
+
+    return new Promise((resolve, reject) => {
+      this.db.select(sql).then(rows => {
+        resolve(rows);
+      }).catch(reject);
+    });
+  }
+
+  // 获取卫生和计生局的医院职数实有人员
+  getUnitLeaderInfactHos(unitOid, leader) {
+    const sql = this.getLeaderInfactSql(`
+    SELECT UNIT_OID FROM PAD_BASE_UNIT WHERE ADMIN_UNIT_OID = ${unitOid} AND INDUSTRY_CODE IN ('80101', '80103', '80302', '80502', '80307')
+    `, leader);
+
+    return new Promise((resolve, reject) => {
+      this.db.select(sql).then(rows => {
+        resolve(rows);
+      }).catch(reject);
+    });
+  }
+
+  // 获取教育局下学校的职数实有人员
+  getUnitLeaderInfactEdu(unitOid, leader) {
+    const sql = this.getLeaderInfactSql(`
+    SELECT UNIT_OID FROM PAD_BASE_UNIT WHERE ADMIN_UNIT_OID = ${unitOid} AND INDUSTRY_CODE IN ('10501', '10601', '10602', '10603','10604', '10606')
+    `, leader);
 
     return new Promise((resolve, reject) => {
       this.db.select(sql).then(rows => {

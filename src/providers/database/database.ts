@@ -147,25 +147,25 @@ export class DatabaseProvider {
       } else {
         this.db = this.win.openDatabase(this.configProvider.DB_NAME, '1.0', this.configProvider.DB_NAME, 10 * 1024 * 1024);
 
-        String.prototype.trim = function() {
-          return this.replace(/^\s\s*/, '').replace(/\s\s*$/, '');
-        }
-        const sqls = INIT_SQL.split(';');
-        sqls.forEach((sql, i) => {
-          this.executeSql(sql+';').then(res => {
-            console.log(i);
-            if(i==sqls.length-1) {
-              console.log('执行完毕');
-              resolve();
-            }
-          }).catch(err => {
-            console.log(sql, err);
-            if(i==sqls.length-1) {
-              console.log('执行完毕');
-              resolve();
-            }
-          })
-        });
+        // String.prototype.trim = function() {
+        //   return this.replace(/^\s\s*/, '').replace(/\s\s*$/, '');
+        // }
+        // const sqls = INIT_SQL.split(';');
+        // sqls.forEach((sql, i) => {
+        //   this.executeSql(sql+';').then(res => {
+        //     console.log(i);
+        //     if(i==sqls.length-1) {
+        //       console.log('执行完毕');
+        //       resolve();
+        //     }
+        //   }).catch(err => {
+        //     console.log(sql, err);
+        //     if(i==sqls.length-1) {
+        //       console.log('执行完毕');
+        //       resolve();
+        //     }
+        //   })
+        // });
 
         resolve({});
       }

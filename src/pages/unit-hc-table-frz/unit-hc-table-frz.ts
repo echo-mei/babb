@@ -30,7 +30,7 @@ export class UnitHcTableFrzPage {
     this.getUnitHcFrz();
   }
 
-  // 获取单位职数的冻结人数详情
+  // 获取单位编制的冻结人数详情
   getUnitHcFrz() {
     this.babbUnitProvider[this.hcFrzFunc](this.unit.unitOid,this.hc.hcOid).then(res => {
       this.personList = res;
@@ -52,14 +52,16 @@ export class UnitHcTableFrzPage {
           left: -$(this)[0].scrollLeft
         });
       }else {
-        $(this).clone().addClass('clone-header').css({
-          position: 'absolute',
-          top: 65,
-          left: 15,
-          width: $(this).outerWidth(),
-          'overflow': 'hidden',
-          height: $(this).find('table thead').height()+1,
-        }).appendTo($(this).parent());
+        if ($(this)[0].scrollTop) {
+          $(this).clone().addClass('clone-header').css({
+            position: 'absolute',
+            top: 65,
+            left: 15,
+            width: $(this).outerWidth(),
+            'overflow': 'hidden',
+            height: $(this).find('table thead').height()+1,
+          }).appendTo($(this).parent());
+        }
       }
     });
 
@@ -67,6 +69,7 @@ export class UnitHcTableFrzPage {
     this.screenOrientation.onChange().subscribe(
       () => {
         $(this.frzTableWrapper.nativeElement).parent().find('.clone-header').remove();
+        $(this.frzTableWrapper.nativeElement).scrollTop(0);
       }
     );
   }

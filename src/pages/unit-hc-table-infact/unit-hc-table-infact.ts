@@ -9,14 +9,14 @@ import { ScreenOrientation } from '@ionic-native/screen-orientation';
   templateUrl: 'unit-hc-table-infact.html',
 })
 export class UnitHcTableInfactPage {
-  @ViewChild("infactTableWrapper") infactTableWrapper:ElementRef;
+  @ViewChild("infactTableWrapper") infactTableWrapper: ElementRef;
 
   // 单位信息
   unit: any;
-  // 编制信息
-  hc: any;
-  // 获取单位编制实有人员函数
-  hcInfactFunc: any;
+  // 编制/职数信息
+  infact: any;
+  // 获取单位编制/职数实有人员函数
+  infactFunc: any;
   // 编制实有数人员列表
   personList: Array<Object> = [];
   isLoading = true;
@@ -26,14 +26,14 @@ export class UnitHcTableInfactPage {
     public screenOrientation: ScreenOrientation,
     public babbUnitProvider: BabbUnitProvider) {
     this.unit = this.navParams.get("unit");
-    this.hc = this.navParams.get("hc");
-    this.hcInfactFunc = this.navParams.get("hcInfactFunc");
-    this.getUnitHcInfact();
+    this.infact = this.navParams.get("infact");
+    this.infactFunc = this.navParams.get("infactFunc");
+    this.getUnitInfact();
   }
 
-  // 获取单位职数的实有人数详情
-  getUnitHcInfact() {
-    this.babbUnitProvider[this.hcInfactFunc](this.unit.unitOid, this.hc.hcOid).then(res => {
+  // 获取单位编制的实有人数详情
+  getUnitInfact() {
+    this.babbUnitProvider[this.infactFunc](this.unit.unitOid, this.infact).then(res => {
       this.personList = res;
       this.isLoading = false;
     });
@@ -45,28 +45,31 @@ export class UnitHcTableInfactPage {
   }
 
   ionViewDidEnter() {
-    $(this.infactTableWrapper.nativeElement).on('scroll', function(e) {
-      if($(this).parent().find('.clone-header').length) {
+    $(this.infactTableWrapper.nativeElement).on('scroll', function (e) {
+      if ($(this).parent().find('.clone-header').length) {
         $(this).parent().find('.clone-header').find('table').css({
           position: 'absolute',
           top: 0,
           left: -$(this)[0].scrollLeft
         });
-      }else {
-        $(this).clone().addClass('clone-header').css({
-          position: 'absolute',
-          top: 65,
-          left: 15,
-          width: $(this).outerWidth(),
-          'overflow': 'hidden',
-          height: $(this).find('table thead').height()+1,
-        }).appendTo($(this).parent());
+      } else {
+        if ($(this)[0].scrollTop) {
+          $(this).clone().addClass('clone-header').css({
+            position: 'absolute',
+            top: 65,
+            left: 15,
+            width: $(this).outerWidth(),
+            'overflow': 'hidden',
+            height: $(this).find('table thead').height() + 1,
+          }).appendTo($(this).parent());
+        }
       }
     });
-     //   // detect orientation changes
-     this.screenOrientation.onChange().subscribe(
+    //   // detect orientation changes
+    this.screenOrientation.onChange().subscribe(
       () => {
         $(this.infactTableWrapper.nativeElement).parent().find('.clone-header').remove();
+        $(this.infactTableWrapper.nativeElement).scrollTop(0);
       }
     );
   }

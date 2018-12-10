@@ -39,7 +39,7 @@ export class UnitDisTableJgPage {
 
   constructor(public navCtrl: NavController,
     public navParams: NavParams,
-    public screenOrientation: ScreenOrientation,
+    public screenOrientation:ScreenOrientation,
     public babbUnitProvider: BabbUnitProvider) {
     this.babbUnitProvider.listJgUnitHc().then(list => {
       list.forEach((unit) => {
@@ -109,63 +109,7 @@ export class UnitDisTableJgPage {
     });
   }
 
-  fixHead() {
-    let obj = this.disTableJg.nativeElement;
-    $(obj).clone().addClass('clone-header').css({
-      position: 'absolute',
-      top: 15,
-      left: 15,
-      width: $(obj).outerWidth(),
-      'overflow': 'hidden',
-      height: $(obj).find('table thead').height() + 1,
-    }).appendTo($(obj).parent());
-  }
-
-  ionViewDidLoad() {
-    setTimeout(() => {
-      let obj = this.disTableJg.nativeElement;
-      console.log("初次进来",obj.clientWidth,obj.clientHeight,obj.scrollHeight)
-      if (obj.clientHeight < obj.scrollHeight) {
-        this.fixHead();
-      }
-      $(obj).on('scroll', () => {
-        if ($(obj).parent().find('.clone-header').length) {
-          $(obj).parent().find('.clone-header').find('table').css({
-            position: 'absolute',
-            top: 0,
-            left: -$(obj)[0].scrollLeft
-          });
-        }
-      });
-
-      this.screenOrientation.onChange().subscribe(
-        () => {
-          $(obj).parent().find('.clone-header').remove();
-          $(obj).scrollTop(0).scrollLeft(0);
-          console.log("旋转为"+this.screenOrientation.type,obj.clientWidth,obj.clientHeight,obj.scrollHeight)
-          setTimeout(()=>{
-            this.fixHead();
-          },1000)
-        }
-      );
-    }, 500)
-    // $(this.disTableJg.nativeElement).on('scroll', function (e) {
-    //   if ($(this).parent().find('.clone-header').length) {
-    //     $(this).parent().find('.clone-header').find('table').css({
-    //       position: 'absolute',
-    //       top: 0,
-    //       left: -$(this)[0].scrollLeft
-    //     });
-    //   }
-    // });
-    //   //   // detect orientation changes
-    // this.screenOrientation.onChange().subscribe(
-    //   () => {
-    //     setTimeout(()=>{
-    //       $(this.disTableJg.nativeElement).parent().find('.clone-header').remove();
-    //     },1000)
-    //   }
-    // );
+  ionViewDidEnter() {
     // $(this.disTableJg.nativeElement).on('scroll', function(e) {
     //   // 左侧
     //   if($(this).parent().find('.clone-title').length) {
@@ -225,6 +169,33 @@ export class UnitDisTableJgPage {
     //     }).appendTo($(this).parent());
     //   }
     // });
+    $(this.disTableJg.nativeElement).on('scroll', function (e) {
+      if ($(this).parent().find('.clone-header').length) {
+        $(this).parent().find('.clone-header').find('table').css({
+          position: 'absolute',
+          top: 0,
+          left: -$(this)[0].scrollLeft
+        });
+      } else {
+        if($(this)[0].scrollTop) {
+          $(this).clone().addClass('clone-header').css({
+            position: 'absolute',
+            top: 15,
+            left: 15,
+            width: $(this).outerWidth(),
+            'overflow': 'hidden',
+            height: $(this).find('table thead').height() + 1,
+          }).appendTo($(this).parent());
+        }
+      }
+    });
+      //   // detect orientation changes
+    this.screenOrientation.onChange().subscribe(
+      () => {
+        $(this.disTableJg.nativeElement).parent().find('.clone-header').remove();
+        $(this.disTableJg.nativeElement).scrollTop(0);
+      }
+    );
   }
 
 }

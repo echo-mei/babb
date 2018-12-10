@@ -19,4 +19,6 @@ export class FixHeadDirective {
       this.el.nativeElement.scrollHeight);
   }
 
+
+
 }

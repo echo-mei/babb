@@ -20,12 +20,17 @@ export class BabbHcProvider {
     console.log('Hello BabbHcProvider Provider');
   }
 
-  // 根据指定的顺序对编制进行排序
+  // 根据指定的顺序对编制进行排序(有总编制的情况)
   sort(attr){
     let newAttr = [];
     // 第一条是总编制
     newAttr.push(attr[0]);
     attr.splice(0,1);
+    return newAttr.concat(this.sort1(attr));;
+  }
+
+  sort1(attr){
+    let newAttr = [];
     this.hcOrderList.forEach((item)=>{
       let flag = attr.findIndex((hc)=>{
         return this.trim(hc.hcName) == item;

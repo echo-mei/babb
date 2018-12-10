@@ -37,6 +37,7 @@ export class UnitSearchPage {
         this.unitList = res;
       }
     );
+    // this.unitList = this.babbUnitProvider.findUnitListByName(this.key)
     this.historyUnitList = this.storage.historyUnitList;
   }
 

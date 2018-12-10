@@ -96,21 +96,23 @@ export class UnitDisTablePage {
           left: -$(this)[0].scrollLeft
         });
       } else {
-        $(this).clone().addClass('clone-header').css({
-          position: 'absolute',
-          top: 15,
-          left: 15,
-          width: $(this).outerWidth(),
-          'overflow-y': 'hidden',
-          height: $(this).find('table thead').height() + 1,
-        }).appendTo($(this).parent());
+        if($(this)[0].scrollTop) {
+          $(this).clone().addClass('clone-header').css({
+            position: 'absolute',
+            top: 15,
+            left: 15,
+            width: $(this).outerWidth(),
+            'overflow-y': 'hidden',
+            height: $(this).find('table thead').height() + 1,
+          }).appendTo($(this).parent());
+        }
       }
     });
+    //   // detect orientation changes
     this.screenOrientation.onChange().subscribe(
       () => {
-        setTimeout(()=>{
-          $(this.disTable.nativeElement).parent().find('.clone-header').remove();
-        },1000)
+        $(this.disTable.nativeElement).parent().find('.clone-header').remove();
+        $(this.disTable.nativeElement).scrollTop(0);
       }
     );
   }

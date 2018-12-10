@@ -28,6 +28,7 @@
 
     </div>
     <div *ngIf="key">
+      <ion-item *ngFor="let item of unitList" (click)="onClickUnit(item)" [hidden]="!item.secondNmae"><p *ngIf="item.secondNmae" [innerHTML]="item.secondNmae | highLight:key"></p></ion-item>
       <ion-item *ngFor="let item of unitList" (click)="onClickUnit(item)"><p [innerHTML]="item.unitName | highLight:key"></p></ion-item>
     </div>
     

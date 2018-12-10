@@ -135,30 +135,6 @@ export class UnitDisTableSyPage {
   }
 
   ionViewDidEnter() {
-    $(this.disTableSy.nativeElement).on('scroll', function (e) {
-      if ($(this).parent().find('.clone-header').length) {
-        $(this).parent().find('.clone-header').find('table').css({
-          position: 'absolute',
-          top: 0,
-          left: -$(this)[0].scrollLeft
-        });
-      } else {
-        $(this).clone().addClass('clone-header').css({
-          position: 'absolute',
-          top: 15,
-          left: 15,
-          width: $(this).outerWidth(),
-          'overflow': 'hidden',
-          height: $(this).find('table thead').height() + 1,
-        }).appendTo($(this).parent());
-      }
-    });
-    //   // detect orientation changes
-    this.screenOrientation.onChange().subscribe(
-      () => {
-        $(this.disTableSy.nativeElement).parent().find('.clone-header').remove();
-      }
-    );
     // $('#disTableSy').on('scroll', function(e) {
     //   // 左侧
     //   if($(this).parent().find('.clone-title').length) {
@@ -218,6 +194,33 @@ export class UnitDisTableSyPage {
     //     }).appendTo($(this).parent());
     //   }
     // });
+    $(this.disTableSy.nativeElement).on('scroll', function (e) {
+      if ($(this).parent().find('.clone-header').length) {
+        $(this).parent().find('.clone-header').find('table').css({
+          position: 'absolute',
+          top: 0,
+          left: -$(this)[0].scrollLeft
+        });
+      } else {
+        if ($(this)[0].scrollTop) {
+          $(this).clone().addClass('clone-header').css({
+            position: 'absolute',
+            top: 15,
+            left: 15,
+            width: $(this).outerWidth(),
+            'overflow': 'hidden',
+            height: $(this).find('table thead').height() + 1,
+          }).appendTo($(this).parent());
+        }
+      }
+    });
+    //   // detect orientation changes
+    this.screenOrientation.onChange().subscribe(
+      () => {
+        $(this.disTableSy.nativeElement).parent().find('.clone-header').remove();
+        $(this.disTableSy.nativeElement).scrollTop(0);
+      }
+    );
   }
 
 }

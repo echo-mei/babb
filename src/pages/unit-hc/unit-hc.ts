@@ -58,7 +58,8 @@ export class UnitHcPage {
     this.page12Params = {
       unit: this.unit,
       name:"本单位及下设机构",
-      leaderFunc: "getUnitLeaderAll"
+      leaderFunc: "getUnitLeaderAll",
+      leaderInfactFunc: "getUnitLeaderInfactAll"
     }
     this.page21Params = {
       unit: this.unit,
@@ -70,7 +71,8 @@ export class UnitHcPage {
     this.page22Params = {
       unit: this.unit,
       name:"本单位",
-      leaderFunc: "getUnitLeader"
+      leaderFunc: "getUnitLeader",
+      leaderInfactFunc: "getUnitLeaderInfact"
     }
     this.page31Params = {
       unit: this.unit,
@@ -82,7 +84,8 @@ export class UnitHcPage {
     this.page32Params = {
       unit: this.unit,
       name:"下设机构",
-      leaderFunc: "getUnitLeaderInter"
+      leaderFunc: "getUnitLeaderInter",
+      leaderInfactFunc: "getUnitLeaderInfactInter"
     }
     this.page41Params = {
       unit: this.unit,
@@ -94,7 +97,8 @@ export class UnitHcPage {
     this.page42Params = {
       unit: this.unit,
       name:"医院",
-      leaderFunc: "getUnitLeaderHos"
+      leaderFunc: "getUnitLeaderHos",
+      leaderInfactFunc: "getUnitLeaderInfactHos"
     }
     this.page51Params = {
       unit: this.unit,
@@ -106,7 +110,8 @@ export class UnitHcPage {
     this.page52Params = {
       unit: this.unit,
       name:"学校",
-      leaderFunc: "getUnitLeaderEdu"
+      leaderFunc: "getUnitLeaderEdu",
+      leaderInfactFunc: "getUnitLeaderInfactEdu"
     }
   }
 
